@@ -18,6 +18,15 @@ body {
     color: #eee;
 }
 
+/* For google icons */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
 a {
     color: #eee;
     text-decoration: none;
@@ -35,12 +44,22 @@ a:hover {
     align-items: flex-start;
 }
 
+.header, .content, .footer {
+    display: flex;
+    /* flex-flow: row nowrap; */
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: var(--top-bottom-padding) var(--side-padding);
+}
+
 .header {
     /* border: 2px solid red; */
-    position:sticky;
+    flex-flow: row wrap;
+    position: sticky;
     top: 0;
-    width: 100%;
+    width: 100vw;
     background-color: black;
+    padding-right: 6em;
 }
 
 .content {
@@ -57,19 +76,11 @@ a:hover {
     background-color: black;
 }
 
-.header, .content, .footer {
-    display: flex;
-    /* flex-flow: row nowrap; */
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: var(--top-bottom-padding) var(--side-padding);
-}
-
 .outer-el {
     /* border: 1px solid blue; */
     min-width: 150px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -79,7 +90,9 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    margin: auto;
+    text-align: center;
+    cursor: pointer;
 }
 
 .small-section {
@@ -166,6 +179,7 @@ a:hover {
     padding: 5px 10px;
     margin-top: 10px;
     border-radius: 10px;
+    width: 100%;
 }
 
 .option-item-section {
@@ -176,7 +190,7 @@ a:hover {
 }
 
 .click-list-inner-title {
-    width: 300px;
+    min-width: 300px;
 }
 
 .to-right {
@@ -204,6 +218,13 @@ a:hover {
 
 .menu-toggle {
     cursor: pointer;
+    font-size: 32px;
+}
+
+#menu-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
 }
 
 .menu-toggle:active ~ .menu,
@@ -213,4 +234,41 @@ a:hover {
 
 .menu:hover {
     display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 700px) {
+    .click-list-item {
+        font-size: 16px;
+        background-color: rgb(75, 75, 75);
+        padding: 5px 10px;
+        margin-top: 10px;
+    }
+
+    .click-list-inner-sub-title {
+        font-size: 12px;
+    }
+
+    .outer-el {
+        min-width: 80px;
+        font-size: 14px;
+    }
+
+    .click-list-inner-title {
+        min-width: 200px;
+    }
 }

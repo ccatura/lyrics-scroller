@@ -13,12 +13,6 @@ function lyrics_formatter($song) {
     $string = '';
     $new_lyrics = [];
     foreach ($temp_lyrics as $key => $value) {
-        if (true) { // This is to be replaced by something that reads the [tag] if it exists, otherwise, leaves it blank
-            $part = 'Fix Me!';
-        } else {
-            unset($part);
-        }
-        
         if (!preg_match('/\S/', $value)) { // Checks for non-white space character, most likely is empty
             array_push($new_lyrics, $string); // When we find a empty space, we push the previous section to the new_lyrics array
             $string = '';
@@ -27,6 +21,7 @@ function lyrics_formatter($song) {
         }
     }
 
+
     $final_lyrics = "<div class='song-section'>
                         <div class='song-header'>
                         <span class='song-title'>{$title} ({$id})</span>
@@ -34,16 +29,17 @@ function lyrics_formatter($song) {
                      </div>";
     foreach ($new_lyrics as $key => $value) {
         $final_lyrics .=   "<div class='song-part'>";
-        if (isset($part)) $part_label = $part;
-
-        $final_lyrics .=   "    <span class='song-part-title'>{$part_label}</span>
-                                <span class='song-part-content'>{$value}</span>
+        preg_match('#\[(.*?)\]#', $value, $part);
+        $stripped_lyrics = preg_replace('#\[(.*?)\](\s)?#', '', $value); // Removes first bracketed tag
+        
+        
+        $final_lyrics .=   "    <span class='song-part-title'>{$part[1]}</span>
+                                <span class='song-part-content'>{$stripped_lyrics}</span>
                             </div>";
     }
     $final_lyrics .= "</div>";
 
     return $final_lyrics;
-
 
 
 

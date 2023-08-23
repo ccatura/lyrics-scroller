@@ -26,7 +26,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </a> 
                     <div class='option-item-section'>
                         <a href='./?page=create_edit&song_id={$id}'><div>EDIT</div></a>
-                        <a href='./?page=create_edit&song_id={$id}'><div>+ SETLIST</div></a>
+                        <a href='./?page=create_edit&song_id={$id}'><div>+SETLIST</div></a>
                     </div>";
 }
 
