@@ -8,11 +8,12 @@
 if ($page == 'scroller') {
     $html = "
         <div class='outer-el'>
-            <div class='inner-el'>START</div>
+            <div class='inner-el' id='scroll-toggle-button'>START</div>
         </div>
         <div class='outer-el'>
-            <span class='material-symbols-outlined inner-el'>play_arrow</span>
-            <span class='material-symbols-outlined inner-el'>fast_forward</span>
+            <span class='material-symbols-outlined inner-el' id='speed-down'>play_arrow</span>
+            <span class='material-symbols-outlined inner-el' id='speed-up'>fast_forward</span>
+            <span id ='speed'></span>
         </div>
         <div class='outer-el'>
             <span class='material-symbols-outlined inner-el'>zoom_out_map</span>

@@ -18,7 +18,7 @@ function lyrics_formatter($song) {
 
 
     // Breaks down lyrics into parts based on part tag [verse], [chorus], etc, or blank line.
-    $temp_string;
+    $temp_string = '';
     $temp_array = [];
     foreach ($lyrics_array as $key => $value) {
         preg_match('#\[(.*?)\]#', $value, $part);
