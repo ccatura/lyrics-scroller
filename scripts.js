@@ -8,8 +8,12 @@ if (pageType == 'scroller') {
     var speedUp             = document.getElementById('speed-up');
     var speedDown           = document.getElementById('speed-down');
     var speedCurrent        = document.getElementById('speed');
-    var speedIndex          = 5;
-    const speeds = {
+    var fontSize            = window.getComputedStyle(document.getElementsByClassName('song-part')[0]).fontSize;
+    console.log(fontSize + 2);
+    var speedIndex          = 5; // To start. Will probably be replaced by an individual song speed setting
+    var isScrolling         = false;
+    var scrolling;
+    const speedPresets = {
         10: 8,
         9:  12,
         8:  15,
@@ -20,12 +24,30 @@ if (pageType == 'scroller') {
         3:  80,
         2:  100,
         1:  150
-    }; 
-    var speed               = speeds[speedIndex];
-    speedCurrent.innerText  = '(' + speedIndex + ')';
+    };
+    var topSpeed            = Object.keys(speedPresets).length;
+    var speed               = speedPresets[speedIndex];
 
+    updateDisplays();
+    
     speedUp.addEventListener('click', ()=> {
-        speed++;
+        if (speedIndex < topSpeed) {
+            speedIndex++;
+            speed = speedPresets[speedIndex];
+            console.log('Speed: ' + speedIndex);
+            if (isScrolling) scrollToggle('start', speed)
+            updateDisplays();
+        }
+    });
+
+    speedDown.addEventListener('click', ()=> {
+        if (speedIndex > 1) {
+            speedIndex--;
+            speed = speedPresets[speedIndex];
+            console.log('Speed: ' + speedIndex);
+            if (isScrolling) scrollToggle('start', speed)
+            updateDisplays();
+        }
     });
 
     scrollToggleButton.addEventListener('click', ()=> {
@@ -61,15 +83,22 @@ function moveScroll() {
 
 function scrollToggle(state, speed) {
     if (state == 'start') {
+        if (isScrolling) clearInterval(scrolling);
         scrolling = setInterval(() => {
             moveScroll();
         }, speed);
+        isScrolling = true;
+        // console.log('Scrolling');
     } else if (state == 'stop') {
         clearInterval(scrolling);
+        isScrolling = false;
+        // console.log('Stopped scrolling');
     }
 }
 
-
+function updateDisplays() {
+    speedCurrent.innerText  = '(' + speedIndex + ')';
+}
 
 
 

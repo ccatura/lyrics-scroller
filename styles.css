@@ -115,7 +115,7 @@ a:hover {
 
 .song-section {
     /* width: 100%; */
-    font-size: 26px;
+    font-size: 22px;
     margin-bottom: 6em;
     /* border: 2px solid blue; */
 }
@@ -139,6 +139,7 @@ a:hover {
     display: flex;
     flex-flow: column nowrap;
     margin-bottom: 1em;
+    font-size: 22px;
 }
 
 .chorus {
@@ -174,9 +175,8 @@ a:hover {
 
 .click-list-item {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     font-weight: bold;
-    font-size: 24px;
     background-color: rgb(75, 75, 75);
     padding: 5px 10px;
     margin-top: 10px;
@@ -193,6 +193,11 @@ a:hover {
 
 .click-list-inner-title {
     min-width: 300px;
+    font-size: 24px;
+}
+
+.click-list-inner-sub-title {
+    font-size: 20px;
 }
 
 .to-right {
@@ -258,14 +263,14 @@ a:hover {
 
 @media screen and (max-width: 700px) {
     .click-list-item {
-        font-size: 16px;
+        flex-flow: column nowrap;
         background-color: rgb(75, 75, 75);
         padding: 5px 10px;
         margin-top: 10px;
     }
 
     .click-list-inner-sub-title {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .outer-el {
@@ -275,5 +280,6 @@ a:hover {
 
     .click-list-inner-title {
         min-width: 200px;
+        font-size: 18px;
     }
 }
