@@ -4,6 +4,7 @@ class Song {
     public $title;
     public $sub_title;
     public $lyrics;
+    public $id;
 
     function set_title($title) {
         $this->title = $title;
@@ -17,6 +18,10 @@ class Song {
         $this->lyrics = $lyrics;
     }
 
+    function set_id($id) {
+        $this->id = $id;
+    }
+
     function get_title() {
         return $this->title;
     }
@@ -27,6 +32,10 @@ class Song {
 
     function get_lyrics() {
         return nl2br($this->lyrics);
+    }
+
+    function get_id() {
+        return $this->id;
     }
 
 }

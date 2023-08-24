@@ -127,7 +127,39 @@ Is it me you're looking for?
 Is it me, is it me"
 );
 
+INSERT INTO `songs`(`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('ccatura', 'Better When It`s Gone', 'By Charlie Katt',
+"[Verse]
+(It) recently occurred to me
+(When I) go outside and feel the breeze
+There's an air of freedom when I close my eyes
+(I) drop my guard, I lift my head
+For once my soul's not nearly dead
+And my heart is telling me to improvise
 
+(But) when I'm home something in me dies
+
+[Chorus]
+(It) recently occurred to me
+(When I) go outside and feel the breeze
+There's an air of freedom when I close my eyes
+(I) drop my guard, I lift my head
+For once my soul's not nearly dead
+And my heart is telling me to improvise
+
+(But) when I'm home something in me dies
+
+[Bridge]
+(It) recently occurred to me
+(When I) go outside and feel the breeze
+There's an air of freedom when I close my eyes
+(I) drop my guard, I lift my head
+For once my soul's not nearly dead
+And my heart is telling me to improvise
+
+(But) when I'm home something in me dies
+
+(Repeat Chorus)"
+);
 
 
 

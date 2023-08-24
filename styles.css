@@ -13,9 +13,10 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: monospace, 'Courier New', Courier;
     background-color: #222;
     color: #eee;
+    overflow-x: hidden;
 }
 
 /* For google icons */
@@ -226,11 +227,12 @@ a:hover {
 .menu-toggle {
     cursor: pointer;
     font-size: 32px;
+    /* line-height: 36px; */
 }
 
 #menu-button {
     position: fixed;
-    top: 10px;
+    top: 5px;
     right: 10px;
 }
 
@@ -244,7 +246,7 @@ a:hover {
 }
 
 .settings {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: monospace, 'Courier New', Courier;
     font-size: 10px;
 }
 

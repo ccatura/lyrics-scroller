@@ -12,10 +12,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 $song = new Song();
-$song->title = $title;
-$song->sub_title = $sub_title;
-$song->lyrics = $lyrics;
-$song->id = $id;
+$song->set_title($title);
+$song->set_sub_title($sub_title);
+$song->set_lyrics($lyrics);
+$song->set_id($id);
 
 
 $_SESSION['song_object'] = $song;

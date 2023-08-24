@@ -9,7 +9,7 @@ if (pageType == 'scroller') {
     var speedDown           = document.getElementById('speed-down');
     var speedCurrent        = document.getElementById('speed');
     var fontSize            = window.getComputedStyle(document.getElementsByClassName('song-part')[0]).fontSize;
-    console.log(fontSize + 2);
+    // console.log(fontSize + 2);
     var speedIndex          = 5; // To start. Will probably be replaced by an individual song speed setting
     var isScrolling         = false;
     var scrolling;

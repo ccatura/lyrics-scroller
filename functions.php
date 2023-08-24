@@ -6,47 +6,41 @@ function lyrics_formatter($song) {
     $sub_title  = $song->sub_title;
     $id         = $song->id;
 
-    $lyrics_array = explode(PHP_EOL, $lyrics_raw);
-
-    // echo 'exploded lyrics<br>';
+    // $lyrics_array = explode(PHP_EOL, $lyrics_raw); // Delete if not needed in a year
+    $lyrics_array = preg_split('/\n|\r\n?/', $lyrics_raw);
 
     // foreach ($lyrics_array as $key => $value) {
     //     echo 'key: ' . $key . ': ' . $value . '<br>';
     // }
 
-    // echo '<br><br><br><br>';
-
-
-    // Breaks down lyrics into parts based on part tag [verse], [chorus], etc, or blank line.
     $temp_string = '';
     $temp_array = [];
     foreach ($lyrics_array as $key => $value) {
-        preg_match('#\[(.*?)\]#', $value, $part);
-        if (!empty($part) && !empty($value)) { // Pushes the part name into the temp array
-            if (!empty($temp_string)) {
-                array_push($temp_array, $temp_string);
-                $temp_string = '';
+        preg_match('#\[(.*?)\]#', $value, $part_title);
+
+        if ($part_title[0] && $part_title[1] != 'end_part') {
+            if ($part_title[1] == 'untitled') {
+                $part_title[1] = '';
             }
-            array_push($temp_array, $value);
-        } elseif (empty($part) && !empty($value)) { // If no blank line or no tag, adds remaining lines to temp string to be pushed later into the temp
+            $temp_string .= "<div class='song-part'>
+                                <span class='song-part-title'>{$part_title[1]}</span>
+                                <span class='song-part-content'>";
+        } elseif ($part_title[0] && $part_title[1] == 'end_part') {
+            $temp_string .= "</span>
+                             </div>";
+        } else {
             $temp_string .= $value . '<br>';
-        } elseif (empty($part) && empty($value)) { // Pushes the lyric block in the temp array
-            array_push($temp_array, $temp_string);
-            $temp_string = '';
         }
 
-
-
-
-
-
-
-
-        // echo "part: $part[0] empty part? " . empty($part) . " - ";
-        // echo "empty value? " . empty($value) . ": $value<br>";
     }
+    // array_push($temp_array, $value);
     array_push($temp_array, $temp_string); // Adds final text block to array
 
+
+
+
+
+    
     // echo '<br><br><br>';
     // foreach ($temp_array as $key => $value) {
     //     echo 'key: ' . $key . ': ' . $value . '<br>';
@@ -58,21 +52,35 @@ function lyrics_formatter($song) {
                         <div class='song-header'>
                         <span class='song-title'>{$title} ({$id})</span>
                         <span class='song-sub-title'>{$sub_title}</span>
-                     </div>";
+                     </div>
+                     {$temp_string}";
+    
 
-    foreach ($temp_array as $key => $value) {
-        // $final_lyrics .=   "<div class='song-part'>";
-        if (preg_match('#\[(.*?)\]#', $value, $part)) {
-            $final_lyrics .= "<div class='song-part'>
-                                <span class='song-part-title'>{$part[1]}</span>";
-        } elseif (empty($value)) {
-            $final_lyrics .= "<div class='song-part'><span class='song-part-content'>{$value}</span></div>";
-        } else {
-            $final_lyrics .= "<span class='song-part-content'>{$value}</span></div>";
-        }
-    }
+    // foreach ($temp_array as $key => $value) {
+        // if (preg_match('#\[(.*?)\]#', $value, $part_title)) { // HAS PART TITLE
+        //     $final_lyrics .= "<div class='song-part'>
+        //                         <span class='song-part-title'>{$part_title[1]}</span>";
 
-    return $final_lyrics;
+
+
+
+
+        // } elseif (empty($value)) {
+        //     $final_lyrics .= "<div class='song-part'>charlie
+        //                         <span class='song-part-content'>{$value}</span>
+        //                       </div>";
+        // } else {
+        //     $final_lyrics .= "<span class='song-part-content'>{$value}</span>
+        //                     </div>charlie";
+        // }
+
+        // echo $temp_string;
+    // }
+
+    echo $final_lyrics;
+
+
+    // return $final_lyrics;
 
 
 
@@ -112,11 +120,11 @@ function lyrics_formatterOLD($song) {
     //                  </div>";
     // foreach ($lyrics_no_empty_lines as $key => $value) {
     //     $final_lyrics .=   "<div class='song-part'>";
-    //     preg_match('#\[(.*?)\]#', $value, $part);
+    //     preg_match('#\[(.*?)\]#', $value, $part_title);
     //     $stripped_lyrics = preg_replace('#\[(.*?)\](\s)?#', '', $value); // Removes first bracketed tag
         
         
-    //     $final_lyrics .=   "    <span class='song-part-title'>{$part[1]}</span>
+    //     $final_lyrics .=   "    <span class='song-part-title'>{$part_title[1]}</span>
     //                             <span class='song-part-content'>{$stripped_lyrics}</span>
     //                         </div>";
     // }
