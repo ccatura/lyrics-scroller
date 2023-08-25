@@ -5,6 +5,7 @@ var pageType = (params.get('page'));
 
 if (pageType == 'scroller') {
     var scrollToggleButton  = document.getElementById('scroll-toggle-button');
+    var stateLabel          = document.getElementById('state-label');
     var speedUp             = document.getElementById('speed-up');
     var speedDown           = document.getElementById('speed-down');
     var speedCurrent        = document.getElementById('speed');
@@ -12,7 +13,10 @@ if (pageType == 'scroller') {
     var fontSmaller         = document.getElementById('font-smaller');
     var songParts           = document.getElementsByClassName('song-part');
     var fontSize            = window.getComputedStyle(songParts[0]).fontSize;
-    fontSize.substring(0, fontSize.length - 2);
+    fontSize                = parseInt(fontSize.substring(0, fontSize.length - 2));
+    var fontSizeIncrements  = 5;
+    var fontSizeMax         = 90;
+    var fontSizeMin         = 10;
     var speedIndex          = 5; // To start. Will probably be replaced by an individual song speed setting
     var isScrolling         = false;
     var scrolling;
@@ -54,20 +58,36 @@ if (pageType == 'scroller') {
     });
 
     scrollToggleButton.addEventListener('click', ()=> {
-        if (scrollToggleButton.innerText == 'START') {
-            scrollToggleButton.innerText = 'STOP';
+        if (scrollToggleButton.innerText == 'play_circle') {
+            scrollToggleButton.innerText = 'stop_circle';
+            stateLabel.innerText = 'stop'
             scrollToggle('start', speed);
+            console.log('Started');
         } else {
-            scrollToggleButton.innerText = 'START';
+            scrollToggleButton.innerText = 'play_circle';
+            stateLabel.innerText = 'play'
             scrollToggle('stop');
+            console.log('Stopped');
         }
     });
 
     fontBigger.addEventListener('click', ()=> {
-        fontSize++;
-        console.log(fontSize);
-        for (var i = 0; i < songParts.length; i++) {
-            songParts[i].computedStyleMap.fontSize = fontSize;
+        if (fontSize < fontSizeMax) {
+            fontSize += fontSizeIncrements;
+            console.log("Font Size: " + fontSize);
+            for (var i = 0; i < songParts.length; i++) {
+                songParts[i].style.fontSize = fontSize + 'px';
+            }
+        }
+    });
+
+    fontSmaller.addEventListener('click', ()=> {
+        if (fontSize > fontSizeMin) {
+            fontSize -= fontSizeIncrements;
+            console.log("Font Size: " + fontSize);
+            for (var i = 0; i < songParts.length; i++) {
+                songParts[i].style.fontSize = fontSize + 'px';
+            }
         }
     });
 
@@ -104,7 +124,7 @@ function scrollToggle(state, speed) {
 }
 
 function updateDisplays() {
-    speedCurrent.innerText  = '(' + speedIndex + ')';
+    speedCurrent.innerText  = speedIndex;
 }
 
 
