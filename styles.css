@@ -149,6 +149,7 @@ a:hover {
 .song-part-outer {
     padding: .5em 1em;
     border-radius: 10px;
+    margin-bottom: .5em;
 }
 
 .song-part-content {

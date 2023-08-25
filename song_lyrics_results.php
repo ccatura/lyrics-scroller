@@ -9,7 +9,7 @@
 
 
 <?php
-session_start();
+// session_start();
 $id = $_GET['song_id'];
 
 
