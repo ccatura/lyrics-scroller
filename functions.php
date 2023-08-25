@@ -23,7 +23,7 @@ function lyrics_formatter($song) {
                 if ($part_title[1] == 'untitled') {
                     $part_title[1] = '';
                 }
-                if (strpos(strtolower($part_title[1]), 'chorus')) {
+                if (str_contains(strtolower($part_title[1]), 'chorus')) {
                     $chorus = 'chorus';
                 } else {
                     $chorus = '';
