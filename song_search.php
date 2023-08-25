@@ -7,8 +7,18 @@
 </head>
 <body>
 
+<input type='text' placeholder='Search' id='term' />
+<button id='submit'>Search</button>
 
+<script>
+	var submit = document.getElementById('submit');
+	submit.addEventListener('click', ()=> {
+		var term = document.getElementById('term').value;
+		term = term.replace(/\s+/g, '-').toLowerCase();
+		window.location.href = `./?page=song_search&term=${term}`;
+	});
 
+</script>
 
 <?php
 
@@ -78,6 +88,10 @@ if ($err) {
 
 
 ?>
+
+
+
+
 
 
 </body>
