@@ -1,6 +1,8 @@
 <?php
 
 unset($_SESSION['song_object']);
+$_SESSION['draft'] = false;
+
 $user_name = 'ccatura'; // This will eventually be sho is logged in
 $html = "
     

@@ -15,22 +15,9 @@ if ($err) {
 	echo "cURL Error #:" . $err;
 } else {
     $lyrics 		= $result_decoded['lyrics']['lyrics']['body']['html'];
-
     $lyrics    		= strip_tags($lyrics, '<br><p><div>'); // strips html tags, except <br>
-
     $title 			= $result_decoded['lyrics']['tracking_data']['title'];
     $sub_title	 	= $result_decoded['lyrics']['tracking_data']['primary_artist'] . ' ' . $result_decoded['lyrics']['tracking_data']['primary_album'];
-    // $song_album 	= $result_decoded['lyrics']['tracking_data']['primary_album'];
-
-
-    echo $title . '<br>';
-    // echo $song_artist . '<br>';
-    // echo $song_album . '<br><br>';
-    echo $lyrics . '<br>';
-
-    echo '<br><br><br>';
-
-
 
 	$song = new Song();
 	$song->set_title($title);
@@ -41,6 +28,8 @@ if ($err) {
 
 	$_SESSION['song_object'] = $song;
 
+
+	$_SESSION['draft'] = true;
 
 	header("Location: ./?page=scroller");
 
@@ -61,6 +50,8 @@ if ($err) {
 
 
 function getResults($query_string) {
+	include('./rapidapi_key.php');
+
 	$curl = curl_init();
 	curl_setopt_array($curl, [
 		CURLOPT_URL => $query_string,
@@ -72,7 +63,7 @@ function getResults($query_string) {
 		CURLOPT_CUSTOMREQUEST => "GET",
 		CURLOPT_HTTPHEADER => [
 			"X-RapidAPI-Host: genius-song-lyrics1.p.rapidapi.com",
-			"X-RapidAPI-Key: 456000e0a5mshd9892438c3e7ef9p19b140jsnae262bb6c57f"
+			"X-RapidAPI-Key: " . $key
 		],
 	]);
 	return $curl;

@@ -7,6 +7,7 @@ function lyrics_formatter($song) {
     $id         = $song->id;
 
     $lyrics_string = $lyrics_raw;
+    // echo $title;
     
     if (check_format($lyrics_raw)) {
 
@@ -51,8 +52,16 @@ function lyrics_formatter($song) {
 
 }
 
-function check_format() {
+function check_format($lyrics_raw) {
 
+    if (str_contains($lyrics_raw, 'end_part')) { 
+        return true;
+    } else {
+        return false;
+    }
+
+
+    return false;
 }
 
 function song_create_edit($song_id = 'no song') {

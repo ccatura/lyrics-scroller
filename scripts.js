@@ -12,7 +12,14 @@ if (pageType == 'scroller') {
     var fontBigger          = document.getElementById('font-bigger');
     var fontSmaller         = document.getElementById('font-smaller');
     var songParts           = document.getElementsByClassName('song-part');
-    var fontSize            = window.getComputedStyle(songParts[0]).fontSize;
+
+    try {
+        var fontSize = window.getComputedStyle(songParts[0]).fontSize;
+      } catch (error) {
+        fontSize = '20px';
+      }
+    
+
     fontSize                = parseInt(fontSize.substring(0, fontSize.length - 2));
     var fontSizeIncrements  = 5;
     var fontSizeMax         = 90;

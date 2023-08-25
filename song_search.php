@@ -13,6 +13,7 @@
 <?php
 
 function getResults($query_string) {
+	include('./rapidapi_key.php');
 	$curl = curl_init();
 	curl_setopt_array($curl, [
 		CURLOPT_URL => $query_string,
@@ -24,9 +25,10 @@ function getResults($query_string) {
 		CURLOPT_CUSTOMREQUEST => "GET",
 		CURLOPT_HTTPHEADER => [
 			"X-RapidAPI-Host: genius-song-lyrics1.p.rapidapi.com",
-			"X-RapidAPI-Key: 456000e0a5mshd9892438c3e7ef9p19b140jsnae262bb6c57f"
+			"X-RapidAPI-Key: " . $key
 		],
 	]);
+	
 	return $curl;
 }
 
