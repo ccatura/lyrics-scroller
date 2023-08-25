@@ -54,7 +54,7 @@ function lyrics_formatter($song) {
 
 function check_format($lyrics_raw) {
 
-    if (str_contains($lyrics_raw, 'end_part')) { 
+    if (strpos($lyrics_raw, 'end_part')) { 
         return true;
     } else {
         return false;
