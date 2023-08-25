@@ -55,28 +55,37 @@ function addHTMLtoFormattedLyrics($lyrics_raw) {
 function addHTMLtoUnformattedLyrics($lyrics_raw) {
     $lyrics_array = preg_split('/\n|\r\n?/', $lyrics_raw); // Splits by the end of lines
     $lyrics_string = '';
+    $in_part = false;
+
+
     foreach ($lyrics_array as $key => $value) {
         preg_match('#\[(.*?)\]#', $value, $part_title);
-
-        if ($part_title[0]) {
-            // if ($part_title[1] == 'untitled') {
-            //     $part_title[1] = '';
-            // }
-            // if (str_contains(strtolower($part_title[1]), 'chorus')) {
-            //     $chorus = 'chorus';
-            // } else {
-            //     $chorus = '';
-            // }
+        
+        if ($part_title[0] && !$in_part) {
+            // echo $part_title[1].'<br>';
+            $in_part = true;
+            if ($part_title[1] == 'untitled') {
+                $part_title[1] = '';
+            }
+            if (str_contains(strtolower($part_title[1]), 'chorus')) {
+                $chorus = 'chorus';
+            } else {
+                $chorus = '';
+            }
             $lyrics_string .= "<div class='song-part-outer {$chorus}'><div class='song-part'>
                                 <span class='song-part-title'>{$part_title[1]}</span>
                                 <span class='song-part-content'>";
-        } elseif (str_contains($value, '\s')) {
+        } elseif ($part_title[0] && $in_part) {
             $lyrics_string .= "</span>
                             </div></div>";
+                            $lyrics_string .= "<div class='song-part-outer {$chorus}'><div class='song-part'>
+                            <span class='song-part-title'>{$part_title[1]}</span>
+                            <span class='song-part-content'>";
         } else {
-            $lyrics_string .= $value . '<br>';
+            $lyrics_string .= $value;
         }
     }
+    // echo $lyrics_raw;
     return $lyrics_string;
 
 
