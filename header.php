@@ -6,40 +6,9 @@
 // }
 
 if ($page == 'scroller') {
-    $html = "
-        <div class='outer-el'>
-            <div class='inner-el' id='scroll-toggle-button'>START</div>
-        </div>
-        <div class='outer-el'>
-            <span class='material-symbols-outlined inner-el' id='speed-down'>play_arrow</span>
-            <span class='material-symbols-outlined inner-el' id='speed-up'>fast_forward</span>
-            <span id ='speed'></span>
-        </div>
-        <div class='outer-el'>
-            <span class='material-symbols-outlined inner-el'>zoom_out_map</span>
-            <span class='material-symbols-outlined inner-el'>zoom_in_map</span>
-        </div>
-        <div class='outer-el'>
-            <span class='material-symbols-outlined inner-el'>skip_previous</span>
-            <span class='material-symbols-outlined inner-el'>skip_next</span>
-        </div>
-        <div class='outer-el' id='menu-button'>
-            <div class='inner-el to-right menu-toggle'>&#9776;</div>
-        " . file_get_contents('./menu.html') . "
-        </div>";
+    $html = file_get_contents('./header_scroller.php') . menu() . "</div>";
 } else {
-    $html = "
-        <div class='outer-el'>
-            <div class='inner-el'>Login</div>
-        </div>
-        <div class='outer-el'>
-            <div class='inner-el'>Music Scroller</div>
-        </div>
-        <div class='outer-el' id='menu-button'>
-            <div class='inner-el to-right menu-toggle'>&#9776;</div>
-            " . file_get_contents('./menu.html') . "
-        </div>
-    ";
+    $html = file_get_contents('./header_common.php') . menu() . "</div>";
 }
 
 

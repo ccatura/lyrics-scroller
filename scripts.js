@@ -8,8 +8,11 @@ if (pageType == 'scroller') {
     var speedUp             = document.getElementById('speed-up');
     var speedDown           = document.getElementById('speed-down');
     var speedCurrent        = document.getElementById('speed');
-    var fontSize            = window.getComputedStyle(document.getElementsByClassName('song-part')[0]).fontSize;
-    // console.log(fontSize + 2);
+    var fontBigger          = document.getElementById('font-bigger');
+    var fontSmaller         = document.getElementById('font-smaller');
+    var songParts           = document.getElementsByClassName('song-part');
+    var fontSize            = window.getComputedStyle(songParts[0]).fontSize;
+    fontSize.substring(0, fontSize.length - 2);
     var speedIndex          = 5; // To start. Will probably be replaced by an individual song speed setting
     var isScrolling         = false;
     var scrolling;
@@ -60,8 +63,12 @@ if (pageType == 'scroller') {
         }
     });
 
-    speedUp.addEventListener('click', ()=> {
-
+    fontBigger.addEventListener('click', ()=> {
+        fontSize++;
+        console.log(fontSize);
+        for (var i = 0; i < songParts.length; i++) {
+            songParts[i].computedStyleMap.fontSize = fontSize;
+        }
     });
 
 

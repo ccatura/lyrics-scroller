@@ -142,3 +142,23 @@ function song_create_edit($song_id = 'no song') {
 
 
 }
+
+function menu() {
+    $output =  "<div class='menu'>
+                    <a href='./' class='menu-item'>Home</a>
+                    <a href='./?page=song_list' class='menu-item'>Song List</a>
+                    <hr style='width:100%'>
+                    <a href='./?page=create_edit' class='menu-item'>Create New Song</a>";
+
+    if ($_GET['page'] == 'scroller') {
+        $output .= "<a href='./index.php' class='menu-item'>Edit Current Song</a>
+                    <a href='./index.php' class='menu-item'>Song Settings</a>";
+    }
+
+    $output .=     "<hr style='width:100%'>
+                    <a href='./index.php' class='menu-item'>Global Settings</a>
+                    <a href='./index.php' class='menu-item'>Logout</a>
+                </div>";
+
+    return $output;
+}
