@@ -1,6 +1,17 @@
-<?php
+<!-- FIX THIS PAGE!!!!!! PUT FUNCTIONS IN THE FUNCTIONS.PHP!!!!!! CONSOLIDATE THINGS!!!!! -->
+<!-- FIX THIS PAGE!!!!!! PUT FUNCTIONS IN THE FUNCTIONS.PHP!!!!!! CONSOLIDATE THINGS!!!!! -->
+<!-- FIX THIS PAGE!!!!!! PUT FUNCTIONS IN THE FUNCTIONS.PHP!!!!!! CONSOLIDATE THINGS!!!!! -->
+<!-- FIX THIS PAGE!!!!!! PUT FUNCTIONS IN THE FUNCTIONS.PHP!!!!!! CONSOLIDATE THINGS!!!!! -->
+<!-- FIX THIS PAGE!!!!!! PUT FUNCTIONS IN THE FUNCTIONS.PHP!!!!!! CONSOLIDATE THINGS!!!!! -->
+<!-- FIX THIS PAGE!!!!!! PUT FUNCTIONS IN THE FUNCTIONS.PHP!!!!!! CONSOLIDATE THINGS!!!!! -->
+<!-- FIX THIS PAGE!!!!!! PUT FUNCTIONS IN THE FUNCTIONS.PHP!!!!!! CONSOLIDATE THINGS!!!!! -->
 
+
+
+<?php
+session_start();
 $id = $_GET['song_id'];
+
 
 $curl = getResults("https://genius-song-lyrics1.p.rapidapi.com/song/lyrics/?id={$id}");
 $response = curl_exec($curl);
@@ -35,36 +46,4 @@ if ($err) {
 
 
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-function getResults($query_string) {
-	include('./rapidapi_key.php');
-
-	$curl = curl_init();
-	curl_setopt_array($curl, [
-		CURLOPT_URL => $query_string,
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => "",
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 30,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => "GET",
-		CURLOPT_HTTPHEADER => [
-			"X-RapidAPI-Host: genius-song-lyrics1.p.rapidapi.com",
-			"X-RapidAPI-Key: " . $key
-		],
-	]);
-	return $curl;
 }

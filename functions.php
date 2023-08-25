@@ -19,16 +19,21 @@ function lyrics_formatter($song) {
         foreach ($lyrics_array as $key => $value) {
             preg_match('#\[(.*?)\]#', $value, $part_title);
 
-            if ($part_title[0] && $part_title[1] != 'end_part') {
+            if ($part_title[0] && $part_title[1] != '!!end_part!!') {
                 if ($part_title[1] == 'untitled') {
                     $part_title[1] = '';
                 }
-                $lyrics_string .= "<div class='song-part'>
+                if (str_contains(strtolower($part_title[1]), 'chorus')) {
+                    $chorus = 'chorus';
+                } else {
+                    $chorus = '';
+                }
+                $lyrics_string .= "<div class='song-part-outer {$chorus}'><div class='song-part'>
                                     <span class='song-part-title'>{$part_title[1]}</span>
                                     <span class='song-part-content'>";
-            } elseif ($part_title[0] && $part_title[1] == 'end_part') {
+            } elseif ($part_title[0] && $part_title[1] == '!!end_part!!') {
                 $lyrics_string .= "</span>
-                                </div>";
+                                </div></div>";
             } else {
                 $lyrics_string .= $value . '<br>';
             }
@@ -52,9 +57,10 @@ function lyrics_formatter($song) {
 
 }
 
+// Checks if lyrics have the correct format
 function check_format($lyrics_raw) {
 
-    if (strpos($lyrics_raw, 'end_part')) { 
+    if (strpos($lyrics_raw, '!!end_part!!')) { 
         return true;
     } else {
         return false;
@@ -68,6 +74,7 @@ function song_create_edit($song_id = 'no song') {
     echo $song_id;
 }
 
+// Generates the dropdown menu based on criteria
 function menu() {
     $output =  "<div class='menu'>
                     <a href='./' class='menu-item'>Home</a>
@@ -77,14 +84,38 @@ function menu() {
                     <a href='./?page=create_edit' class='menu-item'>Create New Song</a>";
 
     if ($_GET['page'] == 'scroller') {
-        $output .= "<a href='./index.php' class='menu-item'>Edit Current Song</a>
-                    <a href='./index.php' class='menu-item'>Song Settings</a>";
+        $output .= "<a href='./index.php' class='menu-item'>Edit Current Song</a>";
+    }
+
+    if ($_GET['page'] == 'scroller' && !$_SESSION['draft']) {
+        $output .= "<a href='./index.php' class='menu-item'>Song Settings</a>";
     }
 
     $output .=     "<hr style='width:100%'>
-                    <a href='./index.php' class='menu-item'>Global Settings</a>
+                    <a href='./?page=global_settings' class='menu-item'>Global Settings</a>
                     <a href='./index.php' class='menu-item'>Logout</a>
                 </div>";
 
     return $output;
+}
+
+// Gets RapidAPI Results
+function getResults($query_string) {
+	include('./rapidapi_key.php');
+	$curl = curl_init();
+	curl_setopt_array($curl, [
+		CURLOPT_URL => $query_string,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => "",
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 30,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => "GET",
+		CURLOPT_HTTPHEADER => [
+			"X-RapidAPI-Host: genius-song-lyrics1.p.rapidapi.com",
+			"X-RapidAPI-Key: " . $key
+		],
+	]);
+	
+	return $curl;
 }

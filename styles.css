@@ -142,12 +142,22 @@ a:hover {
 .song-part {
     display: flex;
     flex-flow: column nowrap;
-    margin-bottom: 1em;
+    margin-bottom: .2em;
     font-size: 22px;
 }
 
+.song-part-outer {
+    padding: .5em 1em;
+    border-radius: 10px;
+}
+
+.song-part-content {
+    padding-left: 1em;
+}
+
 .chorus {
-    margin-left: 2em;
+    /* border-left: 2px solid rgb(86, 86, 86); */
+    background-color: rgb(52, 52, 52);
 }
 
 .song-part-title {
@@ -155,9 +165,7 @@ a:hover {
     text-transform: uppercase;
 }
 
-.song-part-content {
-    margin-left: 1em;
-}
+
 
 .content-section {
     width: 100%;

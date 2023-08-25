@@ -19,7 +19,6 @@ if (pageType == 'scroller') {
         fontSize = '20px';
       }
     
-
     fontSize                = parseInt(fontSize.substring(0, fontSize.length - 2));
     var fontSizeIncrements  = 5;
     var fontSizeMax         = 90;
@@ -97,14 +96,23 @@ if (pageType == 'scroller') {
             }
         }
     });
-
-
-
-
 }
 
 
 
+
+
+if (pageType == 'song_search') {
+	var submit = document.getElementById('submit');
+    
+	submit.addEventListener('click', ()=> {
+		var term = document.getElementById('term').value;
+		term = term.replace(/\s+/g, '-').toLowerCase();
+		window.location.href = `./?page=song_search&term=${term}`;
+	});
+
+
+}
 
 
 
