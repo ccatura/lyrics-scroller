@@ -111,7 +111,8 @@ function song_create_edit($song_id = 'no song') {
 
 // Generates the dropdown menu based on criteria
 function menu() {
-    $output =  "<div class='menu'>
+    $output =  "<div class='menu' id='menu'>
+                    <a href='#' class='menu-item' id='close-menu'>&#10005;</a>
                     <a href='./' class='menu-item'>Home</a>
                     <a href='./?page=song_list' class='menu-item'>Song List</a>
                     <a href='./?page=song_search' class='menu-item'>Song Search</a>

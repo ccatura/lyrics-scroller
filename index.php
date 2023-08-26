@@ -43,10 +43,6 @@
         echo "<div class='content'>";
             include_once("./{$page}.php");
         echo "</div>";
-
-        // echo "<div class='footer'>";
-        //     include_once('./footer.php');
-        // echo "</div>";
     echo "</div>";
 ?>
 </body>

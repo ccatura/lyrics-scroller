@@ -50,7 +50,7 @@ a:hover {
     /* flex-flow: row nowrap; */
     justify-content: space-between;
     align-items: flex-start;
-    padding: var(--top-bottom-padding) var(--side-padding);
+    /* padding: var(--top-bottom-padding) var(--side-padding); */
 }
 
 .header {
@@ -58,9 +58,29 @@ a:hover {
     flex-flow: row wrap;
     position: sticky;
     top: 0;
-    width: 100vw;
+    width: 100%;
     background-color: black;
-    padding-right: 6em;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* border: 2px dotted red; */
+}
+
+.header-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    /* border: 2px solid green; */
+}
+
+.header-menu {
+    /* border: 2px solid yellow; */
+    width: 110px;
+    display: flex;
+    justify-content: center;
 }
 
 .content {
@@ -80,17 +100,28 @@ a:hover {
 
 .outer-el {
     /* border: 1px solid blue; */
-    width: 150px;
+    /* width: 150px; */
     max-width: 150px;
-    min-width: 150px;
+    /* min-width: 150px; */
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.button-wrapper {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.button {
+
+}
+
 .inner-el {
-    /* border: 1px solid red; */
+    /* border: 1px solid red;
     min-width: 70px;
     display: flex;
     justify-content: center;
@@ -98,7 +129,7 @@ a:hover {
     margin: auto;
     text-align: center;
     cursor: pointer;
-    text-transform: uppercase;
+    text-transform: uppercase; */
 }
 
 .small-section {
@@ -119,7 +150,7 @@ a:hover {
 
 .song-section {
     /* width: 100%; */
-    font-size: 22px;
+    font-size: 20px;
     margin-bottom: 6em;
     /* border: 2px solid blue; */
 }
@@ -143,7 +174,7 @@ a:hover {
     display: flex;
     flex-flow: column nowrap;
     margin-bottom: .2em;
-    font-size: 22px;
+    /* font-size: 22px; */
 }
 
 .song-part-outer {
@@ -220,10 +251,10 @@ a:hover {
     font-size: 20px;
 }
 
-.to-right {
+/* .to-right {
     margin-left: auto;
     margin-right: 0;
-}
+} */
 
 .menu {
     display: none;
@@ -246,7 +277,7 @@ a:hover {
 .menu-toggle {
     cursor: pointer;
     font-size: 32px;
-    /* line-height: 36px; */
+    margin: 10px 0 -10px 0;
 }
 
 #menu-button {
@@ -255,13 +286,18 @@ a:hover {
     right: 10px;
 }
 
-.menu-toggle:active ~ .menu,
-.menu-toggle:hover ~ .menu {
-    display: flex;
+.menu-toggle:hover .menu {
+    /* display: flex; */
 }
 
 .menu:hover {
     display: flex;
+}
+
+#close-menu {
+    margin: -5px 0 -20px auto;
+    font-size: 34px;
+    z-index: 10;
 }
 
 .settings {
@@ -269,7 +305,9 @@ a:hover {
     font-size: 10px;
 }
 
-
+.sdfsdf {
+    display: flex;
+}
 
 
 
@@ -296,8 +334,8 @@ a:hover {
     }
 
     .outer-el {
-        min-width: 80px;
-        font-size: 14px;
+        /* min-width: 80px; */
+        /* font-size: 14px; */
     }
 
     .click-list-inner-title {

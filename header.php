@@ -6,9 +6,9 @@
 // }
 
 if ($page == 'scroller') {
-    $html = file_get_contents('./header_scroller.php') . menu() . "</div>";
+    $html = file_get_contents('./header_scroller.php') . menu();
 } else {
-    $html = file_get_contents('./header_common.php') . menu() . "</div>";
+    $html = file_get_contents('./header_common.php') . menu();
 }
 
 

@@ -1,24 +1,38 @@
 const params = new URLSearchParams(window.location.search); //Get query string
 var pageType = (params.get('page'));
 
+var menuToggle          = document.getElementById('menu-toggle');
+var menu                = document.getElementById('menu');
+var menuClose           = document.getElementById('close-menu');
+
+menuToggle.addEventListener('click', ()=> {
+    menu.style.display = 'flex';
+});
+
+menuClose.addEventListener('click', ()=> {        
+    menu.style.display = 'none';
+});
+
 
 
 if (pageType == 'scroller') {
     var scrollToggleButton  = document.getElementById('scroll-toggle-button');
+    var scrollPlayLabel     = document.getElementById('play');
     var stateLabel          = document.getElementById('state-label');
-    var speedUp             = document.getElementById('speed-up');
-    var speedDown           = document.getElementById('speed-down');
+    var speedUpButton       = document.getElementById('speed-up');
+    var speedDownButton     = document.getElementById('speed-down');
     var speedCurrent        = document.getElementById('speed');
     var fontBigger          = document.getElementById('font-bigger');
     var fontSmaller         = document.getElementById('font-smaller');
+    var size                = document.getElementById('size');
+    var previousSongButton  = document.getElementById('previous-song');
+    var nextSongButton      = document.getElementById('next-song');
     var songParts           = document.getElementsByClassName('song-part');
-
     try {
         var fontSize = window.getComputedStyle(songParts[0]).fontSize;
       } catch (error) {
         fontSize = '20px';
       }
-    
     fontSize                = parseInt(fontSize.substring(0, fontSize.length - 2));
     var fontSizeIncrements  = 5;
     var fontSizeMax         = 90;
@@ -26,7 +40,7 @@ if (pageType == 'scroller') {
     var speedIndex          = 5; // To start. Will probably be replaced by an individual song speed setting
     var isScrolling         = false;
     var scrolling;
-    const speedPresets = {
+    var speedPresets = {
         10: 8,
         9:  12,
         8:  15,
@@ -42,35 +56,43 @@ if (pageType == 'scroller') {
     var speed               = speedPresets[speedIndex];
 
     updateDisplays();
-    
-    speedUp.addEventListener('click', ()=> {
-        if (speedIndex < topSpeed) {
-            speedIndex++;
-            speed = speedPresets[speedIndex];
-            console.log('Speed: ' + speedIndex);
-            if (isScrolling) scrollToggle('start', speed)
-            updateDisplays();
-        }
+
+    document.onkeyup = function(e) {
+        if (e.which == 39) {
+            nextSong();
+        } else if (e.which == 37) {
+            previousSong();
+        } else if (e.which == 38) {
+            speedUp();
+        } else if (e.which == 40) {
+            speedDown();
+        } 
+      };
+
+    speedUpButton.addEventListener('click', ()=> {
+        speedUp();
     });
 
-    speedDown.addEventListener('click', ()=> {
-        if (speedIndex > 1) {
-            speedIndex--;
-            speed = speedPresets[speedIndex];
-            console.log('Speed: ' + speedIndex);
-            if (isScrolling) scrollToggle('start', speed)
-            updateDisplays();
-        }
+    speedDownButton.addEventListener('click', ()=> {
+        speedDown();
+    });
+
+    previousSongButton.addEventListener('click', ()=> {
+        previousSong();
+    });
+
+    nextSongButton.addEventListener('click', ()=> {
+        nextSong();
     });
 
     scrollToggleButton.addEventListener('click', ()=> {
-        if (scrollToggleButton.innerText == 'play_circle') {
-            scrollToggleButton.innerText = 'stop_circle';
+        if (scrollPlayLabel.innerText == 'play_circle') {
+            scrollPlayLabel.innerText = 'stop_circle';
             stateLabel.innerText = 'stop'
             scrollToggle('start', speed);
             console.log('Started');
         } else {
-            scrollToggleButton.innerText = 'play_circle';
+            scrollPlayLabel.innerText = 'play_circle';
             stateLabel.innerText = 'play'
             scrollToggle('stop');
             console.log('Stopped');
@@ -85,6 +107,7 @@ if (pageType == 'scroller') {
                 songParts[i].style.fontSize = fontSize + 'px';
             }
         }
+        updateDisplays();
     });
 
     fontSmaller.addEventListener('click', ()=> {
@@ -95,6 +118,7 @@ if (pageType == 'scroller') {
                 songParts[i].style.fontSize = fontSize + 'px';
             }
         }
+        updateDisplays();
     });
 }
 
@@ -121,7 +145,33 @@ function moveScroll() {
     window.scrollBy(0, 1);
 }
 
+function speedUp() {
+    if (speedIndex < topSpeed) {
+        speedIndex++;
+        speed = speedPresets[speedIndex];
+        console.log('Speed: ' + speedIndex);
+        if (isScrolling) scrollToggle('start', speed)
+        updateDisplays();
+    }
+}
 
+function speedDown() {
+    if (speedIndex > 1) {
+        speedIndex--;
+        speed = speedPresets[speedIndex];
+        console.log('Speed: ' + speedIndex);
+        if (isScrolling) scrollToggle('start', speed)
+        updateDisplays();
+    }
+}
+
+function nextSong() {
+    console.log('Next');
+}
+
+function previousSong() {
+    console.log('Previous');
+}
 
 function scrollToggle(state, speed) {
     if (state == 'start') {
@@ -140,6 +190,7 @@ function scrollToggle(state, speed) {
 
 function updateDisplays() {
     speedCurrent.innerText  = speedIndex;
+    size.innerText = fontSize;
 }
 
 
