@@ -59,7 +59,7 @@ a:hover {
     position: sticky;
     top: 0;
     width: 100%;
-    height: 65px;
+    min-height: 65px;
     background-color: black;
 }
 
@@ -320,7 +320,7 @@ a:hover {
 
 
 
-@media (pointer:none), (pointer:coarse) {
+@media (pointer:none), (pointer:coarse), (max-width: 500px) {
     #fullscreen {
         display: none;
     }
