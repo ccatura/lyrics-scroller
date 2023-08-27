@@ -109,32 +109,6 @@ function song_create_edit($song_id = 'no song') {
     echo $song_id;
 }
 
-// Generates the dropdown menu based on criteria
-function menu() {
-    $output =  "<div class='menu' id='menu'>
-                    <a href='#' class='menu-item' id='close-menu'>&#10005;</a>
-                    <a href='./' class='menu-item'>Home</a>
-                    <a href='./?page=song_list' class='menu-item'>Song List</a>
-                    <a href='./?page=song_search' class='menu-item'>Song Search</a>
-                    <hr style='width:100%'>
-                    <a href='./?page=create_edit' class='menu-item'>Create New Song</a>";
-
-    if ($_GET['page'] == 'scroller') {
-        $output .= "<a href='./index.php' class='menu-item'>Edit Current Song</a>";
-    }
-
-    if ($_GET['page'] == 'scroller' && !$_SESSION['draft']) {
-        $output .= "<a href='./index.php' class='menu-item'>Song Settings</a>";
-    }
-
-    $output .=     "<hr style='width:100%'>
-                    <a href='./?page=global_settings' class='menu-item'>Global Settings</a>
-                    <a href='./index.php' class='menu-item'>Logout</a>
-                </div>";
-
-    return $output;
-}
-
 // Gets RapidAPI Results
 function getResults($query_string) {
 	include('./rapidapi_key.php');
@@ -154,4 +128,53 @@ function getResults($query_string) {
 	]);
 	
 	return $curl;
+}
+
+function get_song_settings($song_id, $setting, $platform) {
+    $conn = $_SESSION['conn'];
+    $user_name = $_SESSION['user_name'];
+
+    $result = mysqli_query($conn,  "SELECT `setting`, `value`, `platform` FROM `song_settings`
+                                    WHERE `user_name` = '{$user_name}'
+                                    AND `song_id` = '{$song_id}'
+                                    AND `platform` = '{$platform}'
+                                    AND `setting` = '{$setting}'");
+
+    $output = '';
+    while ($row = mysqli_fetch_assoc($result)) {
+        $output .= $row['value'];
+    }
+
+    if ($setting == 'speed' && $output == '') {
+        $output = 5;
+    } else if ($setting == 'size' && $output == '') {
+        $output = 20;
+    } else if ($setting == 'auto_scroll' && $output == '') {
+        $output = 0;
+    }
+
+    // $_SESSION[$setting] = $output;
+    return $output;
+}
+
+function save_song_settings($song_id, $settings_array, $platform) {
+    $conn       = $_SESSION['conn'];
+    $user_name  = $_SESSION['user_name'];
+    $song_id    = $_SESSION['song_object']->id;
+
+    echo 'user_name: ' . $user_name.'<br>';
+    echo 'id: ' . $song_id . '<br><br>';
+    foreach($settings_array as $setting => $value) {
+        echo $setting . " : " . $value;
+        echo "<br>";
+        $result = mysqli_query($conn,  "REPLACE INTO `song_settings` (`user_name`, `song_id`, `platform`, `setting`, `value`) VALUES ('{$user_name}','{$song_id}','{$platform}','{$setting}','{$value}');");
+    }
+
+
+    if ($result) {
+        header('Location: ./?page=scroller');
+        echo 'good';
+    } else {
+        echo 'no';
+    }
 }

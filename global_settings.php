@@ -5,3 +5,4 @@
 <h2>Name</h2>
 <h2>Password</h2>
 <h2>Something Else</h2>
+<h2>Save Song Settings When Exit Song</h2>

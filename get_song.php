@@ -1,8 +1,8 @@
 <?php
 $song_id = $_GET['song_id'];
-$user_name = 'ccatura'; // This will eventually be who is logged in
+$user_name = $_SESSION['user_name'];
 
-$result = mysqli_query($conn,"SELECT * FROM `songs` WHERE `id` = '{$song_id}' AND `user_name` = '{$user_name}' LIMIT 1");
+$result = mysqli_query($conn, "SELECT * FROM `songs` WHERE `id` = '{$song_id}' AND `user_name` = '{$user_name}' LIMIT 1");
 
 while ($row = mysqli_fetch_assoc($result)) {
     $title      = $row['title'];

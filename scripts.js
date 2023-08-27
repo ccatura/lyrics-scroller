@@ -9,35 +9,41 @@ menuToggle.addEventListener('click', ()=> {
     menu.style.display = 'flex';
 });
 
-menuClose.addEventListener('click', ()=> {        
+menuClose.addEventListener('click', ()=> {
     menu.style.display = 'none';
 });
 
 
 
 if (pageType == 'scroller') {
+    var pageContainer       = document.getElementById('page-container');
+    var saveSongSettingsBtn = document.getElementById('save-song-settings');
+    var autoScroll          = document.getElementById('auto-scroll');
+
     var scrollToggleButton  = document.getElementById('scroll-toggle-button');
     var scrollPlayLabel     = document.getElementById('play');
     var stateLabel          = document.getElementById('state-label');
+
     var speedUpButton       = document.getElementById('speed-up');
     var speedDownButton     = document.getElementById('speed-down');
     var speedCurrent        = document.getElementById('speed');
+    var speedIndex          = speedCurrent.innerText;
+
     var fontBigger          = document.getElementById('font-bigger');
     var fontSmaller         = document.getElementById('font-smaller');
     var size                = document.getElementById('size');
-    var previousSongButton  = document.getElementById('previous-song');
-    var nextSongButton      = document.getElementById('next-song');
-    var songParts           = document.getElementsByClassName('song-part');
-    try {
-        var fontSize = window.getComputedStyle(songParts[0]).fontSize;
-      } catch (error) {
-        fontSize = '20px';
-      }
-    fontSize                = parseInt(fontSize.substring(0, fontSize.length - 2));
+    var fontSize            = size.innerText;
     var fontSizeIncrements  = 5;
     var fontSizeMax         = 90;
     var fontSizeMin         = 10;
-    var speedIndex          = 5; // To start. Will probably be replaced by an individual song speed setting
+
+    var previousSongButton  = document.getElementById('previous-song');
+    var nextSongButton      = document.getElementById('next-song');
+
+    var fullscreenButton    = document.getElementById('fullscreen');
+    var fullscreenLabel     = document.getElementById('fullscreen-label');
+
+    var songParts           = document.getElementsByClassName('song-part');
     var isScrolling         = false;
     var scrolling;
     var speedPresets = {
@@ -101,25 +107,29 @@ if (pageType == 'scroller') {
 
     fontBigger.addEventListener('click', ()=> {
         if (fontSize < fontSizeMax) {
-            fontSize += fontSizeIncrements;
+            fontSize = parseInt(fontSize) + parseInt(fontSizeIncrements);
             console.log("Font Size: " + fontSize);
-            for (var i = 0; i < songParts.length; i++) {
-                songParts[i].style.fontSize = fontSize + 'px';
-            }
         }
         updateDisplays();
     });
 
     fontSmaller.addEventListener('click', ()=> {
         if (fontSize > fontSizeMin) {
-            fontSize -= fontSizeIncrements;
+            fontSize = parseInt(fontSize) - parseInt(fontSizeIncrements);
             console.log("Font Size: " + fontSize);
-            for (var i = 0; i < songParts.length; i++) {
-                songParts[i].style.fontSize = fontSize + 'px';
-            }
         }
         updateDisplays();
     });
+
+    fullscreenButton.addEventListener('click', ()=> {
+        openFullscreen(pageContainer);
+    })
+
+    saveSongSettingsBtn.addEventListener('click', ()=>{
+        var queryString = `&speed=${speedCurrent.innerText}&size=${size.innerText}&auto_scroll=${autoScroll.innerText}`;
+		window.location.href = `./?page=temp${queryString}`;
+    });
+
 }
 
 
@@ -187,15 +197,48 @@ function scrollToggle(state, speed) {
         // console.log('Stopped scrolling');
     }
 }
+function resizeFont() {
+    for (var i = 0; i < songParts.length; i++) {
+        songParts[i].style.fontSize = fontSize + 'px';
+    }
+}
 
 function updateDisplays() {
     speedCurrent.innerText  = speedIndex;
     size.innerText = fontSize;
+    resizeFont();
 }
 
+function openFullscreen(elem) {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+}
 
-
-
+// function doAjax() {
+//             // AJAX CALL - Sends data to be autosaved
+//             var xhr = new XMLHttpRequest();
+//             xhr.open("POST", "./database-commit.php");
+//             xhr.onload = function () {
+//                 console.log(this.response);
+//             };
+//             xhr.send(JSON.stringify(data));
+//             clearInterval(x);
+//             var fadeIn = setTimeout(() => {
+//                 header.style.opacity = 0;
+//                 var resetHeader = setTimeout(() => {
+//                     // clearTimeout(fadeIn);
+//                     headerInner.innerText = 'AutoSave';
+//                     autosave.innerHTML = '&nbsp;Enabled';
+//                     // clearTimeout(resetHeader);
+//                 }, 1000);
+//             }, 2000);
+//         }
+//     }, 1000);}
 
 
 

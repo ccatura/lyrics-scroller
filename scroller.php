@@ -8,4 +8,6 @@ if (isset($_SESSION['draft'])) {
     }
 }
 
+
+
 echo lyrics_formatter($song);

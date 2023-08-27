@@ -29,13 +29,15 @@
     include_once('./Song.php');
 
     session_start();
+    $_SESSION['conn'] = $conn;
+    $_SESSION['user_name'] = 'ccatura';
 
     if (isset($_GET['page']) /* IF USER NAME IS LOGGED IN */) {
         $page = strtolower($_GET['page']);
     } else {
         $page = 'home';
     }
-    echo "<div class='page-container'>";
+    echo "<div class='page-container' id='page-container'>";
         echo "<div class='header'>";
             include_once('./header.php');
         echo "</div>";

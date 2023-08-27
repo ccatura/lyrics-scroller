@@ -36,6 +36,26 @@ CREATE TABLE setlist_link (
     FOREIGN KEY (song_id) REFERENCES songs (id)
 );
 
+CREATE TABLE user_settings (
+    user_name   VARCHAR(32) NOT NULL,
+    setting     VARCHAR(32) NOT NULL,
+    value       VARCHAR(32),
+    FOREIGN KEY (user_name) REFERENCES users (user_name),
+    CONSTRAINT uq_usr_setting UNIQUE(user_name, setting)
+);
+
+CREATE TABLE song_settings (
+    user_name   VARCHAR(32) NOT NULL,
+    song_id     INT NOT NULL,
+    platform    VARCHAR(32) NOT NULL,
+    setting     VARCHAR(32) NOT NULL,
+    value       VARCHAR(32),
+    FOREIGN KEY (user_name) REFERENCES users (user_name),
+    FOREIGN KEY (song_id) REFERENCES songs (id),
+    CONSTRAINT uq_song_setting UNIQUE(user_name, song_id, platform, setting)
+);
+
+
 
 --Make user
 INSERT INTO `users`(`user_name`, `name`, `pword`, `email`) VALUES ('ccatura', 'Charles Catura', 'abc123', 'ccatura@gmail.com');
@@ -161,10 +181,13 @@ And my heart is telling me to improvise
 (Repeat Chorus)"
 );
 
+-- song settings
+-- INSERT INTO `song_settings`(`user_name`, `song_id`, `platform`, `setting`, `value`) VALUES ('ccatura', '3', 'mobile', 'speed', '4'); 
+-- INSERT INTO `song_settings`(`user_name`, `song_id`, `platform`, `setting`, `value`) VALUES ('ccatura', '3', 'mobile', 'size', '16'); 
 
 
-
-
+--inserts or replaces (if exists)
+REPLACE INTO `song_settings` (`user_name`, `song_id`, `platform`, `setting`, `value`) VALUES ('ccatura','3','mobile','speed','2')
 
 
 

@@ -3,7 +3,7 @@
 unset($_SESSION['song_object']);
 $_SESSION['draft'] = false;
 
-$user_name = 'ccatura'; // This will eventually be sho is logged in
+$user_name = $_SESSION['user_name'];
 $html = "
     
     <div class='content-section'>
