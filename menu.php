@@ -11,6 +11,14 @@
     } ?>
 
     <?php if ($_GET['page'] == 'scroller' && !$_SESSION['draft']) {
+        // echo get_song_settings($song->id, 'auto_scroll', 'mobile');
+        if (get_song_settings($song->id, 'auto_scroll', 'mobile') == '1') {
+            
+            $auto_scroll_x = '&#9679;';
+        } else {
+            $auto_scroll_x = '';
+        }
+        echo "<a class='menu-item' id='auto-scroll'>Autoscroll on Load <span id='auto-scroll-properties'>{$auto_scroll_x}</span></a>";
         echo "<a class='menu-item' id='save-song-settings'>Save Song Settings</a>";
     } ?>
 

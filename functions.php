@@ -149,9 +149,13 @@ function get_song_settings($song_id, $setting, $platform) {
         $output = 5;
     } else if ($setting == 'size' && $output == '') {
         $output = 20;
-    } else if ($setting == 'auto_scroll' && $output == '') {
-        $output = 0;
+    } else if ($setting == 'auto_scroll') {
+        // echo $output;
+        if ($output == '') {
+            $output = '0';
+        }
     }
+    // echo "{$row['setting']} $output";
 
     // $_SESSION[$setting] = $output;
     return $output;

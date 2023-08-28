@@ -19,6 +19,7 @@ if (pageType == 'scroller') {
     var pageContainer       = document.getElementById('page-container');
     var saveSongSettingsBtn = document.getElementById('save-song-settings');
     var autoScroll          = document.getElementById('auto-scroll');
+    var autoScrollProperties= document.getElementById('auto-scroll-properties');
 
     var scrollToggleButton  = document.getElementById('scroll-toggle-button');
     var scrollPlayLabel     = document.getElementById('play');
@@ -75,6 +76,14 @@ if (pageType == 'scroller') {
         } 
       };
 
+    autoScroll.addEventListener('click', ()=> {
+        if (autoScrollProperties.innerHTML == '') {
+            autoScrollProperties.innerHTML = '&#9679;';
+        } else {
+            autoScrollProperties.innerHTML = '';
+        }
+    });
+
     speedUpButton.addEventListener('click', ()=> {
         speedUp();
     });
@@ -126,7 +135,13 @@ if (pageType == 'scroller') {
     })
 
     saveSongSettingsBtn.addEventListener('click', ()=>{
-        var queryString = `&speed=${speedCurrent.innerText}&size=${size.innerText}&auto_scroll=${autoScroll.innerText}`;
+        // alert(autoScrollProperties.innerText);
+        if (autoScrollProperties.innerText == '') {
+            var autoScrollx = '0'
+        } else {
+            var autoScrollx = '1'
+        }
+        var queryString = `&speed=${speedCurrent.innerText}&size=${size.innerText}&auto_scroll=${autoScrollx}`;
 		window.location.href = `./?page=temp${queryString}`;
     });
 
