@@ -16,7 +16,7 @@ menuClose.addEventListener('click', ()=> {
 
 
 if (pageType == 'scroller') {
-    var pageContainer       = document.getElementById('page-container');
+    var body                = document.getElementsByTagName("BODY")[0];
     var saveSongSettingsBtn = document.getElementById('save-song-settings');
 
     try { // Autoscroll should not work on a song that is not in the user's DB
@@ -89,6 +89,11 @@ if (pageType == 'scroller') {
         });
     } catch (e) {}
 
+    window.onscroll = function(ev) {
+        if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+            stopScrollingAction();
+        }
+    };
 
     speedUpButton.addEventListener('click', ()=> {
         speedUp();
@@ -108,15 +113,9 @@ if (pageType == 'scroller') {
 
     scrollToggleButton.addEventListener('click', ()=> {
         if (scrollPlayLabel.innerText == 'play_circle') {
-            scrollPlayLabel.innerText = 'stop_circle';
-            stateLabel.innerText = 'stop'
-            scrollToggle('start', speed);
-            console.log('Started');
+            startScrollingAction();
         } else {
-            scrollPlayLabel.innerText = 'play_circle';
-            stateLabel.innerText = 'play'
-            scrollToggle('stop');
-            console.log('Stopped');
+            stopScrollingAction();
         }
     });
 
@@ -137,7 +136,7 @@ if (pageType == 'scroller') {
     });
 
     fullscreenButton.addEventListener('click', ()=> {
-        openFullscreen(pageContainer);
+        openFullscreen(body);
     })
 
     try { // Save-settings should not work on a song that is not in the user's DB
@@ -241,6 +240,22 @@ function openFullscreen(elem) {
   } else if (elem.msRequestFullscreen) { /* IE11 */
     elem.msRequestFullscreen();
   }
+}
+
+function startScrollingAction() {
+            scrollPlayLabel.innerText = 'stop_circle';
+            stateLabel.innerText = 'stop'
+            scrollPlayLabel.classList.toggle('red');
+            scrollToggle('start', speed);
+            console.log('Started');
+}
+
+function stopScrollingAction() {
+            scrollPlayLabel.innerText = 'play_circle';
+            stateLabel.innerText = 'play'
+            scrollPlayLabel.classList.toggle('red');
+            scrollToggle('stop');
+            console.log('Stopped');
 }
 
 // function doAjax() {

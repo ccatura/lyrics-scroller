@@ -11,11 +11,12 @@ $song = $_SESSION['song_object'];
             </div>
             <div class="button-properties"></div>
         </div>
-        <div class="outer-el" id='fullscreen'>
+        <!--<div class="outer-el" id='fullscreen'>
             <div class="button-label" id='fullscreen-label'>fullscreen</div>
             <div class="button-wrapper">
                 <div class="button material-symbols-outlined">play_circle</div>
-            </div>        </div>
+            </div>
+        </div>-->
         <div class="outer-el">
             <div class="button-label">speed:
                 <span class="button-properties" id='speed'><?php echo get_song_settings($song->id, 'speed', 'mobile'); ?></span>
@@ -33,14 +34,6 @@ $song = $_SESSION['song_object'];
                 <div class="button material-symbols-outlined" id='font-smaller'>do_not_disturb_on</div>
                 <div class="button material-symbols-outlined" id='font-bigger'>add_circle</div>
             </div>
-        </div>
-        <div class="outer-el">
-            <div class="button-label">prev - next</div>
-            <div class="button-wrapper">
-                <div class="button material-symbols-outlined" id='previous-song'>arrow_circle_left</div>
-                <div class="button material-symbols-outlined" id='next-song'>arrow_circle_right</div>
-            </div>
-            <div class="button-properties"></div>            
         </div>
     </div>
     <div class="header-menu">

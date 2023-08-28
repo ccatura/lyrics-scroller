@@ -8,13 +8,14 @@
     --menu-color: #454545;
     --border-color-one: #808080;
     --font-color-dark: black;
+    --background-color-content: #222;
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: monospace, 'Courier New', Courier;
-    background-color: #222;
+    background-color: var(--background-color-content);
     color: #eee;
     overflow-x: hidden;
 }
@@ -61,6 +62,7 @@ a:hover {
     width: 100%;
     min-height: 65px;
     background-color: black;
+    z-index: 10;
 }
 
 .header-inner {
@@ -98,6 +100,7 @@ a:hover {
     flex-flow: column nowrap;
     width: 100%;
     align-items: center;
+    background-color: var(--background-color-content);
 }
 
 .footer {
@@ -210,8 +213,6 @@ a:hover {
     text-transform: uppercase;
 }
 
-
-
 .content-section {
     width: 100%;
     /* border: 2px solid purple; */
@@ -292,7 +293,7 @@ a:hover {
 .menu-toggle {
     cursor: pointer;
     font-size: 32px;
-    margin: 10px 0 -10px 0;
+    margin: 5px 0;
 }
 
 #menu-button {
@@ -312,7 +313,6 @@ a:hover {
 #close-menu {
     margin: -5px 0 -20px auto;
     font-size: 34px;
-    z-index: 10;
 }
 
 .settings {
@@ -324,9 +324,45 @@ a:hover {
     /* font-size: 22px; */
 }
 
+#play {
+    background-color: green;
+}
 
+.red {
+    background-color: red !important;
+}
 
+.next-prev-song-section {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    background-color: rgba(255, 255, 255, .02);
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    color: rgba(255, 255, 255, .5);
+}
 
+.next-prev-song-section:hover,
+.next-prev-song-section:focus {
+    background-color: rgba(255, 255, 255, .05);
+    color: rgba(255, 255, 255, .8);
+}
+
+.left-screen {
+    /* position: fixed; */
+    left: 0;
+    justify-content: flex-start;
+    padding-left: 10px;
+}
+
+.right-screen {
+    /* position: fixed; */
+    right: 0;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
 
 
 
