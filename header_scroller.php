@@ -19,15 +19,17 @@ $song = $_SESSION['song_object'];
             } else {
                 $auto_scroll_x = 'circle';
             }
+        
+
+            if (!$_SESSION['draft']) {
+                echo "<div class='outer-el' id='auto-scroll'>
+                    <div class='button-label'>auto scroll</div>
+                    <div class='button-wrapper'>
+                        <div class='button material-symbols-outlined' id='auto-scroll-properties'>{$auto_scroll_x}</div>
+                    </div>
+                </div>";
+            }
         ?>
-
-        <div class="outer-el" id='auto-scroll'>
-            <div class="button-label">auto scroll</div>
-            <div class="button-wrapper">
-                <div class="button material-symbols-outlined" id='auto-scroll-properties'><?php echo $auto_scroll_x; ?></div>
-            </div>
-        </div>
-
 
 
         <div class="outer-el">

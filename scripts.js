@@ -251,7 +251,7 @@ function stopScrollingAction() {
 }
 
 function saveSongSettings(platform) {
-    if (autoScrollProperties.innerText == '') {
+    if (autoScrollProperties.innerText == 'circle') {
         var autoScrollx = '0'
     } else {
         var autoScrollx = '1'

@@ -26,6 +26,8 @@ $platform   = $settings_array['platform'];
 foreach($settings_array as $setting => $value) {
     if ($setting == 'platform') continue;
     $result = mysqli_query($conn,  "REPLACE INTO `song_settings` (`user_name`, `song_id`, `platform`, `setting`, `value`) VALUES ('{$user_name}','{$song_id}','{$platform}','{$setting}','{$value}');");
+
+    // echo $value;
 }
 
 if ($result) {
