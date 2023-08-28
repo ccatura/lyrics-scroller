@@ -18,8 +18,11 @@ menuClose.addEventListener('click', ()=> {
 if (pageType == 'scroller') {
     var pageContainer       = document.getElementById('page-container');
     var saveSongSettingsBtn = document.getElementById('save-song-settings');
-    var autoScroll          = document.getElementById('auto-scroll');
-    var autoScrollProperties= document.getElementById('auto-scroll-properties');
+
+    try { // Autoscroll should not work on a song that is not in the user's DB
+        var autoScroll           = document.getElementById('auto-scroll');
+        var autoScrollProperties = document.getElementById('auto-scroll-properties');
+    } catch (e) {}
 
     var scrollToggleButton  = document.getElementById('scroll-toggle-button');
     var scrollPlayLabel     = document.getElementById('play');
@@ -76,13 +79,16 @@ if (pageType == 'scroller') {
         } 
       };
 
-    autoScroll.addEventListener('click', ()=> {
-        if (autoScrollProperties.innerHTML == '') {
-            autoScrollProperties.innerHTML = '&#9679;';
-        } else {
-            autoScrollProperties.innerHTML = '';
-        }
-    });
+    try { // Autoscroll should not work on a song that is not in the user's DB
+        autoScroll.addEventListener('click', ()=> {
+            if (autoScrollProperties.innerHTML == '') {
+                autoScrollProperties.innerHTML = '&#9679;';
+            } else {
+                autoScrollProperties.innerHTML = '';
+            }
+        });
+    } catch (e) {}
+
 
     speedUpButton.addEventListener('click', ()=> {
         speedUp();
@@ -134,16 +140,19 @@ if (pageType == 'scroller') {
         openFullscreen(pageContainer);
     })
 
-    saveSongSettingsBtn.addEventListener('click', ()=>{
-        // alert(autoScrollProperties.innerText);
-        if (autoScrollProperties.innerText == '') {
-            var autoScrollx = '0'
-        } else {
-            var autoScrollx = '1'
-        }
-        var queryString = `&speed=${speedCurrent.innerText}&size=${size.innerText}&auto_scroll=${autoScrollx}`;
-		window.location.href = `./?page=temp${queryString}`;
-    });
+    try { // Save-settings should not work on a song that is not in the user's DB
+        saveSongSettingsBtn.addEventListener('click', ()=>{
+            // alert(autoScrollProperties.innerText);
+            if (autoScrollProperties.innerText == '') {
+                var autoScrollx = '0'
+            } else {
+                var autoScrollx = '1'
+            }
+            var queryString = `&speed=${speedCurrent.innerText}&size=${size.innerText}&auto_scroll=${autoScrollx}`;
+            window.location.href = `./?page=temp${queryString}`;
+        });
+    } catch (e) {}
+
 
 }
 
