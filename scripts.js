@@ -44,8 +44,8 @@ if (pageType == 'scroller') {
     var previousSongButton  = document.getElementById('previous-song');
     var nextSongButton      = document.getElementById('next-song');
 
-    var fullscreenButton    = document.getElementById('fullscreen');
-    var fullscreenLabel     = document.getElementById('fullscreen-label');
+    // var fullscreenButton    = document.getElementById('fullscreen');
+    // var fullscreenLabel     = document.getElementById('fullscreen-label');
 
     var songParts           = document.getElementsByClassName('song-part');
     var isScrolling         = false;
@@ -135,9 +135,9 @@ if (pageType == 'scroller') {
         updateDisplays();
     });
 
-    fullscreenButton.addEventListener('click', ()=> {
-        openFullscreen(body);
-    })
+    // fullscreenButton.addEventListener('click', ()=> {
+    //     openFullscreen(body);
+    // })
 
     try { // Save-settings should not work on a song that is not in the user's DB
         saveSongSettingsBtn.addEventListener('click', ()=>{
@@ -232,15 +232,15 @@ function updateDisplays() {
     resizeFont();
 }
 
-function openFullscreen(elem) {
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.webkitRequestFullscreen) { /* Safari */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE11 */
-    elem.msRequestFullscreen();
-  }
-}
+// function openFullscreen(elem) {
+//   if (elem.requestFullscreen) {
+//     elem.requestFullscreen();
+//   } else if (elem.webkitRequestFullscreen) { /* Safari */
+//     elem.webkitRequestFullscreen();
+//   } else if (elem.msRequestFullscreen) { /* IE11 */
+//     elem.msRequestFullscreen();
+//   }
+// }
 
 function startScrollingAction() {
             scrollPlayLabel.innerText = 'stop_circle';
