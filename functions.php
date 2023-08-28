@@ -161,24 +161,24 @@ function get_song_settings($song_id, $setting, $platform) {
     return $output;
 }
 
-function save_song_settings($song_id, $settings_array, $platform) {
-    $conn       = $_SESSION['conn'];
-    $user_name  = $_SESSION['user_name'];
-    $song_id    = $_SESSION['song_object']->id;
+// function save_song_settings($song_id, $settings_array, $platform) {
+//     $conn       = $_SESSION['conn'];
+//     $user_name  = $_SESSION['user_name'];
+//     $song_id    = $_SESSION['song_object']->id;
 
-    echo 'user_name: ' . $user_name.'<br>';
-    echo 'id: ' . $song_id . '<br><br>';
-    foreach($settings_array as $setting => $value) {
-        echo $setting . " : " . $value;
-        echo "<br>";
-        $result = mysqli_query($conn,  "REPLACE INTO `song_settings` (`user_name`, `song_id`, `platform`, `setting`, `value`) VALUES ('{$user_name}','{$song_id}','{$platform}','{$setting}','{$value}');");
-    }
+//     echo 'user_name: ' . $user_name.'<br>';
+//     echo 'id: ' . $song_id . '<br><br>';
+//     foreach($settings_array as $setting => $value) {
+//         echo $setting . " : " . $value;
+//         echo "<br>";
+//         $result = mysqli_query($conn,  "REPLACE INTO `song_settings` (`user_name`, `song_id`, `platform`, `setting`, `value`) VALUES ('{$user_name}','{$song_id}','{$platform}','{$setting}','{$value}');");
+//     }
 
 
-    if ($result) {
-        header('Location: ./?page=scroller');
-        echo 'good';
-    } else {
-        echo 'no';
-    }
-}
+//     if ($result) {
+//         header('Location: ./?page=scroller');
+//         echo 'good';
+//     } else {
+//         echo 'no';
+//     }
+// }

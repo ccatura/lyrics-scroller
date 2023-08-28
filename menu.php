@@ -19,7 +19,8 @@
             $auto_scroll_x = '';
         }
         echo "<a class='menu-item' id='auto-scroll'>Autoscroll on Load <span id='auto-scroll-properties'>{$auto_scroll_x}</span></a>";
-        echo "<a class='menu-item' id='save-song-settings'>Save Song Settings</a>";
+        echo "<a class='menu-item save-song-settings' id='save-song-settings-mobile' platform='mobile'>Save Mobile Song Settings</a>";
+        echo "<a class='menu-item save-song-settings' id='save-song-settings-desktop' platform='desktop'>Save Desktop Song Settings</a>";
     } ?>
 
     <hr style='width:100%'>

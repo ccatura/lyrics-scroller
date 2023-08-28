@@ -16,8 +16,9 @@ menuClose.addEventListener('click', ()=> {
 
 
 if (pageType == 'scroller') {
-    var body                = document.getElementsByTagName("BODY")[0];
-    var saveSongSettingsBtn = document.getElementById('save-song-settings');
+    var body                    = document.getElementsByTagName("BODY")[0];
+    var saveSongSettingsMobile  = document.getElementById('save-song-settings-mobile');
+    var saveSongSettingsDesktop = document.getElementById('save-song-settings-desktop');
 
     try { // Autoscroll should not work on a song that is not in the user's DB
         var autoScroll           = document.getElementById('auto-scroll');
@@ -66,6 +67,12 @@ if (pageType == 'scroller') {
     var speed               = speedPresets[speedIndex];
 
     updateDisplays();
+
+
+
+
+
+
 
     document.onkeyup = function(e) {
         if (e.which == 39) {
@@ -140,23 +147,26 @@ if (pageType == 'scroller') {
     // })
 
     try { // Save-settings should not work on a song that is not in the user's DB
-        saveSongSettingsBtn.addEventListener('click', ()=>{
-            // alert(autoScrollProperties.innerText);
-            if (autoScrollProperties.innerText == '') {
-                var autoScrollx = '0'
-            } else {
-                var autoScrollx = '1'
-            }
-            var queryString = `&speed=${speedCurrent.innerText}&size=${size.innerText}&auto_scroll=${autoScrollx}`;
-            window.location.href = `./?page=temp${queryString}`;
+        saveSongSettingsMobile.addEventListener('click', ()=>{
+            saveSongSettings('mobile');
+        });
+
+        saveSongSettingsDesktop.addEventListener('click', ()=>{
+            saveSongSettings('desktop');
         });
     } catch (e) {}
-
-
 }
 
 
-
+function saveSongSettings(platform) {
+    if (autoScrollProperties.innerText == '') {
+        var autoScrollx = '0'
+    } else {
+        var autoScrollx = '1'
+    }
+    var queryStringArray = `{"size" : "${size.innerText}", "speed" : "${speedCurrent.innerText}", "auto_scroll" : "${autoScrollx}", "platform" : "${platform}"}`;
+    doAjax(queryStringArray);
+}
 
 
 if (pageType == 'song_search') {
@@ -258,26 +268,16 @@ function stopScrollingAction() {
             console.log('Stopped');
 }
 
-// function doAjax() {
-//             // AJAX CALL - Sends data to be autosaved
-//             var xhr = new XMLHttpRequest();
-//             xhr.open("POST", "./database-commit.php");
-//             xhr.onload = function () {
-//                 console.log(this.response);
-//             };
-//             xhr.send(JSON.stringify(data));
-//             clearInterval(x);
-//             var fadeIn = setTimeout(() => {
-//                 header.style.opacity = 0;
-//                 var resetHeader = setTimeout(() => {
-//                     // clearTimeout(fadeIn);
-//                     headerInner.innerText = 'AutoSave';
-//                     autosave.innerHTML = '&nbsp;Enabled';
-//                     // clearTimeout(resetHeader);
-//                 }, 1000);
-//             }, 2000);
-//         }
-//     }, 1000);}
+function doAjax(data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "./save_song_settings.php");
+    xhr.onload = function () {
+        console.log(this.response);
+        // xxx.innerText = this.response;
+    };
+    xhr.send(JSON.stringify(data));
+}
+
 
 
 

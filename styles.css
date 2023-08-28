@@ -282,7 +282,7 @@ a:hover {
     color: var(--font-color-dark);
     font-weight: bold;
     font-size: 20px;
-    width: 320px;
+    width: 360px;
 }
 
 .menu-item {
@@ -430,6 +430,6 @@ a:hover {
     .menu {
         right: 50%;
         transform: translateX(50%);
-        width: 320px;
+        width: 100%;
     }
 }
