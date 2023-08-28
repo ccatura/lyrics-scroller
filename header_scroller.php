@@ -26,7 +26,7 @@ $song = $_SESSION['song_object'];
             </div>
         </div>  
         <div class="outer-el">
-            <div class="button-label">size
+            <div class="button-label">size:
                 <span class="button-properties" id='size'><?php echo get_song_settings($song->id, 'size', 'mobile'); ?></span>
             </div>
             <div class="button-wrapper">
