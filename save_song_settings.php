@@ -1,4 +1,16 @@
 <?php
+
+// might have to put some of this into the functions.php
+// might have to put some of this into the functions.php
+// might have to put some of this into the functions.php
+// might have to put some of this into the functions.php
+// might have to put some of this into the functions.php
+// might have to put some of this into the functions.php
+// might have to put some of this into the functions.php
+// might have to put some of this into the functions.php
+
+
+
 include_once('./db_connect.php');
 include_once('./functions.php');
 include_once('./Song.php');
@@ -17,8 +29,8 @@ foreach($settings_array as $setting => $value) {
 }
 
 if ($result) {
-    echo 'Commited to DB';
+    echo ucwords($platform) . " settings saved!";
 } else {
-    echo 'Was not commited to DB';
+    echo 'There was a problem. Please, try again.';
 }
 

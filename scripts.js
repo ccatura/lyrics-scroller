@@ -3,14 +3,14 @@ var pageType = (params.get('page'));
 
 var menuToggle          = document.getElementById('menu-toggle');
 var menu                = document.getElementById('menu');
-var menuClose           = document.getElementById('close-menu');
+var menuCloseBtn        = document.getElementById('close-menu');
 
 menuToggle.addEventListener('click', ()=> {
     menu.style.display = 'flex';
 });
 
-menuClose.addEventListener('click', ()=> {
-    menu.style.display = 'none';
+menuCloseBtn.addEventListener('click', ()=> {
+    menuClose();
 });
 
 
@@ -68,12 +68,6 @@ if (pageType == 'scroller') {
 
     updateDisplays();
 
-
-
-
-
-
-
     document.onkeyup = function(e) {
         if (e.which == 39) {
             nextSong();
@@ -88,14 +82,15 @@ if (pageType == 'scroller') {
 
     try { // Autoscroll should not work on a song that is not in the user's DB
         autoScroll.addEventListener('click', ()=> {
-            if (autoScrollProperties.innerHTML == '') {
-                autoScrollProperties.innerHTML = '&#9679;';
+            if (autoScrollProperties.innerHTML == 'circle') {
+                autoScrollProperties.innerHTML = 'check_circle';
             } else {
-                autoScrollProperties.innerHTML = '';
+                autoScrollProperties.innerHTML = 'circle';
             }
         });
     } catch (e) {}
 
+    // Detect when scrolled to bottom of page and stop
     window.onscroll = function(ev) {
         if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
             stopScrollingAction();
@@ -149,6 +144,7 @@ if (pageType == 'scroller') {
     try { // Save-settings should not work on a song that is not in the user's DB
         saveSongSettingsMobile.addEventListener('click', ()=>{
             saveSongSettings('mobile');
+            
         });
 
         saveSongSettingsDesktop.addEventListener('click', ()=>{
@@ -156,18 +152,6 @@ if (pageType == 'scroller') {
         });
     } catch (e) {}
 }
-
-
-function saveSongSettings(platform) {
-    if (autoScrollProperties.innerText == '') {
-        var autoScrollx = '0'
-    } else {
-        var autoScrollx = '1'
-    }
-    var queryStringArray = `{"size" : "${size.innerText}", "speed" : "${speedCurrent.innerText}", "auto_scroll" : "${autoScrollx}", "platform" : "${platform}"}`;
-    doAjax(queryStringArray);
-}
-
 
 if (pageType == 'song_search') {
 	var submit = document.getElementById('submit');
@@ -180,8 +164,6 @@ if (pageType == 'song_search') {
 
 
 }
-
-
 
 
 function moveScroll() {
@@ -263,17 +245,62 @@ function startScrollingAction() {
 function stopScrollingAction() {
             scrollPlayLabel.innerText = 'play_circle';
             stateLabel.innerText = 'play'
-            scrollPlayLabel.classList.toggle('red');
+            scrollPlayLabel.classList.remove('red');
             scrollToggle('stop');
             console.log('Stopped');
 }
 
-function doAjax(data) {
+function saveSongSettings(platform) {
+    if (autoScrollProperties.innerText == '') {
+        var autoScrollx = '0'
+    } else {
+        var autoScrollx = '1'
+    }
+    var queryStringArray = `{"size" : "${size.innerText}", "speed" : "${speedCurrent.innerText}", "auto_scroll" : "${autoScrollx}", "platform" : "${platform}"}`;
+    doAjax(queryStringArray, './save_song_settings.php');
+    menuClose();
+}
+
+function menuClose() {
+    menu.style.display = 'none';
+}
+
+function popupAlert(title, message) {
+    var popupAlertELement   = document.getElementById('popup-dark-screen');
+    var popupTitle          = document.getElementById('popup-title');
+    var popupMessage        = document.getElementById('popup-message');
+    var popupNoButton       = document.getElementById('popup-no');
+
+    popupTitle.innerText = title;
+    popupMessage.innerText = message;
+
+    popupAlertELement.style.display = 'block';
+    setTimeout(() => {
+        popupAlertELement.style.opacity = '1';
+    }, 500);
+
+    // popupYesButton.onclick = function() {
+    //     window.location = location;
+    // }
+
+    popupNoButton.onclick = function() {
+        popupClose(popupAlertELement);
+    }
+}
+
+function popupClose(popupAlertELement) {
+    popupAlertELement.style.opacity = '0';
+    setTimeout(() => {
+        popupAlertELement.style.display = 'none';
+    }, 500);
+}
+
+function doAjax(data, script) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "./save_song_settings.php");
+    xhr.open("POST", script);
     xhr.onload = function () {
         console.log(this.response);
-        // xxx.innerText = this.response;
+        popupAlert('Message', this.response);
     };
     xhr.send(JSON.stringify(data));
 }
@@ -285,11 +312,9 @@ function doAjax(data) {
 
 
 
-
 // var closeButton         = document.getElementById('close');
 // var popupBlackout       = document.getElementById('popup-blackout');
 // var popupYesButton      = document.getElementById('popup-yes');
-// var popupNoButton       = document.getElementById('popup-no');
 
 // closeButton.addEventListener('click', function() {
 //     popupClose();
@@ -314,22 +339,6 @@ function doAjax(data) {
 
 
 
-// function popupClose() {
-//     popupBlackout.style.display = "none";
-// }
 
-// function popup(title, message, location) {
-//     var popupTitle = document.getElementById('popup-title');
-//     var popupMessage = document.getElementById('popup-message');
-//     popupTitle.innerText = title;
-//     popupMessage.innerText = message;
-//     popupBlackout.style.display = "flex";
 
-//     popupYesButton.onclick = function() {
-//         window.location = location;
-//     }
 
-//     popupNoButton.onclick = function() {
-//         popupClose();
-//     }
-// }

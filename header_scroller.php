@@ -11,12 +11,25 @@ $song = $_SESSION['song_object'];
             </div>
             <div class="button-properties"></div>
         </div>
-        <!--<div class="outer-el" id='fullscreen'>
-            <div class="button-label" id='fullscreen-label'>fullscreen</div>
+
+        <?php
+            // echo get_song_settings($song->id, 'auto_scroll', 'mobile');
+            if (get_song_settings($song->id, 'auto_scroll', 'mobile') == '1') {
+                $auto_scroll_x = 'check_circle';
+            } else {
+                $auto_scroll_x = 'circle';
+            }
+        ?>
+
+        <div class="outer-el" id='auto-scroll'>
+            <div class="button-label">auto scroll</div>
             <div class="button-wrapper">
-                <div class="button material-symbols-outlined">play_circle</div>
+                <div class="button material-symbols-outlined" id='auto-scroll-properties'><?php echo $auto_scroll_x; ?></div>
             </div>
-        </div>-->
+        </div>
+
+
+
         <div class="outer-el">
             <div class="button-label">speed:
                 <span class="button-properties" id='speed'><?php echo get_song_settings($song->id, 'speed', 'mobile'); ?></span>

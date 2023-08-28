@@ -7,4 +7,4 @@ if ($page == 'scroller') {
 }
 
 include('./menu.php');
-
+include('./popup_alert.php');
