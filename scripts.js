@@ -42,8 +42,10 @@ if (pageType == 'scroller') {
     var fontSizeMax         = 90;
     var fontSizeMin         = 10;
 
-    var previousSongButton  = document.getElementById('previous-song');
-    var nextSongButton      = document.getElementById('next-song');
+    try {
+        var previousSongButton  = document.getElementById('previous-song');
+        var nextSongButton      = document.getElementById('next-song');
+    } catch {}
 
     // var fullscreenButton    = document.getElementById('fullscreen');
     // var fullscreenLabel     = document.getElementById('fullscreen-label');
@@ -108,13 +110,15 @@ if (pageType == 'scroller') {
         speedDown();
     });
 
-    previousSongButton.addEventListener('click', ()=> {
-        previousSong();
-    });
+    try {
+        previousSongButton.addEventListener('click', ()=> {
+            previousSong();
+        });
 
-    nextSongButton.addEventListener('click', ()=> {
-        nextSong();
-    });
+        nextSongButton.addEventListener('click', ()=> {
+            nextSong();
+        });
+    } catch {}
 
     scrollToggleButton.addEventListener('click', ()=> {
         if (scrollPlayLabel.innerText == 'play_circle') {
