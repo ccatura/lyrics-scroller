@@ -18,7 +18,7 @@ if (!$_SESSION['draft']) {
     }
 }
 
-
+echo 'this is the name of the current setlist';
 
 
 
