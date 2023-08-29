@@ -79,7 +79,7 @@ if (pageType == 'scroller') {
             speedUp();
         } else if (e.which == 40) {
             speedDown();
-        } 
+        }
       };
 
     try { // Autoscroll should not work on a song that is not in the user's DB
@@ -89,6 +89,7 @@ if (pageType == 'scroller') {
             } else {
                 autoScrollProperties.innerHTML = 'circle';
             }
+            saveAutoScrollSettings('mobile'); // THIS NEEDS TO BE SPECIFIC TO THE LAYOUT CURRENTLY BEING VIEWED
         });
     } catch (e) {}
 
@@ -261,6 +262,17 @@ function saveSongSettings(platform) {
     var queryStringArray = `{"size" : "${size.innerText}", "speed" : "${speedCurrent.innerText}", "auto_scroll" : "${autoScrollx}", "platform" : "${platform}"}`;
     doAjax(queryStringArray, './save_song_settings.php');
     menuClose();
+}
+
+function saveAutoScrollSettings(platform) {
+    if (autoScrollProperties.innerText == 'circle') {
+        var autoScrollx = '0'
+    } else {
+        var autoScrollx = '1'
+    }
+    var queryStringArray = `{"auto_scroll" : "${autoScrollx}", "platform" : "${platform}"}`;
+    console.log(queryStringArray);
+    doAjax(queryStringArray, './save_song_settings.php');
 }
 
 function menuClose() {
