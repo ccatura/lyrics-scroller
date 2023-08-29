@@ -18,18 +18,17 @@ $user_name = $_SESSION['user_name'];
 $html = "
     <div class='content-section'>
         <div class='click-list-section'>
-            <div class='page-title'>Song List</div>";
+            <div class='page-title'>Set Lists</div>";
 
 $result = mysqli_query($conn,"SELECT `title`, `id` FROM `setlists` WHERE `user_name` = '{$user_name}' ORDER BY `title` ");
 
 while ($row = mysqli_fetch_assoc($result)) {
-    $title      = $row['title'];
-    $sub_title  = $row['sub_title'];
-    $id         = $row['id'];
+    $setlist_title  = $row['title'];
+    $setlist_id     = $row['id'];
 
-    $html       .= "<a class='click-list-item' href='./?page=get_song&song_id={$id}'>
-                        <div class='click-list-inner-title'>{$title}</div> 
-                        <div class='click-list-inner-sub-title'>({$id})</div>
+    $html       .= "<a class='click-list-item' href='./?page=setlist&setlist_id={$setlist_id}'>
+                        <div class='click-list-inner-title'>{$setlist_title}</div> 
+                        <div class='click-list-inner-sub-title'>({$setlist_id})</div>
                     </a>";
 }
 

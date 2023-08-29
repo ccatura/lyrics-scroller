@@ -31,9 +31,11 @@ CREATE TABLE setlist_links (
     user_name   VARCHAR(32) NOT NULL,
     setlist_id  INT NOT NULL,
     song_id     INT NOT NULL,
+    song_order  INT NOT NULL,
     FOREIGN KEY (user_name) REFERENCES users (user_name),
     FOREIGN KEY (setlist_id) REFERENCES setlists (id),
-    FOREIGN KEY (song_id) REFERENCES songs (id)
+    FOREIGN KEY (song_id) REFERENCES songs (id),
+    CONSTRAINT uq_setlist_item UNIQUE(setlist_id, song_order)
 );
 
 CREATE TABLE user_settings (
@@ -256,24 +258,16 @@ INSERT INTO `setlists` (`user_name`, `title`) VALUES ('ccatura', 'Christmas 2023
 INSERT INTO `setlists` (`user_name`, `title`) VALUES ('ccatura', 'Summer Festival 2023');
 
 
---create setlist links
-CREATE TABLE setlist_link (
-    user_name   VARCHAR(32) NOT NULL,
-    setlist_id  INT NOT NULL,
-    song_id     INT NOT NULL,
-    FOREIGN KEY (user_name) REFERENCES users (user_name),
-    FOREIGN KEY (setlist_id) REFERENCES setlists (id),
-    FOREIGN KEY (song_id) REFERENCES songs (id)
-);
-
-INSERT INTO `setlist_links` (`user_name`, `setlist_id`, `song_id`) VALUES ('ccatura', '1', '1');
-INSERT INTO `setlist_links` (`user_name`, `setlist_id`, `song_id`) VALUES ('ccatura', '1', '3');
-INSERT INTO `setlist_links` (`user_name`, `setlist_id`, `song_id`) VALUES ('ccatura', '1', '4');
+--creat setlist links
+INSERT INTO `setlist_links` (`user_name`, `setlist_id`, `song_id`, `song_order`) VALUES ('ccatura', '1', '3', '1');
+INSERT INTO `setlist_links` (`user_name`, `setlist_id`, `song_id`, `song_order`) VALUES ('ccatura', '1', '1', '2');
+INSERT INTO `setlist_links` (`user_name`, `setlist_id`, `song_id`, `song_order`) VALUES ('ccatura', '1', '4', '3');
+INSERT INTO `setlist_links` (`user_name`, `setlist_id`, `song_id`, `song_order`) VALUES ('ccatura', '1', '3', '4');
 
 -- gets all the song title on setlist 1
-SELECT songs.title FROM songs
-JOIN setlist_links on song_id = songs.id
-WHERE setlist_links.setlist_id = 1
+SELECT `songs.title` as 'song_title' FROM `songs`
+JOIN `setlist_links` on `song_id` = `songs.id`
+WHERE `setlist_links.setlist_id` = 1;
 
 
 

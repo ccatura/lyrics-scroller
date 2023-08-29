@@ -2,6 +2,7 @@
 
 unset($_SESSION['song_object']);
 $_SESSION['draft'] = false;
+unset($_SESSION['setlist_ids']);
 
 $user_name = $_SESSION['user_name'];
 $html = "

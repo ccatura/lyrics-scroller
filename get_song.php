@@ -2,6 +2,10 @@
 $song_id = $_GET['song_id'];
 $user_name = $_SESSION['user_name'];
 
+if (isset($_GET['setlist_index'])) {
+    $_SESSION['setlist_index'] = $_GET['setlist_index'];
+}
+
 $result = mysqli_query($conn, "SELECT * FROM `songs` WHERE `id` = '{$song_id}' AND `user_name` = '{$user_name}' LIMIT 1");
 
 while ($row = mysqli_fetch_assoc($result)) {
