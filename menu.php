@@ -1,9 +1,9 @@
 <div class='menu' id='menu'>
     <a class='menu-item' id='close-menu'>&#10005;</a>
     <a href='./' class='menu-item'>Home</a>
-    <a href='./?page=song_list' class='menu-item'>Song List</a>
-    <a href='./?page=setlists' class='menu-item'>Set Lists</a>
-    <a href='./?page=song_search' class='menu-item'>Song Search</a>
+    <a href='./?page=song_list' class='menu-item'>My Songs</a>
+    <a href='./?page=setlists' class='menu-item'>My Set Lists</a>
+    <a href='./?page=song_search' class='menu-item'>Search for Songs</a>
     <hr style='width:100%'>
     <a href='./?page=setlists' class='menu-item'>Create New Setlist</a>
     <a href='./?page=create_edit' class='menu-item'>Create New Song</a>

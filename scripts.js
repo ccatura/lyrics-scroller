@@ -283,25 +283,39 @@ function menuClose() {
     menu.style.display = 'none';
 }
 
-function popupAlert(title, message) {
+// For 'ok' and 'cancel' buttons, timing must be 0.
+// For no buttons, timing must be > 0. Timing is in seconds: 1 = 1 second, etc.
+function popupAlert(title, message, timing) {
+    timing *= 1000;
     var popupAlertELement   = document.getElementById('popup-dark-screen');
     var popupTitle          = document.getElementById('popup-title');
     var popupMessage        = document.getElementById('popup-message');
-    var popupNoButton       = document.getElementById('popup-no');
+    var popupButtonSection  = document.getElementById('popup-buttons');
+    var popupOkButton       = document.getElementById('popup-ok');
+    var popupCancelButton   = document.getElementById('popup-cancel');
 
     popupTitle.innerText = title;
     popupMessage.innerText = message;
+
+
 
     popupAlertELement.style.display = 'block';
     setTimeout(() => {
         popupAlertELement.style.opacity = '1';
     }, 500);
 
-    // popupYesButton.onclick = function() {
-    //     window.location = location;
-    // }
+    if (timing > 0) {
+        popupButtonSection.style.display = 'none';
+        setTimeout(() => {
+            popupClose(popupAlertELement);
+        }, timing);
+    }
 
-    popupNoButton.onclick = function() {
+    popupOkButton.onclick = function() {
+        popupClose(popupAlertELement);
+    }
+    
+    popupCancelButton.onclick = function() {
         popupClose(popupAlertELement);
     }
 }
@@ -310,7 +324,7 @@ function popupClose(popupAlertELement) {
     popupAlertELement.style.opacity = '0';
     setTimeout(() => {
         popupAlertELement.style.display = 'none';
-    }, 500);
+    }, 1000);
 }
 
 function doAjax(data, script) {
@@ -318,7 +332,7 @@ function doAjax(data, script) {
     xhr.open("POST", script);
     xhr.onload = function () {
         console.log(this.response);
-        popupAlert('Message', this.response);
+        popupAlert('Message', this.response, 0);
     };
     xhr.send(JSON.stringify(data));
 }

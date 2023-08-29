@@ -21,7 +21,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $setlist_title  = $row['setlist_title'];
     $song_id        = $row['song_id'];
 
-   $setlist_array += [$setlist_index => $song_id];
+    $setlist_array += [$setlist_index => $song_id];
 
     $html       .= "<a class='click-list-item' href='./?page=get_song&song_id={$song_id}&setlist_index={$setlist_index}'>
                         <div class='click-list-inner-title'>{$setlist_index}) {$title} {$song_id}</div> 
@@ -32,8 +32,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 $_SESSION['setlist_ids'] = $setlist_array;
 $_SESSION['setlist_index'] = 1;
-// var_dump($_SESSION['setlist_ids']);
-// echo $setlist_array;
+
 echo "<div class='content-section'>
         <div class='click-list-section'>
             <div class='page-title'>Set List: {$setlist_title}</div>";

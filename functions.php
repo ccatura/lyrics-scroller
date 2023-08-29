@@ -161,6 +161,21 @@ function get_song_settings($song_id, $setting, $platform) {
     return $output;
 }
 
+function get_setlists() {
+    $conn       = $_SESSION['conn'];
+    $user_name  = $_SESSION['user_name'];
+    return mysqli_query($conn,"SELECT `title`, `id` FROM `setlists` WHERE `user_name` = '{$user_name}' ORDER BY `title` ");
+}
+
+function get_song_list() {
+    $conn       = $_SESSION['conn'];
+    $user_name  = $_SESSION['user_name'];
+    return mysqli_query($conn,"SELECT `title`, `sub_title`, `id` FROM `songs` WHERE `user_name` = '{$user_name}' ORDER BY `title` ");
+}
+
+
+
+
 // function save_song_settings($song_id, $settings_array, $platform) {
 //     $conn       = $_SESSION['conn'];
 //     $user_name  = $_SESSION['user_name'];

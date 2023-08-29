@@ -12,15 +12,14 @@
 <?php
 
 unset($_SESSION['song_object']);
-$_SESSION['draft'] = false;
+$_SESSION['draft']  = false;
+$result             = get_setlists();
+$user_name          = $_SESSION['user_name'];
 
-$user_name = $_SESSION['user_name'];
 $html = "
     <div class='content-section'>
         <div class='click-list-section'>
             <div class='page-title'>Set Lists</div>";
-
-$result = mysqli_query($conn,"SELECT `title`, `id` FROM `setlists` WHERE `user_name` = '{$user_name}' ORDER BY `title` ");
 
 while ($row = mysqli_fetch_assoc($result)) {
     $setlist_title  = $row['title'];
