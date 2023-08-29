@@ -150,9 +150,20 @@ a:hover {
 .small-section {
     border: 1px solid gray;
     margin: 1em auto 0 auto;
-    width: 50%;
+    /* width: 50%; */
     padding: var(--top-bottom-padding) var(--side-padding);
     display: flex;
+    flex-flow: column nowrap;
+    background-color: var(--background-color-content);
+}
+
+.floating {
+    display: none;
+    position: fixed;
+    top: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px black;
 }
 
 .section-title {

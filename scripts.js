@@ -4,6 +4,17 @@ var pageType = (params.get('page'));
 var menuToggle          = document.getElementById('menu-toggle');
 var menu                = document.getElementById('menu');
 var menuCloseBtn        = document.getElementById('close-menu');
+var floatingSetlists    = document.getElementById('floating-setlists');
+var addToSetlistsBtns   = document.getElementsByClassName('add-to-setlist');
+
+
+for (var i = 0; i < addToSetlistsBtns.length; i++) {
+    addToSetlistsBtns[i].addEventListener('click', ()=> {
+        floatingSetlists.style.display = 'block';
+    });
+}
+
+
 
 menuToggle.addEventListener('click', ()=> {
     menu.style.display = 'flex';

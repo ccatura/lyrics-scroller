@@ -22,7 +22,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </a> 
                     <div class='option-item-section'>
                         <a href='./?page=create_edit&song_id={$id}'><div>EDIT</div></a>
-                        <a href='./?page=create_edit&song_id={$id}'><div id='add-to-setlist'>+SETLIST</div></a>
+                        <a href='' class='add-to-setlist'><div>+SETLIST</div></a>
                     </div>";
 }
 echo $html;
@@ -32,15 +32,14 @@ $html = '';
 $result_setlist = get_setlists();
 $user_name      = $_SESSION['user_name'];
 
-echo "<div class='small-section'>";
+echo "<div class='small-section floating' id='floating-setlists'>Add (song??) to Setlist:";
 
 while ($row = mysqli_fetch_assoc($result_setlist)) {
     $setlist_title  = $row['title'];
     $setlist_id     = $row['id'];
 
     $html .= "<a href=''>
-                <div>{$setlist_title}</div> 
-                <div>({$setlist_id})</div>
+                <div class='click-list-item'>{$setlist_title} ({$setlist_id})</div>
             </a>";
 }
 
