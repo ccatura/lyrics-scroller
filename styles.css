@@ -29,12 +29,15 @@ body {
   'opsz' 48
 }
 
-a {
+a,
+.fake-link {
     color: #eee;
     text-decoration: none;
+    cursor: pointer;
 }
 
-a:hover {
+a:hover,
+.fake-link:hover {
     color: rgb(163, 195, 255);
     text-shadow: 0 0 5px rgb(163, 195, 255);
 }

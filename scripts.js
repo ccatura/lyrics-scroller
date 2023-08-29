@@ -5,16 +5,26 @@ var menuToggle          = document.getElementById('menu-toggle');
 var menu                = document.getElementById('menu');
 var menuCloseBtn        = document.getElementById('close-menu');
 var floatingSetlists    = document.getElementById('floating-setlists');
-var addToSetlistsBtns   = document.getElementsByClassName('add-to-setlist');
+var songTitle           = document.getElementById('song-title');
+var addToSetlistBtns    = document.getElementsByClassName('add-to-setlist');
+var setlistBtns         = document.getElementsByClassName('setlist-to-add-it-to');
+var songIDToAdd;
 
-
-for (var i = 0; i < addToSetlistsBtns.length; i++) {
-    addToSetlistsBtns[i].addEventListener('click', ()=> {
+for (var i = 0; i < addToSetlistBtns.length; i++) {
+    addToSetlistBtns[i].addEventListener('click', (e)=> {
+        songTitle.innerText = "\"" + e.target.getAttribute('song_title') + "\"";
         floatingSetlists.style.display = 'block';
+        songIDToAdd = e.target.id;
+        console.log('Song ID to add: ' + songIDToAdd);
     });
 }
 
-
+for (var i = 0; i < setlistBtns.length; i++) {
+    setlistBtns[i].addEventListener('click', (e)=> {
+        var setlistToAddItTo = e.target.id;
+        console.log('Add ' + songIDToAdd + ' to ' + setlistToAddItTo);
+    });
+}
 
 menuToggle.addEventListener('click', ()=> {
     menu.style.display = 'flex';
