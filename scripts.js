@@ -52,16 +52,18 @@ if (pageType == 'scroller') {
     var isScrolling         = false;
     var scrolling;
     var speedPresets = {
-        10: 8,
-        9:  12,
-        8:  15,
-        7:  20,
-        6:  30,
-        5:  40,
-        4:  60,
-        3:  80,
-        2:  100,
-        1:  150
+        12: 6,
+        11: 8,
+        10: 12,
+        9:  15,
+        8:  20,
+        7:  30,
+        6:  40,
+        5:  60,
+        4:  80,
+        3:  100,
+        2:  150,
+        1:  100
     };
     var topSpeed            = Object.keys(speedPresets).length;
     var speed               = speedPresets[speedIndex];

@@ -21,14 +21,14 @@ CREATE TABLE songs (
 
 CREATE TABLE setlists (
     id          INT NOT NULL auto_increment,
-    user_name   VARCHAR(32) UNIQUE NOT NULL,
+    user_name   VARCHAR(32) NOT NULL,
     title       VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_name) REFERENCES users (user_name)
 );
 
-CREATE TABLE setlist_link (
-    user_name   VARCHAR(32) UNIQUE NOT NULL,
+CREATE TABLE setlist_links (
+    user_name   VARCHAR(32) NOT NULL,
     setlist_id  INT NOT NULL,
     song_id     INT NOT NULL,
     FOREIGN KEY (user_name) REFERENCES users (user_name),
@@ -96,6 +96,66 @@ I am strong, when I am on your shoulders
 [end]
 You raise me up to more than I can be.
 You raise me up to more than I can be.'
+);
+
+INSERT INTO `songs`(`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('ccatura', 'The Pluto Song (Me and Clyde)', 'By Charlie Katt',
+"[verse 1]
+Me and Clyde met in the second grade,
+he lived next door just `round the fence
+He sold cookies, I sold lemonade,
+in our driveways everyday for fifteen cents
+
+Every evening through the telescope,
+Clyde would scour through the skies
+He looked for rocks and stars and meteors,
+while I photographed the best times of our lives
+[!!end_part!!]
+[lift]
+But, that one photo`s memory always stays,
+our arms were spread like we could fly
+Clyde, he loved to stare at it for days,
+and he discovered something strange among
+The twinkles in that picture`s sky
+[!!end_part!!]
+[chorus]
+Now, I see Pluto waving down at me
+Three billion miles in the sky
+The heavens will not be the same for me
+Thanks to that photograph I took of me and Clyde
+[!!end_part!!]
+[verse 2]
+Me and Clyde were like PB and J,
+like America and apple pie
+And, though I learned to shoot a photograph,
+I was so darn sure that Clyde would learn to fly
+[!!end_part!!]
+[lift]
+But, there was one who set his heart ablaze,
+Patty Edson was her name
+Clyde would get lost in her eyes for days,
+and he showed how much he loved her when he
+Gave his favorite star her name
+[!!end_part!!]
+[repeat chorus]
+[!!end_part!!]
+[bridge]
+It can be hard to hide when the sun is in your eyes
+But, wonders will arrive when two worlds collide
+[!!end_part!!]
+[verse 3]
+Me and Clyde met in the second grade,
+that was ninety years ago today
+I swear I see him with his arms out wide, as he sets a course beyond the Milky Way
+[!!end_part!!]
+[lift]
+That one photo`s memory always stays,
+(ya` know) the one where we pretend to fly
+I will cherish all those golden days,
+with the one who brought the heavens down
+To live inside our hearts and lives
+[!!end_part!!]
+[repeat chorus]
+[!!end_part!!]"
 );
 
 INSERT INTO `songs`(`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('ccatura', 'Hello', 'Song by Lionel Richie',
@@ -188,6 +248,48 @@ And my heart is telling me to improvise
 
 --inserts or replaces (if exists)
 REPLACE INTO `song_settings` (`user_name`, `song_id`, `platform`, `setting`, `value`) VALUES ('ccatura','3','mobile','speed','2')
+
+
+
+--create setlist
+INSERT INTO `setlists` (`user_name`, `title`) VALUES ('ccatura', 'Christmas 2023');
+INSERT INTO `setlists` (`user_name`, `title`) VALUES ('ccatura', 'Summer Festival 2023');
+
+
+--create setlist links
+CREATE TABLE setlist_link (
+    user_name   VARCHAR(32) NOT NULL,
+    setlist_id  INT NOT NULL,
+    song_id     INT NOT NULL,
+    FOREIGN KEY (user_name) REFERENCES users (user_name),
+    FOREIGN KEY (setlist_id) REFERENCES setlists (id),
+    FOREIGN KEY (song_id) REFERENCES songs (id)
+);
+
+INSERT INTO `setlist_links` (`user_name`, `setlist_id`, `song_id`) VALUES ('ccatura', '1', '1');
+INSERT INTO `setlist_links` (`user_name`, `setlist_id`, `song_id`) VALUES ('ccatura', '1', '3');
+INSERT INTO `setlist_links` (`user_name`, `setlist_id`, `song_id`) VALUES ('ccatura', '1', '4');
+
+-- gets all the song title on setlist 1
+SELECT songs.title FROM songs
+JOIN setlist_links on song_id = songs.id
+WHERE setlist_links.setlist_id = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
