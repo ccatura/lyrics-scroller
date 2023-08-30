@@ -10,7 +10,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE songs (
-    id          INT NOT NULL auto_increment,
+    id          INT NOT NULL UNIQUE auto_increment,
     user_name   VARCHAR(32) NOT NULL,
     title       VARCHAR(255) NOT NULL,
     sub_title   VARCHAR(255) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE songs (
 );
 
 CREATE TABLE setlists (
-    id          INT NOT NULL auto_increment,
+    id          INT NOT NULL UNIQUE auto_increment,
     user_name   VARCHAR(32) NOT NULL,
     title       VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
@@ -70,7 +70,7 @@ When I am down and, oh my soul, so weary
 When troubles come and my heart burdened be
 Then, I am still and wait here in the silence
 Until You come and sit awhile with me.
-
+[!!end_part!!]
 [chorus]
 You raise me up, so I can stand on mountains
 You raise me up, to walk on stormy seas
@@ -80,13 +80,13 @@ You raise me up, so I can stand on mountains
 You raise me up, to walk on stormy seas
 I am strong, when I am on your shoulders
 You raise me up to more than I can be.
-
+[!!end_part!!]
 [verse 2]
 When I am down and, oh my soul, so weary
 When troubles come and my heart burdened be
 Then, I am still and wait here in the silence
 Until You come and sit awhile with me.
-
+[!!end_part!!]
 [chorus]
 You raise me up, so I can stand on mountains
 You raise me up, to walk on stormy seas
@@ -95,10 +95,11 @@ You raise me up to more than I can be.
 You raise me up, so I can stand on mountains
 You raise me up, to walk on stormy seas
 I am strong, when I am on your shoulders
-
+[!!end_part!!]
 [end]
 You raise me up to more than I can be.
-You raise me up to more than I can be.'
+You raise me up to more than I can be.
+[!!end_part!!]'
 );
 
 INSERT INTO `songs`(`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('ccatura', 'The Pluto Song (Me and Clyde)', 'By Charlie Katt',
@@ -167,7 +168,7 @@ I've been alone with you inside my mind
 And in my dreams I've kissed your lips a thousand times
 I sometimes see you pass outside my door
 Hello, is it me you're looking for?
-
+[!!end_part!!]
 [Chorus]
 I can see it in your eyes, I can see it in your smile
 You're all I've ever wanted and my arms are open wide
@@ -176,14 +177,14 @@ And I want to tell you so much, I love you
 I long to see the sunlight in your hair
 And tell you time and time again how much I care
 Sometimes I feel my heart will overflow
-
+[!!end_part!!]
 [verse 2]
 Hello, I've just got to let you know
 'Cause I wonder where you are and I wonder what you do
 Are you somewhere feeling lonely or is someone loving you?
 Tell me how to win your heart, for I haven't got a clue
 But let me start by saying, I love you
-
+[!!end_part!!]
 [Chorus]
 Hello, is it me you're looking for?
 'Cause I wonder where you are and I wonder what you do
@@ -194,7 +195,7 @@ I love you
 I love you
 Is it me you're looking for?
 Hello, is it me you're looking for?
-
+[!!end_part!!]
 [Chorus]
 'Cause I wonder where you are and I wonder what you do
 Are you somewhere feeling lonely or is someone loving you?
@@ -203,11 +204,12 @@ But let me start by saying, I love you
 I love you
 I love you
 Hello, is it me you're looking for?
-
+[!!end_part!!]
 [ending]
 Is it me, is it me, is it me
 Is it me you're looking for?
-Is it me, is it me"
+Is it me, is it me
+[!!end_part!!]"
 );
 
 INSERT INTO `songs`(`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('ccatura', 'Better When It`s Gone', 'By Charlie Katt',
@@ -220,7 +222,7 @@ For once my soul's not nearly dead
 And my heart is telling me to improvise
 
 (But) when I'm home something in me dies
-
+[!!end_part!!]
 [Chorus]
 (It) recently occurred to me
 (When I) go outside and feel the breeze
@@ -230,7 +232,7 @@ For once my soul's not nearly dead
 And my heart is telling me to improvise
 
 (But) when I'm home something in me dies
-
+[!!end_part!!]
 [Bridge]
 (It) recently occurred to me
 (When I) go outside and feel the breeze
@@ -240,7 +242,7 @@ For once my soul's not nearly dead
 And my heart is telling me to improvise
 
 (But) when I'm home something in me dies
-
+[!!end_part!!]
 (Repeat Chorus)"
 );
 

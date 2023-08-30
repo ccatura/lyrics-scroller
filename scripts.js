@@ -1,32 +1,42 @@
 const params = new URLSearchParams(window.location.search); //Get query string
 var pageType = (params.get('page'));
 
-var menuToggle          = document.getElementById('menu-toggle');
-var menu                = document.getElementById('menu');
-var menuCloseBtn        = document.getElementById('close-menu');
-var floatingSetlists    = document.getElementById('floating-setlists');
-var songTitle           = document.getElementById('song-title');
-var addToSetlistBtns    = document.getElementsByClassName('add-to-setlist');
-var setlistBtns         = document.getElementsByClassName('setlist-to-add-it-to');
-var songIDToAdd;
+var menuToggle           = document.getElementById('menu-toggle');
+var menu                 = document.getElementById('menu');
+var menuCloseBtn         = document.getElementById('close-menu');
+var dropdowns            = document.getElementsByClassName('dropdown');
+var removeFromSetlistBtn = document.getElementsByClassName('remove-from-setlist');
 
-// Add to setlist
-for (var i = 0; i < addToSetlistBtns.length; i++) {
-    addToSetlistBtns[i].addEventListener('click', (e)=> {
-        songTitle.innerText = "\"" + e.target.getAttribute('song_title') + "\"";
-        floatingSetlists.style.display = 'block';
-        songIDToAdd = e.target.id;
-        console.log('Song ID to add: ' + songIDToAdd);
+// Handle removing song from setlist
+for (var i = 0; i < removeFromSetlistBtn.length; i++) {
+    removeFromSetlistBtn[i].addEventListener('click', (e)=> {
+        // var selectionValue      = e.target.value; // Contains setlist id and song id in format: setlist_id-song_id. Example: 21-12
+        var setlistID           = e.target.getAttribute('setlist_id');
+        var songOrder           = e.target.getAttribute('song_order');
+        // var setlistName         = e.target.options[e.target.selectedIndex].innerText;
+        // var songName            = e.target.getAttribute('song_name');
+        var queryString         = `DELETE FROM setlist_links WHERE setlist_id = '${setlistID}' AND song_order = '${songOrder}';`;
+        var message             = `Song deleted from setlist`;
+        var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
+        // e.target.selectedIndex = 0; // Reset select option after choice made
+        doAjax(queryStringArray, './run_query.php');
+        console.log(setlistID + ' ' + songOrder);
     });
 }
-for (var i = 0; i < setlistBtns.length; i++) {
-    setlistBtns[i].addEventListener('click', (e)=> {
-        var setlistToAddItTo = e.target.id;
-        console.log('Add ' + songIDToAdd + ' to ' + setlistToAddItTo);
-        var songID = songIDToAdd.substring(songIDToAdd.lastIndexOf("_") + 1);
-        var setlistID = setlistToAddItTo.substring(setlistToAddItTo.lastIndexOf("_") + 1);
-        var queryString = `INSERT INTO setlist_links (\`user_name\`, \`setlist_id\`, \`song_id\`) VALUES ('ccatura', '${setlistID}', '${songID}');`;
-        console.log(queryString);
+// Handle dropdowns for adding to setlists
+for (var i = 0; i < dropdowns.length; i++) {
+    dropdowns[i].addEventListener('change', (e)=> {
+        var selectionValue      = e.target.value; // Contains setlist id and song id in format: setlist_id-song_id. Example: 21-12
+        var setlistID           = selectionValue.split('-')[0];
+        var songID              = selectionValue.split('-')[1];
+        var setlistName         = e.target.options[e.target.selectedIndex].innerText;
+        var songName            = e.target.getAttribute('song_name');
+        var queryString         = `INSERT INTO setlist_links (\`user_name\`, \`setlist_id\`, \`song_id\`) VALUES ('ccatura', '${setlistID}', '${songID}');`;
+        var message             = `'${songName}' added to setlist '${setlistName}'.`;
+        var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
+        e.target.selectedIndex = 0; // Reset select option after choice made
+        doAjax(queryStringArray, './run_query.php');
+        // console.log(queryString);
     });
 }
 
@@ -41,9 +51,9 @@ menuCloseBtn.addEventListener('click', ()=> {
 
 // Only scroller page actions
 if (pageType == 'scroller') {
-    var body                    = document.getElementsByTagName("BODY")[0];
-    var saveSongSettingsMobile  = document.getElementById('save-song-settings-mobile');
-    var saveSongSettingsDesktop = document.getElementById('save-song-settings-desktop');
+    var body                     = document.getElementsByTagName("BODY")[0];
+    var saveSongSettingsMobile   = document.getElementById('save-song-settings-mobile');
+    var saveSongSettingsDesktop  = document.getElementById('save-song-settings-desktop');
 
     try { // Autoscroll should not work on a song that is not in the user's DB
         var autoScroll           = document.getElementById('auto-scroll');
@@ -95,12 +105,19 @@ if (pageType == 'scroller') {
     var topSpeed            = Object.keys(speedPresets).length;
     var speed               = speedPresets[speedIndex];
 
-    updateDisplays();
+    updateDisplays(); // Initially setup all displays. Ex: Size, Speed, Autoscroll
 
+    // Keyboard shortcuts: LEFT = Previous Song
     document.onkeyup = function(e) {
         if (e.which == 39) {
+            try {
+                window.location.href = nextSongButton.href;
+            } catch {};
             nextSong();
         } else if (e.which == 37) {
+            try {
+                window.location.href = previousSongButton.href;
+            } catch {};
             previousSong();
         } else if (e.which == 38) {
             speedUp();
@@ -357,7 +374,7 @@ function doAjax(data, script) {
     xhr.open("POST", script);
     xhr.onload = function () {
         console.log(this.response);
-        popupAlert('Message', this.response, 0);
+        popupAlert('Alert:', this.response, 2);
     };
     xhr.send(JSON.stringify(data));
 }

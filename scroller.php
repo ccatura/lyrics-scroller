@@ -8,13 +8,13 @@ if (!$_SESSION['draft']) {
     if (isset($setlist_ids[$setlist_index - 1])) {
         $previous_song_id = $setlist_ids[$setlist_index - 1];
         $previous_setlist_index = $setlist_index - 1;
-        echo "<a href='./?page=get_song&song_id={$previous_song_id}&setlist_index={$previous_setlist_index}'><div class='next-prev-song-section left-screen' id='previous-song'><div>&lt;</div></div></a>";
+        echo "<a id='previous-song' href='./?page=get_song&song_id={$previous_song_id}&setlist_index={$previous_setlist_index}'><div class='next-prev-song-section left-screen'><div>&lt;</div></div></a>";
     }
 
     if (isset($setlist_ids[$setlist_index + 1])) {
         $next_song_id = $setlist_ids[$setlist_index + 1];
         $next_setlist_index = $setlist_index + 1;
-        echo "<a href='./?page=get_song&song_id={$next_song_id}&setlist_index={$next_setlist_index}'><div class='next-prev-song-section right-screen' id='next-song'><div>&gt;</div></div></a>";
+        echo "<a id='next-song' href='./?page=get_song&song_id={$next_song_id}&setlist_index={$next_setlist_index}'><div class='next-prev-song-section right-screen'><div>&gt;</div></div></a>";
     }
 }
 

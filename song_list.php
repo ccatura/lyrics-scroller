@@ -23,27 +23,17 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </a> 
                     <div class='option-item-section'>
                         <a href='./?page=create_edit&song_id={$id}'><div>EDIT</div></a>
-                        <div class='add-to-setlist fake-link' id='song_{$id}' song_title='{$title_stripped}'>+SETLIST</div>
-                    </div>";
+                        <div class='add-to-setlist fake-link' id='song_{$id}' song_title='{$title_stripped}'>Add to: 
+
+
+                        <select class='dropdown' song_name='{$title_stripped}'><option value='null'>Setlist</option>";
+                        $result_setlist = get_setlists();
+                        while ($row = mysqli_fetch_assoc($result_setlist)) {
+                            $setlist_title  = $row['title'];
+                            $setlist_id     = $row['id'];
+                        
+                            $html .= "<option class='options' value='{$setlist_id}-{$id}'>{$setlist_title} ({$setlist_id})</option>";
+                        }
+                        $html .= "</select></div></div>";
 }
-echo $html;
-
-
-
-
-// Get little  setlist window
-$html = '';
-$result_setlist = get_setlists();
-$user_name      = $_SESSION['user_name'];
-
-echo "<div class='small-section floating' id='floating-setlists'>Add <span id='song-title'></span> to Setlist:";
-
-while ($row = mysqli_fetch_assoc($result_setlist)) {
-    $setlist_title  = $row['title'];
-    $setlist_id     = $row['id'];
-
-    $html .= "<div class='click-list-item fake-link setlist-to-add-it-to' id='setlist_{$setlist_id}'>{$setlist_title} ({$setlist_id})</div>";
-}
-
-$html .= "</div>";
 echo $html;
