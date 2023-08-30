@@ -27,7 +27,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     $html       .= "<a class='click-list-item' href='./?page=setlist&setlist_id={$setlist_id}'>
                         <div class='click-list-inner-title'>{$setlist_title}</div> 
-                        <div class='click-list-inner-sub-title'>({$setlist_id})</div>
+                        <div class='click-list-inner-sub-title'>(ID: {$setlist_id}) (Songs: 5)</div>
                     </a>";
 }
 

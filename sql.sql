@@ -31,10 +31,11 @@ CREATE TABLE setlist_links (
     user_name   VARCHAR(32) NOT NULL,
     setlist_id  INT NOT NULL,
     song_id     INT NOT NULL,
-    song_order  INT NOT NULL,
+    song_order  INT NOT NULL auto_increment,
     FOREIGN KEY (user_name) REFERENCES users (user_name),
     FOREIGN KEY (setlist_id) REFERENCES setlists (id),
     FOREIGN KEY (song_id) REFERENCES songs (id),
+    KEY `song_order` (`song_order`),
     CONSTRAINT uq_setlist_item UNIQUE(setlist_id, song_order)
 );
 

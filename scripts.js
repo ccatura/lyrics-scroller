@@ -10,6 +10,7 @@ var addToSetlistBtns    = document.getElementsByClassName('add-to-setlist');
 var setlistBtns         = document.getElementsByClassName('setlist-to-add-it-to');
 var songIDToAdd;
 
+// Add to setlist
 for (var i = 0; i < addToSetlistBtns.length; i++) {
     addToSetlistBtns[i].addEventListener('click', (e)=> {
         songTitle.innerText = "\"" + e.target.getAttribute('song_title') + "\"";
@@ -18,24 +19,27 @@ for (var i = 0; i < addToSetlistBtns.length; i++) {
         console.log('Song ID to add: ' + songIDToAdd);
     });
 }
-
 for (var i = 0; i < setlistBtns.length; i++) {
     setlistBtns[i].addEventListener('click', (e)=> {
         var setlistToAddItTo = e.target.id;
         console.log('Add ' + songIDToAdd + ' to ' + setlistToAddItTo);
+        var songID = songIDToAdd.substring(songIDToAdd.lastIndexOf("_") + 1);
+        var setlistID = setlistToAddItTo.substring(setlistToAddItTo.lastIndexOf("_") + 1);
+        var queryString = `INSERT INTO setlist_links (\`user_name\`, \`setlist_id\`, \`song_id\`) VALUES ('ccatura', '${setlistID}', '${songID}');`;
+        console.log(queryString);
     });
 }
 
+// Open and close the dropdown menu
 menuToggle.addEventListener('click', ()=> {
     menu.style.display = 'flex';
 });
-
 menuCloseBtn.addEventListener('click', ()=> {
     menuClose();
 });
 
 
-
+// Only scroller page actions
 if (pageType == 'scroller') {
     var body                    = document.getElementsByTagName("BODY")[0];
     var saveSongSettingsMobile  = document.getElementById('save-song-settings-mobile');

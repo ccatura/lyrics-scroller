@@ -378,7 +378,8 @@ a:hover,
     padding-right: 10px;
 }
 
-#popup-dark-screen {
+#popup-dark-screen,
+#setlist-popup-dark-screen {
     display: none;
     position: fixed;
     opacity: 0;
