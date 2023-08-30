@@ -5,40 +5,7 @@ var menuToggle           = document.getElementById('menu-toggle');
 var menu                 = document.getElementById('menu');
 var menuCloseBtn         = document.getElementById('close-menu');
 var dropdowns            = document.getElementsByClassName('dropdown');
-var removeFromSetlistBtn = document.getElementsByClassName('remove-from-setlist');
 
-// Handle removing song from setlist
-for (var i = 0; i < removeFromSetlistBtn.length; i++) {
-    removeFromSetlistBtn[i].addEventListener('click', (e)=> {
-        // var selectionValue      = e.target.value; // Contains setlist id and song id in format: setlist_id-song_id. Example: 21-12
-        var setlistID           = e.target.getAttribute('setlist_id');
-        var songOrder           = e.target.getAttribute('song_order');
-        // var setlistName         = e.target.options[e.target.selectedIndex].innerText;
-        // var songName            = e.target.getAttribute('song_name');
-        var queryString         = `DELETE FROM setlist_links WHERE setlist_id = '${setlistID}' AND song_order = '${songOrder}';`;
-        var message             = `Song deleted from setlist`;
-        var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
-        // e.target.selectedIndex = 0; // Reset select option after choice made
-        doAjax(queryStringArray, './run_query.php');
-        console.log(setlistID + ' ' + songOrder);
-    });
-}
-// Handle dropdowns for adding to setlists
-for (var i = 0; i < dropdowns.length; i++) {
-    dropdowns[i].addEventListener('change', (e)=> {
-        var selectionValue      = e.target.value; // Contains setlist id and song id in format: setlist_id-song_id. Example: 21-12
-        var setlistID           = selectionValue.split('-')[0];
-        var songID              = selectionValue.split('-')[1];
-        var setlistName         = e.target.options[e.target.selectedIndex].innerText;
-        var songName            = e.target.getAttribute('song_name');
-        var queryString         = `INSERT INTO setlist_links (\`user_name\`, \`setlist_id\`, \`song_id\`) VALUES ('ccatura', '${setlistID}', '${songID}');`;
-        var message             = `'${songName}' added to setlist '${setlistName}'.`;
-        var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
-        e.target.selectedIndex = 0; // Reset select option after choice made
-        doAjax(queryStringArray, './run_query.php');
-        // console.log(queryString);
-    });
-}
 
 // Open and close the dropdown menu
 menuToggle.addEventListener('click', ()=> {
@@ -47,6 +14,45 @@ menuToggle.addEventListener('click', ()=> {
 menuCloseBtn.addEventListener('click', ()=> {
     menuClose();
 });
+
+if (pageType == 'setlist') {
+    // Handle removing song from setlist
+    var removeFromSetlistBtn = document.getElementsByClassName('remove-from-setlist');
+    for (var i = 0; i < removeFromSetlistBtn.length; i++) {
+        removeFromSetlistBtn[i].addEventListener('click', (e)=> {
+            var setlistID           = e.target.getAttribute('setlist_id');
+            var songOrder           = e.target.getAttribute('song_order');
+            var queryString         = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND setlist_id = '${setlistID}' AND song_order = '${songOrder}';`;
+            var message             = ``;
+            var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
+            doAjax(queryStringArray, './run_query.php');
+            document.getElementById(setlistID + '-' + songOrder).outerHTML = ""; // Remove the item
+            e.target.outerHTML = ""; // Remove the target text clicked on
+            console.log(setlistID + ' ' + songOrder);
+        });
+    }
+}
+
+if (pageType == 'song_list') {
+    // Handle dropdowns for adding to setlists
+    for (var i = 0; i < dropdowns.length; i++) {
+        dropdowns[i].addEventListener('change', (e)=> {
+            var selectionValue      = e.target.value; // Contains setlist id and song id in format: setlist_id-song_id. Example: 21-12
+            var setlistID           = selectionValue.split('-')[0];
+            var songID              = selectionValue.split('-')[1];
+            var setlistName         = e.target.options[e.target.selectedIndex].innerText;
+            var songName            = e.target.getAttribute('song_name');
+            var queryString         = `INSERT INTO setlist_links (\`user_name\`, \`setlist_id\`, \`song_id\`) VALUES ('ccatura', '${setlistID}', '${songID}');`;
+            var message             = `'${songName}' added to setlist '${setlistName}'.`;
+            var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
+            e.target.selectedIndex = 0; // Reset select option after choice made
+            doAjax(queryStringArray, './run_query.php');
+            // console.log(queryString);
+        });
+    }
+}
+
+
 
 
 // Only scroller page actions
@@ -374,7 +380,9 @@ function doAjax(data, script) {
     xhr.open("POST", script);
     xhr.onload = function () {
         console.log(this.response);
-        popupAlert('Alert:', this.response, 2);
+        if (this.response) { // If message is blank, don't show popupalert
+            popupAlert('Alert:', this.response, 2);
+        }
     };
     xhr.send(JSON.stringify(data));
 }
