@@ -15,10 +15,12 @@ $result = mysqli_query($conn,  "SELECT songs.title as 'song_title', setlist_link
                                 WHERE setlist_links.setlist_id = '{$setlist_id}'
                                 AND setlist_links.user_name = '{$user_name}' ORDER BY song_order;");
 
+
 $setlist_index = 1;
 while ($row = mysqli_fetch_assoc($result)) {
     $title          = $row['song_title'];
     $setlist_title  = $row['setlist_title'];
+    
     $song_id        = $row['song_id'];
     $song_order     = $row['song_order'];
     $setlist_array += [$setlist_index => $song_id];

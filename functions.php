@@ -173,6 +173,19 @@ function get_song_list() {
     return mysqli_query($conn,"SELECT `title`, `sub_title`, `id` FROM `songs` WHERE `user_name` = '{$user_name}' ORDER BY `title` ");
 }
 
+function set_list_song_count($setlist_id) {
+    $conn       = $_SESSION['conn'];
+    $user_name  = $_SESSION['user_name'];
+    $result     = mysqli_query($conn,  "SELECT count(*) as 'count' FROM setlist_links
+                                        WHERE setlist_id = $setlist_id;");
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $output = $row['count'];
+    }
+
+    return $output;
+}
+
 
 
 

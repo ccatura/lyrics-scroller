@@ -249,14 +249,15 @@ a:hover,
     margin-bottom: .5em;
 }
 
-.click-list-section {
-    display: flex;
-    flex-flow: column wrap;
+.add-to-setlist {
+        
 }
 
 .click-list-item {
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
     font-weight: bold;
     background-color: rgb(75, 75, 75);
     padding: 5px 10px;
@@ -266,32 +267,25 @@ a:hover,
     gap: 20px;
 }
 
-.option-item-section {
+.click-list-inner-left {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
-    gap: 2em;
+    flex-flow: column nowrap;
 }
 
-.click-list-inner-title {
+.click-list-inner-right {
+
+}
+
+.click-list-title {
     display: flex;
-    /* justify-content: center; */
-    align-items: center;
-    min-width: 300px;
+    flex-flow: column;
     font-size: 24px;
 }
 
-.click-list-inner-sub-title {
+.click-list-sub-title {
     display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 20px;
 }
-
-/* .to-right {
-    margin-left: auto;
-    margin-right: 0;
-} */
 
 .menu {
     display: none;
@@ -469,28 +463,30 @@ a:hover,
     }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 900px) {
     .click-list-item {
         flex-flow: column nowrap;
-        background-color: rgb(75, 75, 75);
-        padding: 5px 10px;
-        margin-top: 10px;
-        gap: 5px;
+        /* justify-content: center; */
+        align-items: center;
     }
 
-    .click-list-inner-sub-title {
+    .click-list-sub-title {
         font-size: 14px;
+        justify-content: center;
     }
 
-    .outer-el {
-        /* min-width: 80px; */
-        /* font-size: 14px; */
-    }
-
-    .click-list-inner-title {
-        min-width: 200px;
+    .click-list-title {
+        text-align: center;
         font-size: 18px;
         justify-content: center;
+    }
+
+    .click-list-inner-right {
+        text-align: center;
+    }
+
+    .add-to-setlist {
+        
     }
 }
 
