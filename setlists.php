@@ -2,18 +2,27 @@
 <div class='small-section'>
     <span class='section-title'>Create Setlist</span>
     <form>
-        <input type='text' placeholder='User Name' />
-        <a href='./?page=song_list'>Create</a>
+        <input type='text' placeholder='User Name' id='setlist-title' />
+        <a href='' id='setlist-href'>Create</a>
     </form>
 </div>
 
+<!-- Rewrite this to be better, with buttons and everything -->
+<script>
+var setlistTitle = document.getElementById('setlist-title');
+var setlistHREF = document.getElementById('setlist-href');
 
+setlistTitle.addEventListener('change', ()=> {
+    setlistHREF.href = './?page=create_setlist&setlist_title=' + setlistTitle.value;
+});
+
+</script>
 
 <?php
 
 unset($_SESSION['song_object']);
 $_SESSION['draft']  = false;
-$result             = get_setlists();
+$result             = get_setlists('id');
 $user_name          = $_SESSION['user_name'];
 
 $html = "

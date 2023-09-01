@@ -161,10 +161,10 @@ function get_song_settings($song_id, $setting, $platform) {
     return $output;
 }
 
-function get_setlists() {
+function get_setlists($order_by) {
     $conn       = $_SESSION['conn'];
     $user_name  = $_SESSION['user_name'];
-    return mysqli_query($conn,"SELECT `title`, `id` FROM `setlists` WHERE `user_name` = '{$user_name}' ORDER BY `title` ");
+    return mysqli_query($conn,"SELECT `title`, `id` FROM `setlists` WHERE `user_name` = '{$user_name}' ORDER BY `$order_by` ");
 }
 
 function get_song_list() {
