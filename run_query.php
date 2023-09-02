@@ -24,7 +24,7 @@ $user_name  = $_SESSION['user_name'];
 // var_dump($data);
 
 foreach($data_array as $key => $value) {
-    if ($key == 'sql') {
+    if (str_contains($key, 'sql')) {
         $query = $value;
         $result = mysqli_query($conn, "{$query}");
     } elseif ($key == 'message') {

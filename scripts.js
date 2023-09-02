@@ -27,8 +27,27 @@ if (pageType == 'setlist') {
             var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
             doAjax(queryStringArray, './run_query.php');
             document.getElementById(setlistID + '-' + songOrder).outerHTML = ""; // Remove the item
-            e.target.outerHTML = ""; // Remove the target text clicked on
+            e.target.outerHTML = ""; // Removes the target text that was clicked on
             console.log(setlistID + ' ' + songOrder);
+        });
+    }
+}
+
+if (pageType == 'setlists') {
+    // Handle removing setlist
+    var deleteSetlistBtn = document.getElementsByClassName('delete-setlist');
+    for (var i = 0; i < deleteSetlistBtn.length; i++) {
+        deleteSetlistBtn[i].addEventListener('click', (e)=> {
+
+            var setlistID           = e.target.getAttribute('setlist_id');
+            var queryString1        = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND setlist_id = '${setlistID}';`;
+            var queryString2        = `DELETE FROM setlists WHERE user_name = 'ccatura' AND id = '${setlistID}';`;
+            var message             = ``;
+            // If key has the word 'sql' in it, it will execute a separate sql query: sql1, sql2, sql3, etc
+            var queryStringArray    = `{"sql1" : "${queryString1}", "sql2" : "${queryString2}", "message" : "${message}"}`;
+            doAjax(queryStringArray, './run_query.php');
+            document.getElementById(setlistID).outerHTML = ""; // Remove the item
+            console.log(setlistID);
         });
     }
 }

@@ -35,11 +35,15 @@ while ($row = mysqli_fetch_assoc($result)) {
     $song_count     = set_list_song_count($setlist_id);
 
 
-    $html       .= "<div class='click-list-item'>
+    $html       .= "<div class='click-list-item' id='{$setlist_id}'>
                         <a class='click-list-iner-left' href='./?page=setlist&setlist_id={$setlist_id}'>
                             <div class='click-list-title'>{$setlist_title} ({$song_count})</div> 
                             <div class='click-list-sub-title'>(ID: {$setlist_id})</div>
                         </a>
+                        <div class='click-list-inner-right'>
+                            <a href='./?page=create_edit&song_id={$id}''>EDIT</a>
+                            <div class='option-item-section fake-link delete-setlist' setlist_id='{$setlist_id}'>Delete Setlist</div>
+                        </div>
                     </div>";
 }
 
