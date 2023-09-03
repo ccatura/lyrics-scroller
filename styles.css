@@ -169,13 +169,14 @@ a:hover,
     box-shadow: 0 0 10px black;
 } */
 
-.dropdown {
-    background-color: var(--background-color-content);
+.dropdown,
+#dropdown {
+    background-color: var(--menu-color);
     font-size: 16px;
     font-family: monospace;
     color: white;
     border: none;
-    border-bottom: 1px dotted white;
+    /* border-bottom: 1px dotted white; */
 }
 
 .section-title {
@@ -184,6 +185,7 @@ a:hover,
     position: relative;
     top: -28px;
     background-color: gray;
+    margin-right: auto;
 }
 
 .song-section {

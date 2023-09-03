@@ -4,7 +4,6 @@ var pageType = (params.get('page'));
 var menuToggle           = document.getElementById('menu-toggle');
 var menu                 = document.getElementById('menu');
 var menuCloseBtn         = document.getElementById('close-menu');
-var dropdowns            = document.getElementsByClassName('dropdown');
 
 
 // Open and close the dropdown menu
@@ -31,6 +30,23 @@ if (pageType == 'setlist') {
             console.log(setlistID + ' ' + songOrder);
         });
     }
+
+        // Handle dropdowns for adding song to setlist from setlist page
+        var dropdowns = document.getElementById('dropdown');
+        dropdowns.addEventListener('change', (e)=> {
+            var selectionValue      = e.target.value; // Contains setlist id and song id in format: setlist_id-song_id. Example: 21-12
+            var setlistID           = selectionValue.split('-')[0];
+            var songID              = selectionValue.split('-')[1];
+            var setlistName         = e.target.getAttribute('setlist_title');
+            var songName            = e.target.options[e.target.selectedIndex].innerText;
+            var queryString         = `INSERT INTO setlist_links (\`user_name\`, \`setlist_id\`, \`song_id\`) VALUES ('ccatura', '${setlistID}', '${songID}');`;
+            // var message             = `'${songName}' added to setlist '${setlistName}'.`;
+            var message             = ``;
+            var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
+            e.target.selectedIndex  = 0; // Reset select option after choice made
+            doAjax(queryStringArray, './run_query.php');
+            location.reload();
+        });
 }
 
 if (pageType == 'setlists') {
@@ -38,7 +54,6 @@ if (pageType == 'setlists') {
     var deleteSetlistBtn = document.getElementsByClassName('delete-setlist');
     for (var i = 0; i < deleteSetlistBtn.length; i++) {
         deleteSetlistBtn[i].addEventListener('click', (e)=> {
-
             var setlistID           = e.target.getAttribute('setlist_id');
             var queryString1        = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND setlist_id = '${setlistID}';`;
             var queryString2        = `DELETE FROM setlists WHERE user_name = 'ccatura' AND id = '${setlistID}';`;
@@ -50,10 +65,18 @@ if (pageType == 'setlists') {
             console.log(setlistID);
         });
     }
+
+    // Creates setlist
+    var setlistTitle  = document.getElementById('setlist-title');
+    var setlistAction = document.getElementById('setlist-action');
+    setlistTitle.addEventListener('input', ()=> {
+        setlistAction.action = './?page=create_setlist&setlist_title=' + setlistTitle.value;
+    });
 }
 
 if (pageType == 'song_list') {
     // Handle dropdowns for adding to setlists
+    var dropdowns = document.getElementsByClassName('dropdown');
     for (var i = 0; i < dropdowns.length; i++) {
         dropdowns[i].addEventListener('change', (e)=> {
             var selectionValue      = e.target.value; // Contains setlist id and song id in format: setlist_id-song_id. Example: 21-12

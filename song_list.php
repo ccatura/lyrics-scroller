@@ -27,7 +27,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div class='add-to-setlist fake-link' id='song_{$id}' song_title='{$title_stripped}'>Add to: 
 
 
-                            <select class='dropdown' song_name='{$title_stripped}'><option value='null'>Setlist</option>";
+                            <select class='dropdown' song_name='{$title_stripped}'><option value='null'>[Select Setlist]</option>";
                             $result_setlist = get_setlists();
                             while ($row = mysqli_fetch_assoc($result_setlist)) {
                                 $setlist_title  = $row['title'];

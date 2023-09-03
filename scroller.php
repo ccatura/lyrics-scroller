@@ -29,7 +29,7 @@ if (isset($_SESSION['draft'])) {
     }
 }
 
-
+echo " Song #{$setlist_index}";
 echo lyrics_formatter($song);
 
 ?>

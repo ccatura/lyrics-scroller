@@ -1,22 +1,11 @@
 
 <div class='small-section'>
     <span class='section-title'>Create Setlist</span>
-    <form>
+    <form id='setlist-action' method='post'>
         <input type='text' placeholder='User Name' id='setlist-title' />
-        <a href='' id='setlist-href'>Create</a>
+        <input type="submit" value='Create'>
     </form>
 </div>
-
-<!-- Rewrite this to be better, with buttons and everything -->
-<script>
-var setlistTitle = document.getElementById('setlist-title');
-var setlistHREF = document.getElementById('setlist-href');
-
-setlistTitle.addEventListener('change', ()=> {
-    setlistHREF.href = './?page=create_setlist&setlist_title=' + setlistTitle.value;
-});
-
-</script>
 
 <?php
 
