@@ -13,7 +13,7 @@
 $id = $_GET['song_id'];
 
 
-$curl = getResults("https://genius-song-lyrics1.p.rapidapi.com/song/lyrics/?id={$id}");
+$curl = get_search_results("https://genius-song-lyrics1.p.rapidapi.com/song/lyrics/?id={$id}");
 $response = curl_exec($curl);
 $err = curl_error($curl);
 curl_close($curl);
@@ -42,8 +42,8 @@ if ($err) {
 
 	$_SESSION['draft'] = true;
 
-	header("Location: ./?page=scroller");
-
+	// header("Location: ./?page=scroller");
+	echo "<script>window.location.href('./?page=scroller');";
 
 
 }

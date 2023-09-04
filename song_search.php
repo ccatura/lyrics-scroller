@@ -16,7 +16,7 @@ if (isset($_GET['term'])) {
 	$term = "phil-collins";
 }
 
-$curl = getResults("https://genius-song-lyrics1.p.rapidapi.com/search/?q={$term}&per_page=50&page=1");
+$curl = get_search_results("https://genius-song-lyrics1.p.rapidapi.com/search/?q={$term}&per_page=50&page=1");
 $response = curl_exec($curl);
 $err = curl_error($curl);
 curl_close($curl);

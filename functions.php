@@ -5,13 +5,18 @@ function lyrics_formatter($song) {
     $title      = $song->title;
     $sub_title  = $song->sub_title;
     $id         = $song->id;
-
-    // $lyrics_string = $lyrics_raw; // this is temporary for incoming APIs until i can reformat them automatically
     
-    if (check_format($lyrics_raw)) {
-        $lyrics_string = addHTMLtoFormattedLyrics($lyrics_raw);
+// var_dump(make_compliant($lyrics_raw));
+
+    if (check_compliance($lyrics_raw)) {
+        $lyrics_string = add_html_to_compliant_lyrics($lyrics_raw);
     } else {
-        $lyrics_string = addHTMLtoUnformattedLyrics($lyrics_raw);
+        $lyrics_compliant   = make_compliant($lyrics_raw);
+        $lyrics_string      = add_html_to_compliant_lyrics($lyrics_compliant);
+        // var_dump($lyrics_string);
+        // $song->set_lyrics($lyrics_string);
+        // $_SESSION['song_object'] = $song;
+        // $lyrics_string = add_html_to_non_compliant_lyrics($lyrics_raw);
     }
 
     // Put together the part titles and lyrics into the HTML
@@ -22,15 +27,19 @@ function lyrics_formatter($song) {
                     </div>
                     {$lyrics_string}";
     return $final_lyrics;
+    // var_dump($lyrics_string);
 }
 
-function addHTMLtoFormattedLyrics($lyrics_raw) {
+function add_html_to_compliant_lyrics($lyrics_raw) {
     $lyrics_array = preg_split('/\n|\r\n?/', $lyrics_raw); // Splits by the end of lines
     $lyrics_string = '';
+
+
     foreach ($lyrics_array as $key => $value) {
         preg_match('#\[(.*?)\]#', $value, $part_title);
 
         if ($part_title[0] && $part_title[1] != '!!end_part!!') {
+            // $lyrics_string .='1st - ';
             if ($part_title[1] == 'untitled') {
                 $part_title[1] = '';
             }
@@ -42,21 +51,22 @@ function addHTMLtoFormattedLyrics($lyrics_raw) {
             $lyrics_string .= "<div class='song-part-outer {$chorus}'><div class='song-part'>
                                 <span class='song-part-title'>{$part_title[1]}</span>
                                 <span class='song-part-content'>";
-        } elseif ($part_title[0] && $part_title[1] == '!!end_part!!') {
+        } elseif ($part_title[0] && str_contains($part_title[1], '!!end_part!!')) {
+            // $lyrics_string .='2nd - ';
             $lyrics_string .= "</span>
                             </div></div>";
         } else {
+            // $lyrics_string .='3rd - ';
             $lyrics_string .= $value . '<br>';
         }
     }
     return $lyrics_string;
 }
 
-function addHTMLtoUnformattedLyrics($lyrics_raw) {
+function add_html_to_non_compliant_lyrics($lyrics_raw) {
     $lyrics_array = preg_split('/\n|\r\n?/', $lyrics_raw); // Splits by the end of lines
     $lyrics_string = '';
     $in_part = false;
-
 
     foreach ($lyrics_array as $key => $value) {
         preg_match('#\[(.*?)\]#', $value, $part_title);
@@ -93,24 +103,53 @@ function addHTMLtoUnformattedLyrics($lyrics_raw) {
 }
 
 // Checks if lyrics have the correct format
-function check_format($lyrics_raw) {
+function check_compliance($lyrics_raw) {
 
     if (strpos($lyrics_raw, '!!end_part!!')) { 
         return true;
     } else {
         return false;
     }
-
-
     return false;
 }
+
+function make_compliant($lyrics_raw) {
+
+    $lyrics_array = preg_split('/\n|\r\n?/', trim($lyrics_raw)); // Splits by the end of lines
+    foreach ($lyrics_array as $key => $value) {
+
+        preg_match('#\[(.*?)\]#', $value, $part_title);
+
+
+        
+        if ($part_title[0] && $part_title[1] != '!!end_part!!') {
+            // $lyrics_string .= 'if - ' . $value.'<br>';
+            $lyrics_string .= strip_tags($value) . "\r\n";
+        } elseif (strlen($value) < 5) {
+            $lyrics_string .= "[!!end_part!!]\r\n";
+        } else {
+            $lyrics_string .= strip_tags($value) . "\r\n";
+        }
+    }
+// var_dump($lyrics_string);
+    return $lyrics_string;
+}
+
+
+
+
+
+
+
+
+
 
 function song_create_edit($song_id = 'no song') {
     echo $song_id;
 }
 
 // Gets RapidAPI Results
-function getResults($query_string) {
+function get_search_results($query_string) {
 	include('./rapidapi_key.php');
 	$curl = curl_init();
 	curl_setopt_array($curl, [
