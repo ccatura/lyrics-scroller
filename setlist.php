@@ -31,14 +31,14 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div class='click-list-title'>{$setlist_index}) {$title} (Song ID: {$song_id})</div> 
                         </a>
                         <div class='click-list-inner-right'>
-                            <div class='option-item-section fake-link remove-from-setlist' setlist_id='{$setlist_id}' song_order='{$song_order}'>Remove from Setlist</div>
+                            <div onclick='popupAlert(`Warning!`,`The song {$title} will be removed from setlist {$setlist_title}!`,``,`removeSongFromSetlist`, this);' class='option-item-section fake-link delete-setlist' setlist_id='{$setlist_id}' setlist_title='{$setlist_title}' class='option-item-section fake-link remove-from-setlist' setlist_id='{$setlist_id}' song_order='{$song_order}'>Remove from Setlist</div>
                         </div>
                     </div>";
     $setlist_index++;
 }
 
 $result_songlist = get_song_list();
-$songlist .= "<select id='dropdown' setlist_title='{$setlist_title}'><option value='null'>[Select Song]</option>";
+$songlist .= "<select class='dropdown' setlist_title='{$setlist_title}'><option value='null'>[Select Song]</option>";
 while ($row = mysqli_fetch_assoc($result_songlist)) {
     $song_title  = $row['title'];
     $song_id     = $row['id'];

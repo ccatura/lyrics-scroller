@@ -15,25 +15,10 @@ menuCloseBtn.addEventListener('click', ()=> {
 });
 
 if (pageType == 'setlist') {
-    // Handle removing song from setlist
-    var removeFromSetlistBtn = document.getElementsByClassName('remove-from-setlist');
-    for (var i = 0; i < removeFromSetlistBtn.length; i++) {
-        removeFromSetlistBtn[i].addEventListener('click', (e)=> {
-            var setlistID           = e.target.getAttribute('setlist_id');
-            var songOrder           = e.target.getAttribute('song_order');
-            var queryString         = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND setlist_id = '${setlistID}' AND song_order = '${songOrder}';`;
-            var message             = ``;
-            var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
-            doAjax(queryStringArray, './run_query.php');
-            document.getElementById(setlistID + '-' + songOrder).outerHTML = ""; // Remove the item
-            e.target.outerHTML = ""; // Removes the target text that was clicked on
-            console.log(setlistID + ' ' + songOrder);
-        });
-    }
-
-        // Handle dropdowns for adding song to setlist from setlist page
-        var dropdowns = document.getElementById('dropdown');
-        dropdowns.addEventListener('change', (e)=> {
+    // Handle dropdowns for adding song to setlist from setlist page
+    var dropdowns = document.getElementsByClassName('dropdown');
+    for (var i = 0; i < dropdowns.length; i++) {
+        dropdowns[i].addEventListener('change', (e)=> {
             var selectionValue      = e.target.value; // Contains setlist id and song id in format: setlist_id-song_id. Example: 21-12
             var setlistID           = selectionValue.split('-')[0];
             var songID              = selectionValue.split('-')[1];
@@ -47,25 +32,10 @@ if (pageType == 'setlist') {
             doAjax(queryStringArray, './run_query.php');
             location.reload();
         });
+    }
 }
 
 if (pageType == 'setlists') {
-    // Handle removing setlist
-    var deleteSetlistBtn = document.getElementsByClassName('delete-setlist');
-    for (var i = 0; i < deleteSetlistBtn.length; i++) {
-        deleteSetlistBtn[i].addEventListener('click', (e)=> {
-            var setlistID           = e.target.getAttribute('setlist_id');
-            var queryString1        = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND setlist_id = '${setlistID}';`;
-            var queryString2        = `DELETE FROM setlists WHERE user_name = 'ccatura' AND id = '${setlistID}';`;
-            var message             = ``;
-            // If key has the word 'sql' in it, it will execute a separate sql query: sql1, sql2, sql3, etc
-            var queryStringArray    = `{"sql1" : "${queryString1}", "sql2" : "${queryString2}", "message" : "${message}"}`;
-            doAjax(queryStringArray, './run_query.php');
-            document.getElementById(setlistID).outerHTML = ""; // Remove the item
-            console.log(setlistID);
-        });
-    }
-
     // Creates setlist
     var setlistTitle  = document.getElementById('setlist-title');
     var setlistAction = document.getElementById('setlist-action');
@@ -262,7 +232,6 @@ if (pageType == 'song_search') {
 
 }
 
-
 function moveScroll() {
     window.scrollBy(0, 1);
 }
@@ -375,7 +344,7 @@ function menuClose() {
 
 // For 'ok' and 'cancel' buttons, timing must be 0.
 // For no buttons, timing must be > 0. Timing is in seconds: 1 = 1 second, etc.
-function popupAlert(title, message, timing) {
+function popupAlert(title, message, timing, action, element) {
     timing *= 1000;
     var popupAlertELement   = document.getElementById('popup-dark-screen');
     var popupTitle          = document.getElementById('popup-title');
@@ -383,17 +352,18 @@ function popupAlert(title, message, timing) {
     var popupButtonSection  = document.getElementById('popup-buttons');
     var popupOkButton       = document.getElementById('popup-ok');
     var popupCancelButton   = document.getElementById('popup-cancel');
+    var answer;
 
     popupTitle.innerText = title;
     popupMessage.innerText = message;
 
-
-
+    // Makes popup appear
     popupAlertELement.style.display = 'block';
     setTimeout(() => {
         popupAlertELement.style.opacity = '1';
     }, 500);
 
+    // Makes popup disappear if timing is set
     if (timing > 0) {
         popupButtonSection.style.display = 'none';
         setTimeout(() => {
@@ -403,6 +373,11 @@ function popupAlert(title, message, timing) {
 
     popupOkButton.onclick = function() {
         popupClose(popupAlertELement);
+        if (action == 'deleteSetlist') {
+            deleteSetlist(element);
+        } else if (action == 'removeSongFromSetlist') {
+            removeSongFromSetlist(element);
+        }
     }
     
     popupCancelButton.onclick = function() {
@@ -429,29 +404,31 @@ function doAjax(data, script) {
     xhr.send(JSON.stringify(data));
 }
 
+function deleteSetlist(element) {
+    var setlistID           = element.getAttribute('setlist_id');
+    var queryString1        = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND setlist_id = '${setlistID}';`; // Removes all songs from setlist first
+    var queryString2        = `DELETE FROM setlists WHERE user_name = 'ccatura' AND id = '${setlistID}';`;
+    var message             = ``;
+    // If key has the word 'sql' in it, it will execute a separate sql query: sql1, sql2, sql3, etc
+    var queryStringArray    = `{"sql1" : "${queryString1}", "sql2" : "${queryString2}", "message" : "${message}"}`;
+    doAjax(queryStringArray, './run_query.php');
+    document.getElementById(setlistID).outerHTML = ""; // Remove the item
+    console.log('Deleted setlist');
+}
+
+function removeSongFromSetlist(element) {
+    var setlistID           = element.getAttribute('setlist_id');
+    var songOrder           = element.getAttribute('song_order');
+    var queryString         = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND setlist_id = '${setlistID}' AND song_order = '${songOrder}';`;
+    var message             = ``;
+    var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
+    doAjax(queryStringArray, './run_query.php');
+    document.getElementById(setlistID + '-' + songOrder).outerHTML = ""; // Remove the item
+    // e.target.outerHTML = ""; // Removes the target text that was clicked on
+    console.log(songOrder);
+}
 
 
-
-
-
-
-
-// var closeButton         = document.getElementById('close');
-// var popupBlackout       = document.getElementById('popup-blackout');
-// var popupYesButton      = document.getElementById('popup-yes');
-
-// closeButton.addEventListener('click', function() {
-//     popupClose();
-// })
-
-// // Logout button
-// var logoutButton = document.getElementById('logout');
-// logoutButton.addEventListener('click', function() {
-//     var title = 'Logout';
-//     var message = 'Are you sure you want to logout of your account?';
-//     var location  = './?session=false';
-//     popup(title, message, location);
-// })
 
 
 
