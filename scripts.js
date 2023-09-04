@@ -72,7 +72,6 @@ if (pageType == 'scroller') {
     var body                     = document.getElementsByTagName("BODY")[0];
     var saveSongSettingsMobile   = document.getElementById('save-song-settings-mobile');
     var saveSongSettingsDesktop  = document.getElementById('save-song-settings-desktop');
-    var saveToYourSongs          = document.getElementById('save-to-your-songs');
     
     try { // Autoscroll should not work on a song that is not in the user's DB
         var autoScroll           = document.getElementById('auto-scroll');
@@ -125,10 +124,6 @@ if (pageType == 'scroller') {
     var speed               = speedPresets[speedIndex];
 
     updateDisplays(); // Initially setup all displays. Ex: Size, Speed, Autoscroll
-
-    saveToYourSongs.addEventListener('click', ()=>{
-        
-    });
 
     // Keyboard shortcuts: LEFT = Previous Song
     document.onkeyup = function(e) {
