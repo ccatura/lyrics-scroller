@@ -9,7 +9,6 @@
 
 
 <?php
-// session_start();
 $id = $_GET['song_id'];
 
 
@@ -42,8 +41,8 @@ if ($err) {
 
 	$_SESSION['draft'] = true;
 
-	// header("Location: ./?page=scroller");
-	echo "<script>window.location.href('./?page=scroller');";
+	header("Location: ./?page=scroller");
+	echo "<script>window.location.replace('./?page=scroller');</script>";
 
 
 }

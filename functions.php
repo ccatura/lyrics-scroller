@@ -5,18 +5,13 @@ function lyrics_formatter($song) {
     $title      = $song->title;
     $sub_title  = $song->sub_title;
     $id         = $song->id;
-    
-// var_dump(make_compliant($lyrics_raw));
 
     if (check_compliance($lyrics_raw)) {
         $lyrics_string = add_html_to_compliant_lyrics($lyrics_raw);
     } else {
         $lyrics_compliant   = make_compliant($lyrics_raw);
         $lyrics_string      = add_html_to_compliant_lyrics($lyrics_compliant);
-        // var_dump($lyrics_string);
-        // $song->set_lyrics($lyrics_string);
-        // $_SESSION['song_object'] = $song;
-        // $lyrics_string = add_html_to_non_compliant_lyrics($lyrics_raw);
+        $song->set_lyrics($lyrics_compliant);
     }
 
     // Put together the part titles and lyrics into the HTML
@@ -123,7 +118,6 @@ function make_compliant($lyrics_raw) {
 
         
         if ($part_title[0] && $part_title[1] != '!!end_part!!') {
-            // $lyrics_string .= 'if - ' . $value.'<br>';
             $lyrics_string .= strip_tags($value) . "\r\n";
         } elseif (strlen($value) < 5) {
             $lyrics_string .= "[!!end_part!!]\r\n";
@@ -131,7 +125,6 @@ function make_compliant($lyrics_raw) {
             $lyrics_string .= strip_tags($value) . "\r\n";
         }
     }
-// var_dump($lyrics_string);
     return $lyrics_string;
 }
 

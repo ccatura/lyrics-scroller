@@ -18,18 +18,20 @@ if (!$_SESSION['draft']) {
     }
 }
 
-echo 'this is the name of the current setlist';
+// echo 'this is the name of the current setlist';
 
 
 
 
 if (isset($_SESSION['draft'])) {
     if ($_SESSION['draft']) {
-        echo "<input type='button' value='Save Draft and Continue'> <input type='button' value='Edit Draft'>";
+        echo "<form action='./?page=save_to_your_songs' method='post'>";
+        echo "<input type='submit' id='save-to-your-songs' value='Save to Your Songs'>";
+        echo "</form>";
     }
 }
 
-echo " Song #{$setlist_index}";
+// echo " Song #{$setlist_index}";
 echo lyrics_formatter($song);
 // echo make_compliant($song);
 
