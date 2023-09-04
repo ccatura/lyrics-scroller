@@ -111,6 +111,7 @@ function check_compliance($lyrics_raw) {
 function make_compliant($lyrics_raw) {
 
     $lyrics_array = preg_split('/\n|\r\n?/', trim($lyrics_raw)); // Splits by the end of lines
+    $just_ended_part = false;
     foreach ($lyrics_array as $key => $value) {
 
         preg_match('#\[(.*?)\]#', $value, $part_title);
@@ -119,9 +120,15 @@ function make_compliant($lyrics_raw) {
         
         if ($part_title[0] && $part_title[1] != '!!end_part!!') {
             $lyrics_string .= strip_tags($value) . "\r\n";
+            $just_ended_part = false;
         } elseif (strlen($value) < 5) {
             $lyrics_string .= "[!!end_part!!]\r\n";
+            $just_ended_part = true;
         } else {
+            if ($just_ended_part == true) {
+                $lyrics_string .= '[untitled]\r\n';
+                $just_ended_part = false;
+            }
             $lyrics_string .= strip_tags($value) . "\r\n";
         }
     }
