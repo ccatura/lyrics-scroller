@@ -44,7 +44,7 @@ if (pageType == 'setlists') {
     });
 }
 
-if (pageType == 'song_list') {
+if (pageType == 'song_list' || pageType == 'scroller') {
     // Handle dropdowns for adding to setlists
     var dropdowns = document.getElementsByClassName('dropdown');
     for (var i = 0; i < dropdowns.length; i++) {
@@ -442,7 +442,13 @@ function deleteSong(element) {
     console.log(queryString1);
 }
 
+getScreenWidth();
 
+function getScreenWidth() {
+    var screenWidth = document.getElementById('screen-width');
+    // screenWidth.innerText = screen.width;
+    doAjax(screen.width, './set_screen_width.php');
+}
 
 
 

@@ -12,6 +12,20 @@
         if (!$_SESSION['draft']) {
             echo "<a href='./index.php' class='menu-item'><span class='button material-symbols-outlined'>edit</span> Edit This Song</a>";
             echo "<a href='./index.php' class='menu-item'><span class='button material-symbols-outlined'>add</span> Add to Setlist</a>";
+
+            $title_stripped = str_replace('\'', '', $song->title);
+            $id = $song->id;
+            $html = "<select class='dropdown' song_name='{$title_stripped}'><option value='null'>[Select Setlist]</option>";
+            $result_setlist = get_setlists();
+            while ($row = mysqli_fetch_assoc($result_setlist)) {
+                $setlist_title  = $row['title'];
+                $setlist_id     = $row['id'];
+            
+                $html .= "<option class='options' value='{$setlist_id}-{$id}'>{$setlist_title} ({$setlist_id})</option>";
+            }
+            $html .= "</select>";
+            echo $html;
+
             echo "<a href='./index.php' class='menu-item'><span class='button material-symbols-outlined'>delete</span> Delete Song</a>";
         }
     } ?>
@@ -26,4 +40,5 @@
     <hr style='width:100%'>
     <a href='./?page=global_settings' class='menu-item'><span class="button material-symbols-outlined">settings</span> Global Settings</a>
     <a href='./index.php' class='menu-item'><span class="button material-symbols-outlined">logout</span> Logout</a>
+    <div href='./index.php' class='menu-item'><span class="button material-symbols-outlined">computer</span> Screen Width: <span id='screen-width'><?php echo $_SESSION['screen_width'] ?></span></div>
 </div>

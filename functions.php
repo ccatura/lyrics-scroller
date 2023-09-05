@@ -133,6 +133,11 @@ function make_compliant($lyrics_raw) {
     return $lyrics_string;
 }
 
+function get_last_id_from_title($title) {
+    $conn       = $_SESSION['conn'];
+    $user_name  = $_SESSION['user_name'];
+    return mysqli_query($conn,"SELECT id FROM songs WHERE user_name = '{$user_name}' AND title = '{$title}' ORDER BY id DESC LIMIT 1;");
+}
 
 
 
