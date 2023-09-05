@@ -5,6 +5,7 @@ var menuToggle           = document.getElementById('menu-toggle');
 var menu                 = document.getElementById('menu');
 var menuCloseBtn         = document.getElementById('close-menu');
 
+getScreenWidth();
 
 // Open and close the dropdown menu
 menuToggle.addEventListener('click', ()=> {
@@ -70,9 +71,15 @@ if (pageType == 'song_list' || pageType == 'scroller') {
 // Only scroller page actions
 if (pageType == 'scroller') {
     var body                     = document.getElementsByTagName("BODY")[0];
-    var saveSongSettingsMobile   = document.getElementById('save-song-settings-mobile');
-    var saveSongSettingsDesktop  = document.getElementById('save-song-settings-desktop');
-    
+
+    try {
+        var saveSongSettingsMobile   = document.getElementById('save-song-settings-mobile');
+    } catch(e) {}
+
+    try {
+        var saveSongSettingsDesktop  = document.getElementById('save-song-settings-desktop');
+    } catch(e) {}
+
     try { // Autoscroll should not work on a song that is not in the user's DB
         var autoScroll           = document.getElementById('auto-scroll');
         var autoScrollProperties = document.getElementById('auto-scroll-properties');
@@ -213,7 +220,8 @@ if (pageType == 'scroller') {
             saveSongSettings('mobile');
             
         });
-
+    } catch (e) {}
+    try { // Save-settings should not work on a song that is not in the user's DB
         saveSongSettingsDesktop.addEventListener('click', ()=>{
             saveSongSettings('desktop');
         });
@@ -442,7 +450,6 @@ function deleteSong(element) {
     console.log(queryString1);
 }
 
-getScreenWidth();
 
 function getScreenWidth() {
     var screenWidth = document.getElementById('screen-width');

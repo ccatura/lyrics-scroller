@@ -25,3 +25,5 @@ $song->set_id($id);
 $_SESSION['song_object'] = $song;
 
 header("Location: ./?page=scroller");
+
+echo "<script>window.location.replace('./?page=scroller');</script>";

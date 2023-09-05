@@ -7,9 +7,10 @@ unset($_SESSION['setlist_index']);
 unset($_SESSION['setlist_ids']);
 
 $user_name = $_SESSION['user_name'];
+$song_count = song_count();
 $html = "
     <div class='content-section'>
-            <div class='page-title'>Song List</div>";
+            <div class='page-title'><span id='song-count'>{$song_count}</span> Songs</div>";
 
 $result = get_song_list();
 while ($row = mysqli_fetch_assoc($result)) {

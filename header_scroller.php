@@ -13,8 +13,9 @@ $song = $_SESSION['song_object'];
         </div>
 
         <?php
+            $screen_width = $_SESSION['screen_width'];
             // echo get_song_settings($song->id, 'auto_scroll', 'mobile');
-            if (get_song_settings($song->id, 'auto_scroll', 'mobile') == '1') {
+            if (get_song_settings($song->id, 'auto_scroll', $screen_width) == '1') {
                 $auto_scroll_x = 'check_circle';
             } else {
                 $auto_scroll_x = 'circle';
@@ -34,7 +35,7 @@ $song = $_SESSION['song_object'];
 
         <div class="outer-el">
             <div class="button-label">speed:
-                <span class="button-properties" id='speed'><?php echo get_song_settings($song->id, 'speed', 'mobile'); ?></span>
+                <span class="button-properties" id='speed'><?php echo get_song_settings($song->id, 'speed', $screen_width); ?></span>
             </div>
             <div class="button-wrapper">
                 <div class="button material-symbols-outlined" id='speed-down'>do_not_disturb_on</div>
@@ -43,7 +44,7 @@ $song = $_SESSION['song_object'];
         </div>  
         <div class="outer-el">
             <div class="button-label">size:
-                <span class="button-properties" id='size'><?php echo get_song_settings($song->id, 'size', 'mobile'); ?></span>
+                <span class="button-properties" id='size'><?php echo get_song_settings($song->id, 'size', $screen_width); ?></span>
             </div>
             <div class="button-wrapper">
                 <div class="button material-symbols-outlined" id='font-smaller'>do_not_disturb_on</div>

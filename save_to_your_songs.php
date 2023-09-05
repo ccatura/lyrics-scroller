@@ -13,9 +13,9 @@ $_SESSION['draft'] = false;
 
 
 
-$song->set_id(get_last_id_from_title($song->title));
+// $song->set_id(get_last_id_from_title($song->title));
 
 // MAYBE do get song instead, and start fresh. This is being buggy.
 
 
-header("Location: ./?page=scroller");
+header("Location: ./?page=song_list");
