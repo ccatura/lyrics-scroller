@@ -116,8 +116,6 @@ function make_compliant($lyrics_raw) {
 
         preg_match('#\[(.*?)\]#', $value, $part_title);
 
-
-        
         if ($part_title[0] && $part_title[1] != '!!end_part!!') {
             $lyrics_string .= strip_tags($value) . "\r\n";
             $just_ended_part = false;

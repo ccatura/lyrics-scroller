@@ -275,7 +275,11 @@ a:hover,
 }
 
 .click-list-inner-right {
-
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 60px;
 }
 
 .click-list-title {
@@ -305,8 +309,12 @@ a:hover,
 }
 
 .menu-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     margin: .5em 0;
     cursor: pointer;
+    color: white;
 }
 
 .menu-toggle {

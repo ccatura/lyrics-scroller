@@ -3,6 +3,8 @@
 unset($_SESSION['song_object']);
 $_SESSION['draft'] = false;
 unset($_SESSION['setlist_ids']);
+unset($_SESSION['setlist_index']);
+unset($_SESSION['setlist_ids']);
 
 $user_name = $_SESSION['user_name'];
 $html = "
@@ -16,14 +18,15 @@ while ($row = mysqli_fetch_assoc($result)) {
     $id         = $row['id'];
     $title_stripped = str_replace('\'', '', $title);
 
-    $html       .= "<div class='click-list-item'>
+    $html       .= "<div class='click-list-item' id='{$id}'>
                         <a class='click-list-inner-left' href='./?page=get_song&song_id={$id}'>
                             <div class='click-list-title'>{$title}</div> 
                             <div class='click-list-sub-title'>{$sub_title} ({$id})</div>
                         </a>
                     
                         <div class='click-list-inner-right'>
-                            <a href='./?page=create_edit&song_id={$id}''><div>EDIT</div></a>
+                            <div onclick='popupAlert(`Delete Song`,`The song \"{$title_stripped}\" will be permenantly deleted from your account! You cannot undo this action.`,``,`deleteSong`, this);' class='option-item-section fake-link' song_id='$id'>Delete Song</div>
+
                             <div class='add-to-setlist fake-link' id='song_{$id}' song_title='{$title_stripped}'>Add to: 
 
 

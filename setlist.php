@@ -29,10 +29,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     $html       .= "<div class='click-list-item' id='{$setlist_id}-{$song_order}'>
                         <a class='click-list-iner-left' href='./?page=get_song&song_id={$song_id}&setlist_index={$setlist_index}'>
-                            <div class='click-list-title'>{$setlist_index}) {$title} (Song ID: {$song_id})</div> 
+                            <div class='click-list-title'>{$setlist_index}) {$title} (Song ID: {$song_id})</div>
                         </a>
                         <div class='click-list-inner-right'>
-                            <div onclick='popupAlert(`Warning!`,`The song \"{$title_stripped}\" will be removed from setlist \"{$setlist_title}\"!`,``,`removeSongFromSetlist`, this);' class='option-item-section fake-link delete-setlist' setlist_id='{$setlist_id}' setlist_title='{$setlist_title}' class='option-item-section fake-link remove-from-setlist' setlist_id='{$setlist_id}' song_order='{$song_order}'>Remove from Setlist</div>
+                            <div onclick='popupAlert(`Warning!`,`The song \"{$title_stripped}\" will be removed from setlist \"{$setlist_title}\"!`,``,`removeSongFromSetlist`, this);' class='option-item-section fake-link delete-setlist' setlist_id='{$setlist_id}' setlist_title='{$setlist_title}' song_order='{$song_order}'>Remove from Setlist</div>
                         </div>
                     </div>";
     $setlist_index++;
