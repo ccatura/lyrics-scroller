@@ -7,7 +7,7 @@ unset($_SESSION['setlist_index']);
 unset($_SESSION['setlist_ids']);
 
 $user_name = $_SESSION['user_name'];
-$song_count = song_count();
+$song_count = include('./song_count.php');
 $html = "
     <div class='content-section'>
             <div class='page-title'><span id='song-count'>{$song_count}</span> Songs</div>";
@@ -26,7 +26,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </a>
                     
                         <div class='click-list-inner-right'>
-                            <div onclick='popupAlert(`Delete Song`,`The song \"{$title_stripped}\" will be permenantly deleted from your account! You cannot undo this action.`,``,`deleteSong`, this);' class='option-item-section fake-link' song_id='$id'>Delete Song</div>
+                            <div onclick='popupAlert(`Delete Song`,`The song \"{$title_stripped}\" will be permenantly deleted from your account! You cannot undo this action.`,``,`deleteSong`, this);' class='option-item-section fake-link' song_id='$id' user_name='$user_name'>Delete Song</div>
 
                             <div class='add-to-setlist fake-link' id='song_{$id}' song_title='{$title_stripped}'>Add to: 
 

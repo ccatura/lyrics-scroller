@@ -360,7 +360,6 @@ function popupAlert(title, message, timing, action, element) {
     var popupButtonSection  = document.getElementById('popup-buttons');
     var popupOkButton       = document.getElementById('popup-ok');
     var popupCancelButton   = document.getElementById('popup-cancel');
-    var answer;
 
     popupTitle.innerText = title;
     popupMessage.innerText = message;
@@ -440,16 +439,17 @@ function removeSongFromSetlist(element) {
 
 function deleteSong(element) {
     var songID              = element.getAttribute('song_id');
+    var songCount           = document.getElementById('song-count');
     var queryString1        = `DELETE FROM song_settings WHERE user_name = 'ccatura' AND song_id = '${songID}';`;
     var queryString2        = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND song_id = '${songID}';`;
     var queryString3        = `DELETE FROM songs WHERE user_name = 'ccatura' AND id = '${songID}';`;
     var message             = ``;
     var queryStringArray    = `{"sql1" : "${queryString1}", "sql2" : "${queryString2}", "sql3" : "${queryString3}", "message" : "${message}"}`;
     doAjax(queryStringArray, './run_query.php');
+    songCount.innerText = parseInt(songCount.innerText) - 1;
     document.getElementById(songID).outerHTML = ""; // Remove the item
-    console.log(queryString1);
+    console.log(songCount);
 }
-
 
 function getScreenWidth() {
     var screenWidth = document.getElementById('screen-width');

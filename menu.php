@@ -1,9 +1,12 @@
 <div class='menu' id='menu'>
     <a class='menu-item' id='close-menu'>&#10005;</a>
     <!-- <a href='./' class='menu-item'>Home</a> -->
-    <?php $id = $song->id; ?>
-    <a href='./?page=get_song&song_id=<?php echo $id ?>' class='menu-item'><span class="button material-symbols-outlined">refresh</span> Refresh Song</a>
-    <hr style='width:100%'>
+    <?php
+    $id = $song->id; 
+    if ($_GET['page'] == 'scroller') {
+        echo "<a href='./?page=get_song&song_id={$id}' class='menu-item'><span class='button material-symbols-outlined'>refresh</span> Refresh Song</a><hr style='width:100%'>";
+    }
+    ?>
     <a href='./?page=song_list' class='menu-item'><span class="button material-symbols-outlined">music_note</span> Songs</a>
     <a href='./?page=setlists' class='menu-item'><span class="button material-symbols-outlined">queue_music</span> Setlists</a>
     <a href='./?page=song_search' class='menu-item'><span class="button material-symbols-outlined">search</span> Search</a>
