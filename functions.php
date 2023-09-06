@@ -228,7 +228,14 @@ function set_list_song_count($setlist_id) {
     return $output;
 }
 
-
+function get_last_song_id_from_title($title) {
+    $conn       = $_SESSION['conn'];
+    $user_name  = $_SESSION['user_name'];
+    $result     = mysqli_query($conn,"SELECT `id` FROM `songs` WHERE `title` like '{$title}' AND `user_name` = '{$user_name}' ORDER BY id desc LIMIT 1");
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row['id'];
+    }
+}
 
 
 

@@ -33,6 +33,16 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </a>
                         <div class='click-list-inner-right'>
                             <div onclick='popupAlert(`Warning!`,`The song \"{$title_stripped}\" will be removed from setlist \"{$setlist_title}\"!`,``,`removeSongFromSetlist`, this);' class='option-item-section fake-link delete-setlist' setlist_id='{$setlist_id}' setlist_title='{$setlist_title}' song_order='{$song_order}'>Remove from Setlist</div>
+                            <div class='add-to-setlist fake-link' id='song_{$id}' song_title='{$title_stripped}'>Add to:
+                                <select class='dropdown' song_name='{$title_stripped}'><option value='null'>[Select Setlist]</option>";
+                                $result_setlist = get_setlists();
+                                while ($row = mysqli_fetch_assoc($result_setlist)) {
+                                    $setlist_title  = $row['title'];
+                                    $setlist_id     = $row['id'];
+                                
+                                    $html .= "<option class='options' value='{$setlist_id}-{$song_id}'>{$setlist_title} ({$setlist_id})</option>";
+                                }
+                                $html .= "</select></div>
                         </div>
                     </div>";
     $setlist_index++;
