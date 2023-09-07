@@ -38,7 +38,7 @@ function add_html_to_compliant_lyrics($lyrics_raw) {
             if ($part_title[1] == 'untitled') {
                 $part_title[1] = '';
             }
-            if (str_contains(strtolower($part_title[1]), 'chorus')) {
+            if (str_contains(strtolower($part_title[1]), 'chorus') || str_contains(strtolower($part_title[1]), 'refrain')) {
                 $chorus = 'chorus';
             } else {
                 $chorus = '';
@@ -147,9 +147,11 @@ function get_last_id_from_title($title) {
 
 
 
-function song_create_edit($song_id = 'no song') {
-    echo $song_id;
-}
+// function song_create_edit($song_id = 'no song') {
+//     echo $song_id;
+// }
+
+
 
 // Gets RapidAPI Results
 function get_search_results($query_string) {

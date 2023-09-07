@@ -64,7 +64,7 @@ $_SESSION['setlist_index'] = 1;
 echo "<div class='content-section'>
         <div class='click-list-section'>
             <div class='page-title'>Set List: {$setlist_title} ({$setlist_id})</div>
-            <div>Add song to setlist: {$songlist}</div>";
+            <div>Add song to this setlist: {$songlist}</div>";
 
 
 echo $html;

@@ -1,9 +1,9 @@
 <?php
 
-include_once('./db_connect.php');
-include_once('./functions.php');
-include_once('./Song.php');
-session_start();
+// include_once('./db_connect.php');
+// include_once('./functions.php');
+// include_once('./Song.php');
+// session_start();
 
 $_SESSION['conn'] = $conn;
 

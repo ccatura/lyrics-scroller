@@ -30,7 +30,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div class='click-list-sub-title'>(ID: {$setlist_id})</div>
                         </a>
                         <div class='click-list-inner-right'>
-                            <a href='./?page=create_edit&song_id={$id}'>EDIT</a>
+                            <a href='./?page=create_edit_song&song_id={$id}'>EDIT</a>
                             <div onclick='popupAlert(`Warning!`,`The setlist \"{$setlist_title}\" and all its songs will be removed!`,``,`deleteSetlist`, this);' class='option-item-section fake-link delete-setlist' setlist_id='{$setlist_id}' setlist_title='{$setlist_title}'>Delete Setlist</div>
                         </div>
                     </div>";

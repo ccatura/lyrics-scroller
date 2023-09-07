@@ -45,6 +45,35 @@ if (pageType == 'setlists') {
     });
 }
 
+
+
+
+
+
+
+
+
+
+if (pageType == 'create_edit_song') {
+    var songParts = document.querySelectorAll('[type="song-part"]');
+    console.log(songParts);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if (pageType == 'song_list' || pageType == 'scroller') {
     // Handle dropdowns for adding to setlists
     var dropdowns = document.getElementsByClassName('dropdown');
@@ -60,6 +89,9 @@ if (pageType == 'song_list' || pageType == 'scroller') {
             var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
             e.target.selectedIndex = 0; // Reset select option after choice made
             doAjax(queryStringArray, './run_query.php');
+            try {
+                menuClose();
+            } catch(e) {}
             // console.log(queryString);
         });
     }

@@ -12,7 +12,7 @@
     <a href='./?page=song_search' class='menu-item'><span class="button material-symbols-outlined">search</span> Search</a>
     
     <hr style='width:100%'>
-    <a href='./?page=create_edit' class='menu-item'><span class="button material-symbols-outlined">piano</span> Create Song</a>
+    <a href='./?page=create_edit_song' class='menu-item'><span class="button material-symbols-outlined">piano</span> Create Song</a>
 
     <?php if ($_GET['page'] == 'scroller') {
         if (!$_SESSION['draft']) {

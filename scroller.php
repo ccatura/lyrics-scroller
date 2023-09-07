@@ -25,8 +25,22 @@ if (!$_SESSION['draft']) {
 
 if (isset($_SESSION['draft'])) {
     if ($_SESSION['draft']) {
-        echo "<form action='./?page=save_to_your_songs' method='post'>";
-        echo "<input type='submit' id='save-to-your-songs' value='Save to Your Songs'>";
+        $html   = "<form action='./?page=save_to_your_songs' method='post'>";
+        
+        $html  .=  "<div class='add-to-setlist fake-link' id='song_{$id}' song_title='{$title_stripped}'>Use setlist: 
+                        <select class='dropdown' song_name='{$title_stripped}'><option value='null'>[Select Setlist]</option>";
+                        $result_setlist = get_setlists();
+                        while ($row = mysqli_fetch_assoc($result_setlist)) {
+                            $setlist_title  = $row['title'];
+                            $setlist_id     = $row['id'];
+                        
+                            $html .= "<option class='options' value='{$setlist_id}-{$id}'>{$setlist_title} ({$setlist_id})</option>";
+                        }
+                        $html .= "</select>
+                    </div>";
+        $html  .= "<input type='submit' id='save-to-your-songs' value='Save to Your Songs'>";
+
+        echo $html;
         echo "</form>";
     }
 }
