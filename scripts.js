@@ -56,8 +56,28 @@ if (pageType == 'setlists') {
 
 if (pageType == 'create_edit_song') {
     var songParts = document.querySelectorAll('[type="song-part"]');
-    console.log(songParts);
+    // console.log(songPartTemplate);
 
+    addSongPart();
+    addSongPart();
+    addSongPart();
+
+
+    function addSongPart() {
+        var createSongAllPartsContatiner = document.getElementById('create-song-all-parts-contatiner');
+        var randomNumber        = Math.floor(Math.random() * Math.pow(10, 16));
+
+        const songPartTemplate  = document.getElementById("song-part-template");
+        const clone             = songPartTemplate.cloneNode(true);
+        clone.style.display     = 'flex';
+
+        clone.setAttribute("id", randomNumber);
+        clone.setAttribute("part-label", "part-label");
+        
+        createSongAllPartsContatiner.appendChild(clone);
+
+
+    }
 }
 
 

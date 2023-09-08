@@ -460,6 +460,11 @@ a:hover,
     font-size: 1.5em;
 }
 
+#create-song-all-parts-contatiner {
+    width: 100%;
+    /* border: 3px dotted red; */
+}
+
 .bigger-dropdown {
     font-size: 1.2em;
 }
@@ -533,6 +538,9 @@ a:hover,
     padding: 5px;
 }
 
+#song-part-template {
+    display: none;  
+}
 
 
 

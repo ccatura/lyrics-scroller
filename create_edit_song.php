@@ -27,6 +27,5 @@
 
 <?php
 include('./song_part.php');
-include('./song_part.php');
 ?>
 </div>
