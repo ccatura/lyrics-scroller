@@ -1,3 +1,8 @@
+<?php
+
+
+?>
+
 <div id='create-song-all-parts-contatiner'>
     <div class='create-song-part-outer' id='song-part-template' type='song-part'>
         <div class="create-song-part-header">

@@ -1,16 +1,12 @@
 
 <?php
-// if (isset($_SESSION['song_object'])) {
-//     song_create_edit($_SESSION['song_object']); // Edits the current song object in the session
 
+$title      = $_SESSION['song_object']->title       ? $_SESSION['song_object']->title :     'New Song';
+$sub_title  = $_SESSION['song_object']->sub_title   ? $_SESSION['song_object']->sub_title : 'Sub Title';
+$id         = $_SESSION['song_object']->id          ? $_SESSION['song_object']->id :        'ID Automatically Inserted';
+$lyrics     = song_parts_to_json($_SESSION['song_object']->lyrics);
 
-// } else {
-//     if (isset($_GET['song_id'])) {
-//         song_create_edit($_GET['song_id']); // Edits the song that was sent over in the URL's query string
-//     } else {
-//         song_create_edit(); // Creates a blank song creation template
-//     }
-// }
+// $lyrics     = $_SESSION['song_object']->lyrics;
 
 ?>
 
@@ -23,19 +19,21 @@
         </div>
         <div class="create-song-main-header-row">
             <div class='create-song-labels'>Title</div>
-            <input class='create-song-inputs' id='create-song-title' type="text" value='New Song' />
+            <input class='create-song-inputs' id='create-song-title' type="text" value='<?php echo $title ?>' />
         </div>
         <div class="create-song-main-header-row">
             <div class='create-song-labels'>Sub-Title</div>
-            <input class='create-song-inputs' id='create-song-sub-title' type="text" value='By Charlie Katt' />
+            <input class='create-song-inputs' id='create-song-sub-title' type="text" value='<?php echo $sub_title ?>' />
         </div>
         <div class="create-song-main-header-row">
             <div class='create-song-labels'>Song ID</div>
-            <input class='create-song-inputs' id='create-song-id' type="text" placeholder='[New Song - No ID Yet]' disabled />
+            <input class='create-song-inputs' id='create-song-id' type="text" placeholder='<?php echo $id ?>' disabled />
         </div>
     </div>
 
 <?php
 include('./song_part.php');
+
+echo "<div id='raw-lyrics' style='display:nodne;'>{$lyrics}</div>";
 ?>
 </div>

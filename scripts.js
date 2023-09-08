@@ -66,9 +66,12 @@ if (pageType == 'setlists') {
 
 
 if (pageType == 'create_edit_song') {
+
     var songParts = document.querySelectorAll('[type="song-part"]');
     if (createType == 'new') {
         insertSongPartTemplate();
+    } else if (createType == 'current') {
+        importSong();
     }
 
     function insertSongPartTemplate(addAfter, elementToClone) {
@@ -126,7 +129,7 @@ if (pageType == 'create_edit_song') {
         var userName        = document.getElementById('user-name').value;
         var message         = "Song saved to Your Songs!";
         var songString      = '';
-songID ='4';
+
         console.log('Title: ' + songTitle + '\nSub-Title: ' + songSubTitle + '\nID: ' + songID + '\n');
 
         for (i = 1; i < songParts.length; i++) { // Start at 1 to skip over the hidden template part
@@ -141,6 +144,18 @@ songID ='4';
         doAjax(queryStringArray, './save_song.php');
 
 
+    }
+
+    function importSong() {
+        var rawLyrics = document.getElementById('raw-lyrics').innerText;
+
+        var lyricsObject = JSON.parse(rawLyrics);
+
+
+        console.log(lyricsObject['song']['part']);
+        
+
+        // console.log(lyricsObject[0]);
     }
 }
 

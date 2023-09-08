@@ -133,6 +133,28 @@ function make_compliant($lyrics_raw) {
     return $lyrics_string;
 }
 
+function song_parts_to_json($lyrics) {
+    $output = '{"song":
+                        [
+                        {"label":"verse", "lyrics":"It recently occured to me
+                            when i go outside to feel the breeze
+                            theres an air of freddom when i close my eyes
+                            i drop my guard i lift my head
+                            for once my sould aint nearly dead
+                            and my heart keeps telling me to improvise
+                            
+                            but when im home that something in me dies"},
+                        {"label":"chorus", "lyrics":"Can we atlest just talk it out
+                            so lets try not to scream and shout
+                            you know the rest"}
+                        ]
+                    }';
+
+    return json_encode($output);
+}
+
+
+
 function get_last_id_from_title($title) {
     $conn       = $_SESSION['conn'];
     $user_name  = $_SESSION['user_name'];
