@@ -479,10 +479,22 @@ a:hover,
     padding: 1em;
 }
 
+.create-song-save-buttons {
+    width: 100%;
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1em;
+}
+
 .create-song-main-header {
     /* border: 2px dotted red; */
     width: 100%;
     padding: 1em;
+    position: sticky;
+    top: 65px;
+    background-color: var(--background-color-content);
 }
 
 .create-song-main-header-row {

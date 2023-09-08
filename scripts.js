@@ -1,5 +1,6 @@
 const params = new URLSearchParams(window.location.search); //Get query string
-var pageType = (params.get('page'));
+var pageType    = (params.get('page'));
+var createType  = (params.get('create_type'));
 
 var menuToggle           = document.getElementById('menu-toggle');
 var menu                 = document.getElementById('menu');
@@ -54,31 +55,102 @@ if (pageType == 'setlists') {
 
 
 
+
+
+
+
+
+
+
+
+
+
 if (pageType == 'create_edit_song') {
     var songParts = document.querySelectorAll('[type="song-part"]');
-    // console.log(songPartTemplate);
+    if (createType == 'new') {
+        insertSongPartTemplate();
+    }
 
-    addSongPart();
-    addSongPart();
-    addSongPart();
-
-
-    function addSongPart() {
-        var createSongAllPartsContatiner = document.getElementById('create-song-all-parts-contatiner');
+    function insertSongPartTemplate(addAfter, elementToClone) {
+        if (!elementToClone) {
+            elementToClone  = document.getElementById("song-part-template");
+        }
+        const clone             = elementToClone.cloneNode(true);
         var randomNumber        = Math.floor(Math.random() * Math.pow(10, 16));
-
-        const songPartTemplate  = document.getElementById("song-part-template");
-        const clone             = songPartTemplate.cloneNode(true);
         clone.style.display     = 'flex';
-
         clone.setAttribute("id", randomNumber);
         clone.setAttribute("part-label", "part-label");
         
-        createSongAllPartsContatiner.appendChild(clone);
+        if (!addAfter) {
+            var addAfter = document.getElementById('create-song-all-parts-contatiner');
+            addAfter.appendChild(clone);
+        } else {
+            addAfter.parentNode.insertBefore(clone, addAfter.nextSibling);
+        }
+    }
+
+    function deleteSongPart(element) {
+        if (songPartCount() > 2) { // Don't let deletion if 2 part remain: 1 part to edit and the hidden 'template' part
+            var partToDelete = getParentSongPartElement(element);
+            partToDelete.remove();
+        }
+    }
+
+    function addSongPart(element) {
+        var addAfter = getParentSongPartElement(element);
+        // console.log(addAfter);
+        insertSongPartTemplate(addAfter);
+    }
+
+    function duplicateSongPart(element) {
+        var addAfter = getParentSongPartElement(element);
+        var element  = getParentSongPartElement(element);
+        // console.log(element);
+        insertSongPartTemplate(addAfter, element);
+    }
+
+    function getParentSongPartElement(element) {
+        // console.log(element.closest('[type]'));
+        return element.parentNode.closest('[type]');
+    }
+
+    function songPartCount() {
+        return document.querySelectorAll('[type="song-part"]').length;
+    }
+
+    function saveSong() {
+        var songParts       = document.querySelectorAll('[type="song-part"]');
+        var songTitle       = document.getElementById('create-song-title').value;
+        var songSubTitle    = document.getElementById('create-song-sub-title').value;
+        var songID          = document.getElementById('create-song-id').value;
+        var userName        = document.getElementById('user-name').value;
+        var songString      = '';
+songID ='4';
+        console.log('Title: ' + songTitle + '\nSub-Title: ' + songSubTitle + '\nID: ' + songID + '\n');
+
+        for (i = 1; i < songParts.length; i++) { // Start at 1 to skip over the hidden template part
+            songString += '[' + songParts[i].querySelector("[part_id='song-part-label']").value + ']\n';
+            songString += songParts[i].querySelector("[part_id='lyrics']").value + '\n[!!end_part!!]\n';
+        }
+
+        songString = songString.replace(/\n/g, '\\n');
+        var queryStringArray = `{"id" : "${songID}", "user_name" : "${userName}", "title" : "${songTitle}", "sub_title" : "${songSubTitle}", "lyrics" : "${songString}"}`;
+        doAjax(queryStringArray, './save_song.php');
 
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -500,7 +572,7 @@ function deleteSong(element) {
     doAjax(queryStringArray, './run_query.php');
     songCount.innerText = parseInt(songCount.innerText) - 1;
     document.getElementById(songID).outerHTML = ""; // Remove the item
-    console.log(songCount);
+    // console.log(songCount);
 }
 
 function getScreenWidth() {
