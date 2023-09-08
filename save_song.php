@@ -27,15 +27,18 @@ $id         = $song_array['id'];
 $title      = $song_array['title'];
 $sub_title  = $song_array['sub_title'];
 $lyrics     = $song_array['lyrics'];
+$message    = $song_array['message'];
 
 
 $result = mysqli_query($conn,  "REPLACE INTO `songs` (`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('{$user_name}','{$title}','{$sub_title}','{$lyrics}');");
 
 
 
-// if ($result) {
-//     echo ucwords($platform) . " settings saved!";
-// } else {
-//     echo 'There was a problem. Please, try again.';
-// }
+if ($result) {
+    echo "{$message}";
+} else {
+    echo 'There was a problem. Please, try again.';
+}
+
+
 

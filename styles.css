@@ -650,4 +650,12 @@ a:hover,
     #popup-container {
         width: 90%;
     }
+
+    .create-song-container {
+        font-size: 1em;
+    }
+
+    .horizontal-button {
+        padding: 2px;
+    }
 }

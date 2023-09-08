@@ -12,11 +12,11 @@
     <a href='./?page=song_search' class='menu-item'><span class="button material-symbols-outlined">search</span> Search</a>
     
     <hr style='width:100%'>
-    <a href='./?page=create_edit_song' class='menu-item'><span class="button material-symbols-outlined">piano</span> Create Song</a>
+    <a href='./?page=create_edit_song&create_type=new' class='menu-item'><span class="button material-symbols-outlined">piano</span> Create Song</a>
 
     <?php if ($_GET['page'] == 'scroller') {
         if (!$_SESSION['draft']) {
-            echo "<a href='./index.php' class='menu-item'><span class='button material-symbols-outlined'>edit</span> Edit This Song</a>";
+            echo "<a href='./?page=create_edit_song&create_type=current' class='menu-item'><span class='button material-symbols-outlined'>edit</span> Edit This Song</a>";
             echo "<div class='menu-item'><span class='button material-symbols-outlined'>add</span> Add to Setlist</div>";
 
             $title_stripped = str_replace('\'', '', $song->title);

@@ -12,7 +12,6 @@
                     <option value="hidden">Hidden Label</option>
                 </select>
             </div>
-            <div>Part ID <span id=''></span></div>
             <div class="create-song-part-buttons">
                 <span class='material-symbols-outlined horizontal-button fake-link'>arrow_upward</span>
                 <span class='material-symbols-outlined horizontal-button fake-link'>arrow_downward</span>

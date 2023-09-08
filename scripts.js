@@ -120,10 +120,11 @@ if (pageType == 'create_edit_song') {
 
     function saveSong() {
         var songParts       = document.querySelectorAll('[type="song-part"]');
-        var songTitle       = document.getElementById('create-song-title').value;
-        var songSubTitle    = document.getElementById('create-song-sub-title').value;
+        var songTitle       = document.getElementById('create-song-title').value.replace("'", "`");
+        var songSubTitle    = document.getElementById('create-song-sub-title').value.replace("'", "`");
         var songID          = document.getElementById('create-song-id').value;
         var userName        = document.getElementById('user-name').value;
+        var message         = "Song saved to Your Songs!";
         var songString      = '';
 songID ='4';
         console.log('Title: ' + songTitle + '\nSub-Title: ' + songSubTitle + '\nID: ' + songID + '\n');
@@ -134,7 +135,9 @@ songID ='4';
         }
 
         songString = songString.replace(/\n/g, '\\n');
-        var queryStringArray = `{"id" : "${songID}", "user_name" : "${userName}", "title" : "${songTitle}", "sub_title" : "${songSubTitle}", "lyrics" : "${songString}"}`;
+        songString = songString.replace("'", "`");
+        songString = songString.replace('"', "");
+        var queryStringArray = `{"id" : "${songID}", "user_name" : "${userName}", "title" : "${songTitle}", "sub_title" : "${songSubTitle}", "lyrics" : "${songString}", "message" : "${message}"}`;
         doAjax(queryStringArray, './save_song.php');
 
 

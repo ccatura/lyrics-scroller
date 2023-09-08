@@ -26,7 +26,7 @@
             <div class="button-properties"></div>
         </a>  
 
-        <a class="outer-el" href='./?page=create_edit_song'>
+        <a class="outer-el" href='./?page=create_edit_song&create_type=new'>
             <div class="button-label">Create</div>
             <div class="button-wrapper">
                 <div class="button material-symbols-outlined">piano</div>

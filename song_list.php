@@ -18,6 +18,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_title  = $row['sub_title'];
     $id         = $row['id'];
     $title_stripped = str_replace('\'', '', $title);
+    $title_stripped = str_replace('`', '', $title);
 
     $html       .= "<div class='click-list-item' id='{$id}'>
                         <a class='click-list-inner-left' href='./?page=get_song&song_id={$id}'>
