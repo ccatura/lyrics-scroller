@@ -134,23 +134,37 @@ function make_compliant($lyrics_raw) {
 }
 
 function song_parts_to_json($lyrics) {
-    $output = '{"song":
-                        [
-                        {"label":"verse", "lyrics":"It recently occured to me
-                            when i go outside to feel the breeze
-                            theres an air of freddom when i close my eyes
-                            i drop my guard i lift my head
-                            for once my sould aint nearly dead
-                            and my heart keeps telling me to improvise
-                            
-                            but when im home that something in me dies"},
-                        {"label":"chorus", "lyrics":"Can we atlest just talk it out
-                            so lets try not to scream and shout
-                            you know the rest"}
-                        ]
-                    }';
+    $part_array_inner = array();
+    $part_array_outer = array();
+    // $song_output[0] = array("verse", $lyrics);
+    $lyrics_array = preg_split('/\n|\r\n?/', $lyrics);
+    $part_string = '';
 
-    return json_encode($output);
+    $in_part = false;
+    $count = 0 ;
+    foreach ($lyrics_array as $key => $value) {
+        preg_match('#\[(.*?)\]#', $value, $part_title);
+
+        if ($part_title[0] && $part_title[1] != '!!end_part!!') {
+            array_push($part_array_inner, $value);
+            $in_part = true;
+        } elseif ($part_title[0] && str_contains($part_title[1], '!!end_part!!')) {
+            $in_part = false;
+            array_push($part_array_inner, trim($part_string));
+            array_push($part_array_outer, $part_array_inner);
+            $part_array_inner = array();
+            $part_string = '';
+            $count++;
+        } else {
+            $part_string .= $value . PHP_EOL;
+            $in_part = true;
+        }
+
+    }
+
+
+    // return $song_output;
+    return json_encode($part_array_outer);
 }
 
 

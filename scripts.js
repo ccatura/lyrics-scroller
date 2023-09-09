@@ -90,6 +90,7 @@ if (pageType == 'create_edit_song') {
         } else {
             addAfter.parentNode.insertBefore(clone, addAfter.nextSibling);
         }
+        return randomNumber;
     }
 
     function deleteSongPart(element) {
@@ -148,14 +149,18 @@ if (pageType == 'create_edit_song') {
 
     function importSong() {
         var rawLyrics = document.getElementById('raw-lyrics').innerText;
+        var lyricsJSON = JSON.parse(rawLyrics);
 
-        var lyricsObject = JSON.parse(rawLyrics);
+        for (i = 0; i < lyricsJSON.length; i++) {
+            console.log(lyricsJSON[i][1]);
+            var newID = insertSongPartTemplate();
+            var newSongPartElement = document.getElementById(newID);
+            var lyricsTextArea = newSongPartElement.querySelector("[part_id='lyrics']");
+            lyricsTextArea.innerHTML = lyricsJSON[i][1];
+        }
 
 
-        console.log(lyricsObject['song']['part']);
-        
 
-        // console.log(lyricsObject[0]);
     }
 }
 

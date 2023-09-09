@@ -30,8 +30,11 @@ $lyrics     = $song_array['lyrics'];
 $message    = $song_array['message'];
 
 
-$result = mysqli_query($conn,  "REPLACE INTO `songs` (`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('{$user_name}','{$title}','{$sub_title}','{$lyrics}');");
-
+if ($id != '') {
+    $result = mysqli_query($conn,  "REPLACE INTO `songs` (`id`,`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('{$id}', '{$user_name}','{$title}','{$sub_title}','{$lyrics}');");
+} else {
+    $result = mysqli_query($conn,  "REPLACE INTO `songs` (`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('{$user_name}','{$title}','{$sub_title}','{$lyrics}');");
+}
 
 
 if ($result) {
