@@ -48,5 +48,5 @@
     <hr style='width:100%'>
     <a href='./?page=global_settings' class='menu-item'><span class="button material-symbols-outlined">settings</span> Global Settings</a>
     <a href='./?page=logout' class='menu-item'><span class="button material-symbols-outlined">logout</span> Logout</a>
-    <div><span class="button material-symbols-outlined">computer</span> Screen Width: <span id='screen-width'><?php echo $_SESSION['screen_width'] ?></span></div>
+    <!-- <div class='fake-link'><span class="button material-symbols-outlined">computer</span> Screen Width: <span id='screen-width'><?php echo $_SESSION['screen_width'] ?></span></div> -->
 </div>
