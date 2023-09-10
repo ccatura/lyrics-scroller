@@ -8,6 +8,7 @@
 </div>
 
 <?php
+is_logged_in();
 
 unset($_SESSION['song_object']);
 $_SESSION['draft']  = false;
@@ -31,7 +32,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </a>
                         <div class='click-list-inner-right'>
                             <a href='./?page=create_edit_song&song_id={$id}'>EDIT</a>
-                            <div onclick='popupAlert(`Warning!`,`The setlist \"{$setlist_title}\" and all its songs will be removed!`,``,`deleteSetlist`, this);' class='option-item-section fake-link delete-setlist' setlist_id='{$setlist_id}' setlist_title='{$setlist_title}'>Delete Setlist</div>
+                            <div onclick='popupAlert(`Warning!`,`The setlist \"{$setlist_title}\" and all its songs will be removed!`,``,`deleteSetlist`, this);' class='option-item-section fake-link delete-setlist' user_name='{$user_name}' setlist_id='{$setlist_id}' setlist_title='{$setlist_title}'>Delete Setlist</div>
                         </div>
                     </div>";
 }

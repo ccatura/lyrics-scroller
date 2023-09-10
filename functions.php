@@ -6,6 +6,7 @@ function lyrics_formatter($song) {
     $sub_title  = $song->sub_title;
     $id         = $song->id;
 
+
     if (check_compliance($lyrics_raw)) {
         $lyrics_string = add_html_to_compliant_lyrics($lyrics_raw);
     } else {
@@ -17,7 +18,7 @@ function lyrics_formatter($song) {
     // Put together the part titles and lyrics into the HTML
     $final_lyrics = "<div class='song-section'>
                         <div class='song-header'>
-                        <span class='song-title'>{$title} ({$id})</span>
+                        <span class='song-title'><span id='song-page-title'>{$title}</span> ({$id})</span>
                         <span class='song-sub-title'>{$sub_title}</span>
                     </div>
                     {$lyrics_string}";
@@ -275,6 +276,11 @@ function get_last_song_id_from_title($title) {
     }
 }
 
+function is_logged_in() {
+    if (!isset($_SESSION['user_name'])) {
+        header("Location: ./?page=login");
+    }
+}
 
 
 // function save_song_settings($song_id, $settings_array, $platform) {

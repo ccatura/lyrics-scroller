@@ -5,6 +5,8 @@
         $page_title = 'Lyrics Scroller';
     }
 
+
+
     //show errors
     ini_set('display_errors', 0);
     ini_set('display_startup_errors', 1);
@@ -19,7 +21,7 @@
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src='./scripts.js' defer></script>
-    <title><?php echo $page_title; ?></title>
+    <title>Lyrics Scroller</title>
 </head>
 <body>
 
@@ -27,15 +29,17 @@
     include_once('./db_connect.php');
     include_once('./functions.php');
     include_once('./Song.php');
-
     session_start();
     $_SESSION['conn'] = $conn;
-    $_SESSION['user_name'] = 'ccatura';
+    // $_SESSION['user_name'] = 'ccatura';
+    // unset($_SESSION['user_name']);
 
-    if (isset($_GET['page']) /* IF USER NAME IS LOGGED IN */) {
+    if ((isset($_GET['page']) && isset($_SESSION['user_name'])) || (isset($_GET['page']) && !isset($_SESSION['user_name']))) {
         $page = strtolower($_GET['page']);
+    } elseif (!isset($_GET['page']) && isset($_SESSION['user_name'])) {
+        $page = 'song_list';
     } else {
-        $page = 'home';
+        header("Location: ./?page=login");
     }
     echo "<div class='page-container' id='page-container'>";
         echo "<div class='header'>";

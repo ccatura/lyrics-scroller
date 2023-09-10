@@ -31,7 +31,7 @@
             $html .= "</select>";
             echo $html . '<br>';
 
-            echo "<a href='./index.php' class='menu-item'><span class='button material-symbols-outlined'>delete</span> Delete Song</a>";
+            echo "<a href='./' class='menu-item'><span class='button material-symbols-outlined'>delete</span> Delete Song</a>";
         }
     } ?>
 
@@ -47,6 +47,6 @@
 
     <hr style='width:100%'>
     <a href='./?page=global_settings' class='menu-item'><span class="button material-symbols-outlined">settings</span> Global Settings</a>
-    <a href='./index.php' class='menu-item'><span class="button material-symbols-outlined">logout</span> Logout</a>
-    <div href='./index.php' class='menu-item'><span class="button material-symbols-outlined">computer</span> Screen Width: <span id='screen-width'><?php echo $_SESSION['screen_width'] ?></span></div>
+    <a href='./?page=logout' class='menu-item'><span class="button material-symbols-outlined">logout</span> Logout</a>
+    <div><span class="button material-symbols-outlined">computer</span> Screen Width: <span id='screen-width'><?php echo $_SESSION['screen_width'] ?></span></div>
 </div>

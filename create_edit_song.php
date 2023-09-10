@@ -1,4 +1,5 @@
 <?php
+is_logged_in();
 
 if ($_GET['create_type'] == 'new') {
     unset($_SESSION['song_object']);

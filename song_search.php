@@ -3,6 +3,7 @@
 
 
 <?php
+is_logged_in();
 
 
 

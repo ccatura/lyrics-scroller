@@ -7,26 +7,29 @@ var menu                 = document.getElementById('menu');
 var menuCloseBtn         = document.getElementById('close-menu');
 
 getScreenWidth();
-
-// Open and close the dropdown menu
-menuToggle.addEventListener('click', ()=> {
-    menu.style.display = 'flex';
-});
-menuCloseBtn.addEventListener('click', ()=> {
-    menuClose();
-});
+if (pageType != 'login') {
+    // Open and close the dropdown menu
+    menuToggle.addEventListener('click', ()=> {
+        menu.style.display = 'flex';
+    });
+    menuCloseBtn.addEventListener('click', ()=> {
+        menuClose();
+    });
+}
 
 if (pageType == 'setlist') {
     // Handle dropdowns for adding song to setlist from setlist page
+    var setlistPageTitle = document.getElementById('setlist_page_title').innerText;
     var dropdowns = document.getElementsByClassName('dropdown');
     for (var i = 0; i < dropdowns.length; i++) {
         dropdowns[i].addEventListener('change', (e)=> {
             var selectionValue      = e.target.value; // Contains setlist id and song id in format: setlist_id-song_id. Example: 21-12
+            var user_name           = e.target.getAttribute('user_name');
             var setlistID           = selectionValue.split('-')[0];
             var songID              = selectionValue.split('-')[1];
             var setlistName         = e.target.getAttribute('setlist_title');
             var songName            = e.target.options[e.target.selectedIndex].innerText;
-            var queryString         = `INSERT INTO setlist_links (\`user_name\`, \`setlist_id\`, \`song_id\`) VALUES ('ccatura', '${setlistID}', '${songID}');`;
+            var queryString         = `INSERT INTO setlist_links (\`user_name\`, \`setlist_id\`, \`song_id\`) VALUES ('${user_name}', '${setlistID}', '${songID}');`;
             // var message             = `'${songName}' added to setlist '${setlistName}'.`;
             var message             = ``;
             var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
@@ -35,6 +38,8 @@ if (pageType == 'setlist') {
             location.reload();
         });
     }
+    document.title = 'Setlist: ' + setlistPageTitle + ' - ' + document.title;
+
 }
 
 if (pageType == 'setlists') {
@@ -44,6 +49,8 @@ if (pageType == 'setlists') {
     setlistTitle.addEventListener('input', ()=> {
         setlistAction.action = './?page=create_setlist&setlist_title=' + setlistTitle.value;
     });
+
+    document.title = 'Setlists - ' + document.title;
 }
 
 
@@ -165,6 +172,9 @@ if (pageType == 'create_edit_song') {
 
 
     }
+
+    document.title = 'Create/Edit Song - ' + document.title;
+
 }
 
 
@@ -187,9 +197,9 @@ if (pageType == 'create_edit_song') {
 
 
 
-
-
-
+if (pageType == 'song_list') {
+    document.title = 'Song List - ' + document.title;
+}
 
 
 if (pageType == 'song_list' || pageType == 'scroller') {
@@ -198,11 +208,12 @@ if (pageType == 'song_list' || pageType == 'scroller') {
     for (var i = 0; i < dropdowns.length; i++) {
         dropdowns[i].addEventListener('change', (e)=> {
             var selectionValue      = e.target.value; // Contains setlist id and song id in format: setlist_id-song_id. Example: 21-12
+            var userName            = e.target.getAttribute('user_name');
             var setlistID           = selectionValue.split('-')[0];
             var songID              = selectionValue.split('-')[1];
             var setlistName         = e.target.options[e.target.selectedIndex].innerText;
             var songName            = e.target.getAttribute('song_name');
-            var queryString         = `INSERT INTO setlist_links (\`user_name\`, \`setlist_id\`, \`song_id\`) VALUES ('ccatura', '${setlistID}', '${songID}');`;
+            var queryString         = `INSERT INTO setlist_links (\`user_name\`, \`setlist_id\`, \`song_id\`) VALUES ('${userName}', '${setlistID}', '${songID}');`;
             var message             = `'${songName}' added to setlist '${setlistName}'.`;
             var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
             e.target.selectedIndex = 0; // Reset select option after choice made
@@ -376,6 +387,10 @@ if (pageType == 'scroller') {
             saveSongSettings('desktop');
         });
     } catch (e) {}
+
+    var songPageTitle = document.getElementById('song-page-title').innerText;
+    document.title = 'Scrolling: ' + songPageTitle + ' - ' + document.title;
+
 }
 
 if (pageType == 'song_search') {
@@ -387,7 +402,7 @@ if (pageType == 'song_search') {
 		window.location.href = `./?page=song_search&term=${term}`;
 	});
 
-
+    document.title = 'Song/Lyrics Search - ' + document.title;
 }
 
 function moveScroll() {
@@ -565,8 +580,9 @@ function doAjax(data, script) {
 
 function deleteSetlist(element) {
     var setlistID           = element.getAttribute('setlist_id');
-    var queryString1        = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND setlist_id = '${setlistID}';`; // Removes all songs from setlist first
-    var queryString2        = `DELETE FROM setlists WHERE user_name = 'ccatura' AND id = '${setlistID}';`;
+    var userName            = element.getAttribute('user_name');
+    var queryString1        = `DELETE FROM setlist_links WHERE user_name = '${userName}' AND setlist_id = '${setlistID}';`; // Removes all songs from setlist first
+    var queryString2        = `DELETE FROM setlists WHERE user_name = '${userName}' AND id = '${setlistID}';`;
     var message             = ``;
     // If key has the word 'sql' in it, it will execute a separate sql query: sql1, sql2, sql3, etc
     var queryStringArray    = `{"sql1" : "${queryString1}", "sql2" : "${queryString2}", "message" : "${message}"}`;
@@ -577,8 +593,9 @@ function deleteSetlist(element) {
 
 function removeSongFromSetlist(element) {
     var setlistID           = element.getAttribute('setlist_id');
+    var userName            = element.getAttribute('user_name');
     var songOrder           = element.getAttribute('song_order');
-    var queryString         = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND setlist_id = '${setlistID}' AND song_order = '${songOrder}';`;
+    var queryString         = `DELETE FROM setlist_links WHERE user_name = '${userName}' AND setlist_id = '${setlistID}' AND song_order = '${songOrder}';`;
     var message             = ``;
     var queryStringArray    = `{"sql" : "${queryString}", "message" : "${message}"}`;
     doAjax(queryStringArray, './run_query.php');
@@ -589,10 +606,11 @@ function removeSongFromSetlist(element) {
 
 function deleteSong(element) {
     var songID              = element.getAttribute('song_id');
+    var userName            = element.getAttribute('user_name');
     var songCount           = document.getElementById('song-count');
-    var queryString1        = `DELETE FROM song_settings WHERE user_name = 'ccatura' AND song_id = '${songID}';`;
-    var queryString2        = `DELETE FROM setlist_links WHERE user_name = 'ccatura' AND song_id = '${songID}';`;
-    var queryString3        = `DELETE FROM songs WHERE user_name = 'ccatura' AND id = '${songID}';`;
+    var queryString1        = `DELETE FROM song_settings WHERE user_name = '${userName}' AND song_id = '${songID}';`;
+    var queryString2        = `DELETE FROM setlist_links WHERE user_name = '${userName}' AND song_id = '${songID}';`;
+    var queryString3        = `DELETE FROM songs WHERE user_name = '${userName}' AND id = '${songID}';`;
     var message             = ``;
     var queryStringArray    = `{"sql1" : "${queryString1}", "sql2" : "${queryString2}", "sql3" : "${queryString3}", "message" : "${message}"}`;
     doAjax(queryStringArray, './run_query.php');

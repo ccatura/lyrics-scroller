@@ -10,6 +10,7 @@
 
 <?php
 $id = $_GET['song_id'];
+is_logged_in();
 
 
 $curl = get_search_results("https://genius-song-lyrics1.p.rapidapi.com/song/lyrics/?id={$id}");

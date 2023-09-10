@@ -1,4 +1,5 @@
 <?php
+is_logged_in();
 
 unset($_SESSION['song_object']);
 $_SESSION['draft'] = false;
@@ -20,6 +21,7 @@ $result = mysqli_query($conn,  "SELECT songs.title as 'song_title', setlist_link
 
 $setlist_index = 1;
 while ($row = mysqli_fetch_assoc($result)) {
+    $user_name      = $_SESSION['user_name'];
     $title          = $row['song_title'];
     $setlist_title  = $row['setlist_title'];
     $song_id        = $row['song_id'];
@@ -32,9 +34,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div class='click-list-title'>{$setlist_index}) {$title} (Song ID: {$song_id})</div>
                         </a>
                         <div class='click-list-inner-right'>
-                            <div onclick='popupAlert(`Warning!`,`The song \"{$title_stripped}\" will be removed from setlist \"{$setlist_title}\"!`,``,`removeSongFromSetlist`, this);' class='option-item-section fake-link delete-setlist' setlist_id='{$setlist_id}' setlist_title='{$setlist_title}' song_order='{$song_order}'>Remove from Setlist</div>
+                            <div onclick='popupAlert(`Warning!`,`The song \"{$title_stripped}\" will be removed from setlist \"{$setlist_title}\"!`,``,`removeSongFromSetlist`, this);' class='option-item-section fake-link delete-setlist' setlist_id='{$setlist_id}' setlist_title='{$setlist_title}' song_order='{$song_order}' user_name='{$user_name}'>Remove from Setlist</div>
                             <div class='add-to-setlist fake-link' id='song_{$id}' song_title='{$title_stripped}'>Add to:
-                                <select class='dropdown' song_name='{$title_stripped}'><option value='null'>[Select Setlist]</option>";
+                                <select class='dropdown' song_name='{$title_stripped}' user_name='{$user_name}'><option value='null'>[Select Setlist]</option>";
                                 $result_setlist = get_setlists();
                                 while ($row = mysqli_fetch_assoc($result_setlist)) {
                                     $setlist_title  = $row['title'];
@@ -49,7 +51,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 $result_songlist = get_song_list();
-$songlist .= "<select class='dropdown' setlist_title='{$setlist_title}'><option value='null'>[Select Song]</option>";
+$songlist .= "<select class='dropdown' setlist_title='{$setlist_title}' user_name='{$user_name}'><option value='null'>[Select Song]</option>";
 while ($row = mysqli_fetch_assoc($result_songlist)) {
     $song_title  = $row['title'];
     $song_id     = $row['id'];
@@ -63,7 +65,7 @@ $_SESSION['setlist_index'] = 1;
 
 echo "<div class='content-section'>
         <div class='click-list-section'>
-            <div class='page-title'>Set List: {$setlist_title} ({$setlist_id})</div>
+            <div class='page-title'>Set List: <span id='setlist_page_title'>{$setlist_title}</span> ({$setlist_id})</div>
             <div>Add song to this setlist: {$songlist}</div>";
 
 

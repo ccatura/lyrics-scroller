@@ -1,4 +1,6 @@
 <?php
+is_logged_in();
+
 $song = $_SESSION['song_object'];
 
 $setlist_index = $_SESSION['setlist_index'];

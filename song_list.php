@@ -1,4 +1,5 @@
 <?php
+is_logged_in();
 
 unset($_SESSION['song_object']);
 $_SESSION['draft'] = false;
@@ -30,7 +31,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div onclick='popupAlert(`Delete Song`,`The song \"{$title_stripped}\" will be permenantly deleted from your account! You cannot undo this action.`,``,`deleteSong`, this);' class='option-item-section fake-link' song_id='$id' user_name='$user_name'>Delete Song</div>
 
                             <div class='add-to-setlist fake-link' id='song_{$id}' song_title='{$title_stripped}'>Add to: 
-                                <select class='dropdown' song_name='{$title_stripped}'><option value='null'>[Select Setlist]</option>";
+                                <select class='dropdown' song_name='{$title_stripped}' user_name='{$user_name}'><option value='null'>[Select Setlist]</option>";
                                 $result_setlist = get_setlists();
                                 while ($row = mysqli_fetch_assoc($result_setlist)) {
                                     $setlist_title  = $row['title'];
