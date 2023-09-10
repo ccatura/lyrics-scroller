@@ -17,7 +17,8 @@ $lyrics     = $_SESSION['song_object']->lyrics;
 <div class="create-song-container">
     <div class="create-song-main-header">
         <div class="create-song-save-buttons">
-            <input class='popup-button' type="submit" value='Save Song' onclick='saveSong();' />
+            <input class='popup-button' type="submit" value='Update' onclick='saveSong();' />
+            <input class='popup-button' type="button" value='Update & View' />
             <input class='popup-button' type="button" value='Reset' />
             <input type="hidden" id="user-name" value="<?php echo $_SESSION['user_name']; ?>">
         </div>

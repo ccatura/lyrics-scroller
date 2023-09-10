@@ -142,6 +142,9 @@ if (pageType == 'create_edit_song') {
         songString = songString.replace("'", "`");
         songString = songString.replace('"', "");
         var queryStringArray = `{"id" : "${songID}", "user_name" : "${userName}", "title" : "${songTitle}", "sub_title" : "${songSubTitle}", "lyrics" : "${songString}", "message" : "${message}"}`;
+
+        // console.log(queryStringArray);
+
         doAjax(queryStringArray, './save_song.php');
 
 

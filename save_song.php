@@ -28,10 +28,14 @@ $title      = $song_array['title'];
 $sub_title  = $song_array['sub_title'];
 $lyrics     = $song_array['lyrics'];
 $message    = $song_array['message'];
-
+// echo ($user_name);
 
 if ($id != '') {
-    $result = mysqli_query($conn,  "REPLACE INTO `songs` (`id`,`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('{$id}', '{$user_name}','{$title}','{$sub_title}','{$lyrics}');");
+    $result = mysqli_query($conn,  "UPDATE `songs` SET title = '{$title}', sub_title = '{$sub_title}', lyrics = '{$lyrics}' WHERE `id` = '{$id}';");
+
+    
+
+
 } else {
     $result = mysqli_query($conn,  "REPLACE INTO `songs` (`user_name`, `title`, `sub_title`, `lyrics`) VALUES ('{$user_name}','{$title}','{$sub_title}','{$lyrics}');");
 }

@@ -543,6 +543,7 @@ a:hover,
 .create-song-part-actions {
     /* border: 2px solid green; */
     display: flex;
+    gap: 1em;
 }
 
 .horizontal-button {
@@ -629,6 +630,10 @@ a:hover,
 
     .header {
         min-height: 50px;
+    }
+
+    .create-song-main-header {
+        top: 48px;
     }
 
     .menu {
