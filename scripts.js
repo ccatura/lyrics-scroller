@@ -129,7 +129,7 @@ if (pageType == 'create_edit_song') {
         return document.querySelectorAll('[type="song-part"]').length;
     }
 
-    function saveSong() {
+    function saveSong(saveOrUpdate) {
         var songParts       = document.querySelectorAll('[type="song-part"]');
         var songTitle       = document.getElementById('create-song-title').value.replace("'", "`");
         var songSubTitle    = document.getElementById('create-song-sub-title').value.replace("'", "`");
@@ -154,7 +154,9 @@ if (pageType == 'create_edit_song') {
 
         doAjax(queryStringArray, './save_song.php');
 
-
+        if (saveOrUpdate == 'Save') {
+            window.location.replace('./');
+        }
     }
 
     function importSong() {
@@ -167,10 +169,10 @@ if (pageType == 'create_edit_song') {
             var newSongPartElement = document.getElementById(newID);
             var lyricsTextArea = newSongPartElement.querySelector("[part_id='lyrics']");
             lyricsTextArea.innerHTML = lyricsJSON[i][1];
+            var labelText = newSongPartElement.querySelector("[part_id='song-part-label']");
+            var label = lyricsJSON[i][0];
+            labelText.value = label.substr(1, label.length-2);
         }
-
-
-
     }
 
     document.title = 'Create/Edit Song - ' + document.title;

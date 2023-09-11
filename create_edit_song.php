@@ -3,14 +3,15 @@ is_logged_in();
 
 if ($_GET['create_type'] == 'new') {
     unset($_SESSION['song_object']);
+    $save_or_update = 'Save';
+} else {
+    $save_or_update = 'Update';
 }
 
 
 $title      = $_SESSION['song_object']->title       ? $_SESSION['song_object']->title :     'New Song';
 $sub_title  = $_SESSION['song_object']->sub_title   ? $_SESSION['song_object']->sub_title : 'Sub Title';
 $id         = $_SESSION['song_object']->id          ? $_SESSION['song_object']->id :        'ID Automatically Inserted';
-// $lyrics     = song_parts_to_json($_SESSION['song_object']->lyrics);
-
 $lyrics     = $_SESSION['song_object']->lyrics;
 
 ?>
@@ -18,8 +19,8 @@ $lyrics     = $_SESSION['song_object']->lyrics;
 <div class="create-song-container">
     <div class="create-song-main-header">
         <div class="create-song-save-buttons">
-            <input class='popup-button' type="submit" value='Update' onclick='saveSong();' />
-            <input class='popup-button' type="button" value='Update & View' />
+            <input class='popup-button' type="submit" value='<?php echo $save_or_update ?>' onclick='saveSong("<?php echo $save_or_update ?>");' />
+            <!-- <input class='popup-button' type="button" value='<?php echo $save_or_update ?> & View' /> -->
             <input class='popup-button' type="button" value='Reset' />
             <input type="hidden" id="user-name" value="<?php echo $_SESSION['user_name']; ?>">
         </div>

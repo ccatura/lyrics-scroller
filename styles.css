@@ -293,6 +293,9 @@ a:hover,
     font-size: 20px;
 }
 
+.option-item-section {
+}
+
 .menu {
     display: none;
     flex-flow: column nowrap;
@@ -523,7 +526,8 @@ a:hover,
 
 .create-song-part-label {
     /* border: 2px solid yellow; */
-
+    display: flex;
+    gap: 10px;
 }
 
 .create-song-part-buttons {
@@ -555,8 +559,32 @@ a:hover,
     display: none;  
 }
 
+#song-part-hints {
+    transform: translateY(7px);
+    /* margin-left: 10px; */
+}
 
+.hints-container {
+    /* border: 2px solid red; */
+    position: relative;
+}
 
+.hints {
+    display: none;
+    position: absolute;
+    top: -50px;
+    left: 30px;
+    width: 200px;
+    border: 2px dashed white;
+    padding: 1em;
+    font-size: 14px;
+    background-color: rgb(95, 95, 95);
+    box-shadow: 0 0 20px black;
+}
+
+#song-part-hints:hover ~ .hints {
+    display: block;
+}
 
 
 
@@ -596,6 +624,7 @@ a:hover,
     .click-list-sub-title {
         font-size: 14px;
         justify-content: center;
+        text-align: center;
     }
 
     .click-list-title {
@@ -610,6 +639,10 @@ a:hover,
 
     .add-to-setlist {
         
+    }
+
+    .option-item-section {
+        width: 100%;        
     }
 }
 

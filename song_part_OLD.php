@@ -7,17 +7,15 @@
     <div class='create-song-part-outer' id='song-part-template' type='song-part'>
         <div class="create-song-part-header">
             <div class="create-song-part-label">
-                Part 
-                <input type='text' part_id='song-part-label' value='Verse' /> 
-                <div class='hints-container'>
-                <span class='material-symbols-outlined fake-link' id='song-part-hints'>help</span>
-                    <div class='hints'>
-                        <strong>COMMON OPTIONS</strong>:<br>
-                        Verse, Lift, Chorus, Refrain, Bridge<br><br>
-                        Use 'Hidden' to hide the label.<br><br>
-                        Use 'Comment' for italicized label.
-                    </div>
-                </div>
+                Part
+                <select class='dropdown bigger-dropdown' part_id='song-part-label'>
+                    <option value="verse">Verse</option>
+                    <option value="lift">Lift</option>
+                    <option value="chorus">Chorus</option>
+                    <option value="refrain">Refrain</option>
+                    <option value="bridge">Bridge</option>
+                    <option value="hidden">Hidden Label</option>
+                </select>
             </div>
             <div class="create-song-part-buttons">
                 <span class='material-symbols-outlined horizontal-button fake-link'>arrow_upward</span>
