@@ -155,7 +155,7 @@ if (pageType == 'create_edit_song') {
         doAjax(queryStringArray, './save_song.php');
 
         if (saveOrUpdate == 'Save') {
-            window.location.replace('./');
+            // window.location.replace('./');
         }
     }
 

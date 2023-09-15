@@ -24,9 +24,9 @@ $data = json_decode(file_get_contents("php://input"), true);
 $song_array = json_decode($data, true);
 $user_name  = $_SESSION['user_name'];
 $id         = (int)$song_array['id'];
-$title      = $song_array['title'];
-$sub_title  = $song_array['sub_title'];
-$lyrics     = $song_array['lyrics'];
+$title      = str_replace("'", "`", $song_array['title']);
+$sub_title  = str_replace("'", "`", $song_array['sub_title']);
+$lyrics     = str_replace("'", "`", $song_array['lyrics']);
 $message    = $song_array['message'];
 // echo "{$user_name} {$id} {$title} {$sub_title}";
 
