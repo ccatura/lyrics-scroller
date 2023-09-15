@@ -39,10 +39,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 <select class='dropdown' song_name='{$title_stripped}' user_name='{$user_name}'><option value='null'>[Select Setlist]</option>";
                                 $result_setlist = get_setlists();
                                 while ($row = mysqli_fetch_assoc($result_setlist)) {
-                                    $setlist_title  = $row['title'];
-                                    $setlist_id     = $row['id'];
+                                    $setlist_title_dropdown  = $row['title'];
+                                    $setlist_id_dropdown     = $row['id'];
                                 
-                                    $html .= "<option class='options' value='{$setlist_id}-{$song_id}'>{$setlist_title} ({$setlist_id})</option>";
+                                    $html .= "<option class='options' value='{$setlist_id_dropdown}-{$song_id}'>{$setlist_title_dropdown} ({$setlist_id_dropdown})</option>";
                                 }
                                 $html .= "</select></div>
                         </div>
