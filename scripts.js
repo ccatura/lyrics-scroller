@@ -108,16 +108,22 @@ if (pageType == 'create_edit_song') {
     }
 
     function addSongPart(element) {
-        var addAfter = getParentSongPartElement(element);
-        // console.log(addAfter);
-        insertSongPartTemplate(addAfter);
+        var addAfter  = getParentSongPartElement(element);
+        var newPartID = insertSongPartTemplate(addAfter);
+        scrollToNewPart(newPartID);
     }
 
     function duplicateSongPart(element) {
-        var addAfter = getParentSongPartElement(element);
-        var element  = getParentSongPartElement(element);
-        // console.log(element);
-        insertSongPartTemplate(addAfter, element);
+        var addAfter  = getParentSongPartElement(element);
+        var element   = getParentSongPartElement(element);
+        var newPartID = insertSongPartTemplate(addAfter, element);
+        scrollToNewPart(newPartID);
+    }
+
+    function scrollToNewPart(newPartID) {
+        var newPartElement  = document.getElementById(newPartID);
+        var newPartElementY = newPartElement.getBoundingClientRect().top + window.pageYOffset - 200;
+        window.scrollTo({top: newPartElementY, behavior: 'smooth'});
     }
 
     function getParentSongPartElement(element) {

@@ -1,10 +1,12 @@
 <?php
 
 if(!isset($_GET['register'])) {
-    $html = "<form id='login' action='./?page=login' method='post'>
+    $html = "
+            Try User Name: <strong>arnold</strong> and Password: <strong>abcd1234</strong><br><br>Search and add songs<br>or create songs, then<br>try out the scrolling feature<br>by clicking the play button.<br><br>
+            <form id='login' action='./?page=login' method='post'>
                 <input type='hidden' name='login-type' value='login'>
-                <div>User Name<br><input type='text' name='user_name' placeholder='User Name'></div>
-                <div>Password<br><input type='password' name='pword' placeholder='Password'></div>
+                <div>User Name<br><input type='text' name='user_name' placeholder='User Name' value='arnold'></div>
+                <div>Password<br><input type='password' name='pword' placeholder='Password' value='abcd1234'></div>
                 <a href='./?type=recover&desc=Recover Account'>I Forgot My Password</a>
                 <div><input type='submit' name='submit' value='Submit'></div>
                 <a href='./?page=login&register=true'><div>Click Here to Register</div></a>
